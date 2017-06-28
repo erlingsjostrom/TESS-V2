@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRestfulAPI", "TestRestfulAPI\TestRestfulAPI.csproj", "{76418BFF-66A4-440B-B31A-DAE7809E3670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRestfulAPI.Tests", "TestRestfulAPI.Tests\TestRestfulAPI.Tests.csproj", "{5DAAD9F4-8CEA-4CA0-8314-C9F3DCE7912F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76418BFF-66A4-440B-B31A-DAE7809E3670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76418BFF-66A4-440B-B31A-DAE7809E3670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76418BFF-66A4-440B-B31A-DAE7809E3670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76418BFF-66A4-440B-B31A-DAE7809E3670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DAAD9F4-8CEA-4CA0-8314-C9F3DCE7912F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DAAD9F4-8CEA-4CA0-8314-C9F3DCE7912F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DAAD9F4-8CEA-4CA0-8314-C9F3DCE7912F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DAAD9F4-8CEA-4CA0-8314-C9F3DCE7912F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
