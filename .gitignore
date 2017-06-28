@@ -241,5 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-TestRestfulAPI/Web.config
-TestRestfulAPI/AppSettings.config
+TestRestfulApi/Web.config
+TestRestfulApi/AppSettings.config
