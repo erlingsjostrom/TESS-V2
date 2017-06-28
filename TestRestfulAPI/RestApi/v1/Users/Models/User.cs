@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace TestRestfulAPI.Models
+namespace TestRestfulAPI.RestApi.v1.Users.Models
 {
     public class User
     {

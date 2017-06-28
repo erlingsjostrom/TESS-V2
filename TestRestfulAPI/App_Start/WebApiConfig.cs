@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace TestRestfulAPI
 {
@@ -13,7 +10,11 @@ namespace TestRestfulAPI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            //config.Routes.MapHttpRoute(
+            //        name: "default",
+            //        routeTemplate: "api/{version}/{controller}/{action}/{param}",
+            //        defaults: new { version = "v1", controller = "Default", action = "version", param = RouteParameter.Optional }
+            //);
         }
     }
 }

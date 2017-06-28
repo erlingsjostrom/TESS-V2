@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Results;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Results;
 
-namespace TestRestfulAPI.Controllers
+namespace TestRestfulAPI.Infrastructure.Controllers
 {
     public class ApiJsonController : ApiController
     {
