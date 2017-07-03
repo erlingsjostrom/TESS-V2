@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
 
@@ -56,6 +57,12 @@ namespace TestRestfulAPI.Infrastructure.Controllers
         {
             var resourceName = GetPluralizedName(contentList.First().GetType().Name);
             return Json(new Dictionary<string, IEnumerable<T>>() { { resourceName, contentList } });
+        }
+
+        protected IHttpActionResult JsonCreated<T>(T result, int id) where T : class 
+        {
+            var location = HttpContext.Current.Request.Url.AbsoluteUri + "/" + id;
+            return Created(location, result);
         }
 
         // ReSharper disable once MemberCanBeMadeStatic.Local
