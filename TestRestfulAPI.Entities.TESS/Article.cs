@@ -7,16 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestRestfulAPI.RestApi.v1.Users.Context
+namespace TestRestfulAPI.Entities.TESS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Deleted
+    public partial class Article
     {
         public int Id { get; set; }
-        public string Entity_name { get; set; }
-        public int Entity_id { get; set; }
+        public int Article_number { get; set; }
         public System.DateTime Created_at { get; set; }
         public Nullable<System.DateTime> Updated_at { get; set; }
     }

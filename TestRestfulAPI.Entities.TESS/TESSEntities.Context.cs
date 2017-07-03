@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestRestfulAPI.RestApi.v1.Users.Context
+namespace TestRestfulAPI.Entities.TESS
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UserEntities : DbContext
+    public partial class TESSEntities : DbContext
     {
-        public UserEntities()
-            : base("name=UserEntities")
+        public TESSEntities()
+            : base("name=TESSEntities")
         {
         }
     
@@ -25,10 +25,8 @@ namespace TestRestfulAPI.RestApi.v1.Users.Context
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Deleted> Deleteds { get; set; }
-        public virtual DbSet<Existing_databases> Existing_databases { get; set; }
-        public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Article> Article { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<Deleted> Deleted { get; set; }
     }
 }
