@@ -56,5 +56,18 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             result.Add(resource, article);
             return result;
         }
+
+        public Article Create(Article entity, string resource)
+        {
+            var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);
+            if (results == null)
+            {
+                throw new Exception("Resource not found");
+            }
+            results.Context.Set<Article>().Add(entity);
+            results.Context.SaveChanges();
+
+            return entity;
+        }
     }
 }

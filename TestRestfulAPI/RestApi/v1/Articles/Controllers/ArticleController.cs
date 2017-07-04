@@ -40,6 +40,12 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         {
             return Json(this._articleRepository.GetWithResourceContext(id, resource), "Article");
         }
+        [HttpPost, Route("")]
+        public IHttpActionResult Articles(Article article, string resource)
+        {
+            var result = this._articleRepository.Create(article, resource);
+            return JsonCreated(result, result.Article_number);
+        }
     }
 
     
