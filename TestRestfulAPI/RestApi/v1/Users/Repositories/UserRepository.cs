@@ -7,6 +7,7 @@ using System.Web.Http;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.RestApi.v1.Users.Exceptions;
 
 namespace TestRestfulAPI.RestApi.v1.Users.Repositories
 {
