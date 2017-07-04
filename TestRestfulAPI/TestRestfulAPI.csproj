@@ -141,6 +141,7 @@
       <DependentUpon>UserEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="RestApi\v1\Users\Controllers\UserController.cs" />
+    <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
     <Compile Include="RestApi\v1\Users\Models\User.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
@@ -149,6 +150,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestApi\v1\Users\Exceptions\UserDoesNotExistException.cs" />
     <Compile Include="RestApi\v1\Users\Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
