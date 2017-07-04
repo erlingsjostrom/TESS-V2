@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -29,6 +30,17 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
             }
             return result;
         }
+
+        public User GetByWindowsIdentityName(string windowsIdentity)
+        {
+            var user = this.All().Include("Roles").FirstOrDefault(u => u.Windows_user == windowsIdentity);
+            if (user == null)
+            {
+                throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist");
+            }
+            return user;
+        }
+
         public User Create(User entity)
         {
             try

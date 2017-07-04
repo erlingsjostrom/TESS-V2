@@ -40,11 +40,12 @@ namespace TestRestfulAPI.Infrastructure.Repositories
     {
         private List<string> Resources { get; }
         private List<T> Data { get; }
-
-        public ResultSet()
+        public string ResultType { get; set; }
+        public ResultSet(string resultType)
         {
             this.Resources = new List<string>();
             this.Data = new List<T>();
+            this.ResultType = resultType;
         }
 
         public void Add(string resource, T data)
@@ -56,7 +57,7 @@ namespace TestRestfulAPI.Infrastructure.Repositories
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Resources", this.Resources);
-            info.AddValue("Data", this.Data);
+            info.AddValue(this.ResultType, this.Data);
         }
     }
 

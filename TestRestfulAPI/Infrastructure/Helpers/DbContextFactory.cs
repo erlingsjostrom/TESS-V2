@@ -1,58 +1,67 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Entities.User;
 
 namespace TestRestfulAPI.Infrastructure.Helpers
 {
-    public class DbConnectionFactory
+    /// <summary>
+    /// Factory class to return instances of DbContext for supported types
+    /// </summary>
+    /// <typeparam name="T">UserEntities or TESSEntities</typeparam>
+    public class DbContextFactory<T> where T : DbContext
     {
-        public static DbContext getContext(string dbName, Type type)
+        /// <summary>
+        /// Get DbContext instance for provided database
+        /// </summary>
+        /// <param name="dbName">name of database to connect to</param>
+        /// <returns></returns>
+        public static DbContext Get(string dbName)
         {
-            if (type == typeof(UserEntities))
-            {
-                return new UserEntities(GetConnectionString(dbName, typeof(UserEntities).Name));
-            } else if (type == typeof(TESSEntities))
-            {
-                return new TESSEntities(GetConnectionString(dbName, typeof(TESSEntities).Name));
-            }
-            else
-            {
-                throw new InvalidDbContextTypeException("Provided context type: " + type.Name + " is not supported.");
-            }
-            
+            return new DbContext(GetEntityConnection(dbName, typeof(T).Name), true);  
         }
 
-
-        private static string GetConnectionString(string dbName, string contextName)
+        /// <summary>
+        /// Gets an EntityConnection for provided database and context
+        /// </summary>
+        /// <param name="dbName">name of database to connect to</param>
+        /// <param name="contextName">name of context</param>
+        /// <returns></returns>
+        private static EntityConnection GetEntityConnection(string dbName, string contextName)
         {
             ValidateDbName(dbName);
-           
-            var entityConnSB = new EntityConnectionStringBuilder
-            {
-                Metadata = @"res://*/" + contextName + ".csdl|" +
-                            @"res://*/" + contextName + ".ssdl|" +
-                            @"res://*/" + contextName + ".msl;"
-            };
 
-            var sqlConnStringBuilder = new SqlConnectionStringBuilder(entityConnSB.ProviderConnectionString)
+            var sqlConnStringBuilder = new SqlConnectionStringBuilder()
             {
                 DataSource = GetDataSourceString(),
                 InitialCatalog = dbName,
                 MultipleActiveResultSets = true,
+                IntegratedSecurity = true,
+                ApplicationName = "EntityFramework",
                 UserID = GetDefaultUser(),
                 Password = GetDefaultPassword()
             };
-            return sqlConnStringBuilder.ConnectionString;  
+
+            var entityConnStringBuilder = new EntityConnectionStringBuilder
+            {
+                Provider = "System.Data.SqlClient",
+                ProviderConnectionString = sqlConnStringBuilder.ConnectionString,
+                Metadata = "res://*/" + contextName + ".csdl|" +
+                           "res://*/" + contextName + ".ssdl|" +
+                           "res://*/" + contextName + ".msl"
+            };
+
+            var entityConnection = new EntityConnection(entityConnStringBuilder.ConnectionString);
+            return entityConnection;
         }
 
+        /// <summary>
+        /// Get DataSource from config and validate input
+        /// </summary>
+        /// <returns></returns>
         private static string GetDataSourceString()
         {
             try
@@ -72,6 +81,10 @@ namespace TestRestfulAPI.Infrastructure.Helpers
             }
         }
 
+        /// <summary>
+        /// Get DefaultUser from config and validate input
+        /// </summary>
+        /// <returns></returns>
         private static string GetDefaultUser()
         {
             try
@@ -90,11 +103,16 @@ namespace TestRestfulAPI.Infrastructure.Helpers
                     "The Default DB user is missing.");
             }
         }
+
+        /// <summary>
+        /// Get GetDefaultPassword from config and validate input
+        /// </summary>
+        /// <returns></returns>
         private static string GetDefaultPassword()
         {
             try
             {
-                var basicInfo = ConfigurationManager.ConnectionStrings["DefaultPassowrd"].ConnectionString;
+                var basicInfo = ConfigurationManager.ConnectionStrings["DefaultPassword"].ConnectionString;
                 if (String.IsNullOrEmpty(basicInfo))
                 {
                     throw new InvalidDbConnectionFactoryInput(
@@ -109,6 +127,10 @@ namespace TestRestfulAPI.Infrastructure.Helpers
             }
         }
 
+        /// <summary>
+        /// Validate the provided Database name
+        /// </summary>
+        /// <returns></returns>
         private static void ValidateDbName(string dbName)
         {
             if (String.IsNullOrEmpty(dbName))

@@ -96,10 +96,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\Helpers\DbConnectionFactory.cs" />
+    <Compile Include="Infrastructure\Helpers\DbContextFactory.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
     <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
+    <Compile Include="Infrastructure\Helpers\UserAuthorizationValidator.cs" />
+    <Compile Include="Infrastructure\Helpers\UserHasRoleAttribute.cs" />
     <Compile Include="Infrastructure\Repositories\BaseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestApi\v1\Users\Exceptions\UserDoesNotExistException.cs" />
     <Compile Include="RestApi\v1\Users\Repositories\UserRepository.cs" />
+    <Compile Include="RestApi\v1\Users\Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -137,7 +140,6 @@
     <Folder Include="RestApi\v1\Users\Events\" />
     <Folder Include="RestApi\v1\Users\Models\" />
     <Folder Include="RestApi\v1\Users\Requests\" />
-    <Folder Include="RestApi\v1\Users\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

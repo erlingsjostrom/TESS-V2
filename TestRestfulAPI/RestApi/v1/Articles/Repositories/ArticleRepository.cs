@@ -20,12 +20,22 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             {
                 results.Add(resourceContext.Context.Set<Article>());
             }
-            return results;
+            return results; 
+        }
+
+        public IQueryable<Article> All(string resource)
+        {
+            var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);
+            if (results == null)
+            {
+                throw new Exception("Resource not found");
+            }
+            return results.Context.Set<Article>();
         }
 
         public ResultSet<IQueryable<Article>> AllWithResourceContext()
         {
-            var results = new ResultSet<IQueryable<Article>>();
+            var results = new ResultSet<IQueryable<Article>>("Articles");
             foreach (var resourceContext in this.ResourceContexts)
             {
                 results.Add(resourceContext.Name, resourceContext.Context.Set<Article>());
@@ -52,7 +62,7 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             {
                 throw new Exception("Resource not found");
             }
-            var result = new ResultSet<Article>();
+            var result = new ResultSet<Article>("Articles");
             result.Add(resource, article);
             return result;
         }
