@@ -7,23 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestRestfulAPI.Entities.TESS
+namespace TestRestfulAPI.Entities.User
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TESSEntities : DbContext
+    public partial class UserEntities : DbContext
     {
-        public TESSEntities()
-            : base("name=TESSEntities")
+        public UserEntities()
+            : base("name=UserEntities")
         {
         }
-
-        public TESSEntities(string connectionString)
+        public UserEntities(string connectionString)
             : base(connectionString)
         {
-            
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -31,8 +29,10 @@ namespace TestRestfulAPI.Entities.TESS
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Article> Article { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Deleted> Deleted { get; set; }
+        public virtual DbSet<Existing_databases> Existing_databases { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }
