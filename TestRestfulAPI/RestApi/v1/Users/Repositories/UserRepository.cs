@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.Entities.User;
 
@@ -20,7 +21,12 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
         }
         public User Get(int id)
         {
-            return this.All().First(u => u.Id == id);
+            var result = this.All().FirstOrDefault(u => u.Id == id);
+            if (result == null)
+            {
+                throw new UserDoesNotExistException("User with ID " + id + " does not exist");
+            }
+            return result;
         }
         public User Create(User entity)
         {
@@ -40,9 +46,13 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
            
             return entity;
         }
-        public void Update(User entity)
+        public User Update(User entity)
         {
-            throw new NotImplementedException();
+            this.ResourceContext.Context.Set<User>().Attach(entity);
+            entity.Updated_at = DateTime.Now;
+            this.ResourceContext.Context.SaveChanges();
+
+            return entity;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace TestRestfulAPI.Infrastructure.Repositories
     {
         IQueryable<TEntity> All();
         TEntity Get(TKey id);
-        void Update(TEntity entity);
+        TEntity Update(TEntity entity);
         TEntity Create(TEntity entity);
     }
 }
