@@ -4,13 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TESSEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TESSEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Article_number" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="Created_at" Type="datetime" Nullable="false" />
           <Property Name="Updated_at" Type="datetime" />
         </EntityType>
@@ -20,6 +22,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Customer_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Web_address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Corporate_identity_number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Created_at" Type="datetime" Nullable="false" />
           <Property Name="Updated_at" Type="datetime" />
         </EntityType>
@@ -38,8 +43,7 @@
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deleted" EntityType="Self.Deleted" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TESSEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -51,6 +55,8 @@
           <Property Name="Article_number" Type="Int32" Nullable="false" />
           <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -60,6 +66,9 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="Customer_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Web_address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Corporate_identity_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Deleted">
           <Key>
@@ -85,6 +94,8 @@
           <EntitySetMapping Name="Article">
             <EntityTypeMapping TypeName="TESSEntitiesModel.Article">
               <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Article_number" ColumnName="Article_number" />
                 <ScalarProperty Name="Created_at" ColumnName="Created_at" />
@@ -95,6 +106,9 @@
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="TESSEntitiesModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Corporate_identity_number" ColumnName="Corporate_identity_number" />
+                <ScalarProperty Name="Web_address" ColumnName="Web_address" />
+                <ScalarProperty Name="Customer_type" ColumnName="Customer_type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Created_at" ColumnName="Created_at" />

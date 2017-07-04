@@ -17,8 +17,8 @@ namespace TestRestfulAPI.Entities.User
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            this.Permission = new HashSet<Permission>();
-            this.User = new HashSet<User>();
+            this.Permissions = new HashSet<Permission>();
+            this.Users = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -28,8 +28,8 @@ namespace TestRestfulAPI.Entities.User
         public Nullable<System.DateTime> Updated_at { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permission> Permission { get; set; }
+        public virtual ICollection<Permission> Permissions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

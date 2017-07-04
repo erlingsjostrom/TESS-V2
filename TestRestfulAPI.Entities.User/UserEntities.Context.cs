@@ -19,20 +19,16 @@ namespace TestRestfulAPI.Entities.User
             : base("name=UserEntities")
         {
         }
-        public UserEntities(string connectionString)
-            : base(connectionString)
-        {
-        }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Deleted> Deleted { get; set; }
+        public virtual DbSet<Deleted> Deleteds { get; set; }
         public virtual DbSet<Existing_databases> Existing_databases { get; set; }
-        public virtual DbSet<Permission> Permission { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
