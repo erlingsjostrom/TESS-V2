@@ -93,16 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="RestApi\v1\Users\Context\UserEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserEntities.edmx</DependentUpon>
-      <LastGenOutput>UserEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="RestApi\v1\Users\Context\UserEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserEntities.edmx</DependentUpon>
-      <LastGenOutput>UserEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -110,39 +100,9 @@
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
-    <Compile Include="RestApi\v1\Users\Context\Deleted.cs">
-      <DependentUpon>UserEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\Existing_databases.cs">
-      <DependentUpon>UserEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\Permission.cs">
-      <DependentUpon>UserEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\Role.cs">
-      <DependentUpon>UserEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\User.cs">
-      <DependentUpon>UserEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\UserEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\UserEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestApi\v1\Users\Context\UserEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserEntities.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="RestApi\v1\Articles\Controllers\ArticleController.cs" />
+    <Compile Include="RestApi\v1\Articles\Repositories\ArticleRepository.cs" />
     <Compile Include="RestApi\v1\Users\Controllers\UserController.cs" />
-    <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
-    <Compile Include="RestApi\v1\Users\Models\User.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
     <Compile Include="RestApi\v1\Default\Controller\DefaultController.cs" />
@@ -156,13 +116,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="AppSettings.config" />
-    <EntityDeploy Include="RestApi\v1\Users\Context\UserEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UserEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="RestApi\v1\Users\Context\UserEntities.edmx.diagram">
-      <DependentUpon>UserEntities.edmx</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,17 +124,29 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="RestApi\v1\Articles\Models\" />
     <Folder Include="RestApi\v1\Default\Events\" />
     <Folder Include="RestApi\v1\Default\Models\" />
     <Folder Include="RestApi\v1\Default\Repositories\" />
     <Folder Include="RestApi\v1\Default\Requests\" />
     <Folder Include="RestApi\v1\Default\Services\" />
     <Folder Include="RestApi\v1\Users\Events\" />
+    <Folder Include="RestApi\v1\Users\Models\" />
     <Folder Include="RestApi\v1\Users\Requests\" />
     <Folder Include="RestApi\v1\Users\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestRestfulAPI.Entities.TESS\TestRestfulAPI.Entities.TESS.csproj">
+      <Project>{0921d540-77fe-4f37-a22e-50b405b07452}</Project>
+      <Name>TestRestfulAPI.Entities.TESS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestRestfulAPI.Entities.User\TestRestfulAPI.Entities.User.csproj">
+      <Project>{4dc44ee2-b234-4c85-97ab-0ff274279073}</Project>
+      <Name>TestRestfulAPI.Entities.User</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
