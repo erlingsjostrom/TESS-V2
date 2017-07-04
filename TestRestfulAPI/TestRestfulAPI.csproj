@@ -96,6 +96,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Helpers\DbConnectionFactory.cs" />
+    <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
+    <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
     <Compile Include="Infrastructure\Repositories\BaseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />

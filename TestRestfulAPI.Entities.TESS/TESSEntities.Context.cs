@@ -19,6 +19,12 @@ namespace TestRestfulAPI.Entities.TESS
             : base("name=TESSEntities")
         {
         }
+
+        public TESSEntities(string connectionString)
+            : base(connectionString)
+        {
+            
+        }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
