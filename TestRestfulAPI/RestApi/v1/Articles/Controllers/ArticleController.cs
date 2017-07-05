@@ -32,7 +32,7 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
             );
         }
 
-        [UserHasRole("Admin")]
+        [UserHasRole("Admin", "ProductOwner")]
         [HttpGet, Route("{articles}")]
         public IHttpActionResult Articles()
         {

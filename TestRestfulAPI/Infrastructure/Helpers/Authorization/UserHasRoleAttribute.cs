@@ -15,13 +15,13 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
         }
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var userName = HttpContext.Current.User.Identity.Name;
-            var dbUser = GlobalServices.UserService.GetByWindowsIdentityName(userName);
             var userValidator = new UserAuthorizationValidator();
-            if (!userValidator.UserHasRoles(dbUser, this.Roles))
+            if (!userValidator.UserHasRoles(this.Roles))
             {
-                throw new UnauthorizedAccessException("User does not have acceess.");
+                throw new UserDoesNotHaveRequiredRolesException(
+                    "User does not have the roles: " + String.Join(", ", this.Roles));
             }
+           
         }
     }
 }
