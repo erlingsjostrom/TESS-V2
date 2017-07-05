@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data.Entity.Core.EntityClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using TestRestfulAPI.Infrastructure.Helpers.Database;
 
 namespace TestRestfulAPI.Infrastructure.Repositories
 {
@@ -58,18 +59,6 @@ namespace TestRestfulAPI.Infrastructure.Repositories
         {
             info.AddValue("Resources", this.Resources);
             info.AddValue(this.ResultType, this.Data);
-        }
-    }
-
-    public class ResourceContext
-    {
-        public string Name { get; }
-        public DbContext Context { get; }
-
-        public ResourceContext(string name, DbContext context)
-        {
-            this.Name = name;
-            this.Context = context;
         }
     }
 }

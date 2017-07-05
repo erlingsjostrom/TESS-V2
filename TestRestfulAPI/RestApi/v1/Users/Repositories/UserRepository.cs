@@ -8,6 +8,7 @@ using System.Web.Http;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Helpers.Database;
 using TestRestfulAPI.RestApi.v1.Users.Exceptions;
 
 namespace TestRestfulAPI.RestApi.v1.Users.Repositories
@@ -33,11 +34,13 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
 
         public User GetByWindowsIdentityName(string windowsIdentity)
         {
+            this.RefreshContext();
             var user = this.All().Include("Roles").FirstOrDefault(u => u.Windows_user == windowsIdentity);
             if (user == null)
             {
                 throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist");
             }
+            
             return user;
         }
 
@@ -66,6 +69,11 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
             this.ResourceContext.Context.SaveChanges();
 
             return entity;
+        }
+
+        private void RefreshContext()
+        {
+            this.ResourceContext.Refresh();
         }
     }
 }

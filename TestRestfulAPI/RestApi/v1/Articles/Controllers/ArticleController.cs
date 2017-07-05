@@ -8,6 +8,8 @@ using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.Infrastructure.Helpers;
+using TestRestfulAPI.Infrastructure.Helpers.Authorization;
+using TestRestfulAPI.Infrastructure.Helpers.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.v1.Articles.Repositories;
 using TestRestfulAPI.RestApi.v1.Users.Repositories;
@@ -24,8 +26,8 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
             this._articleRepository = new ArticleRepository(
                 new List<ResourceContext>()
                 {
-                    new ResourceContext("VOO", DbContextFactory<TESSEntities>.Get("TEST_TESS_DB1")),
-                    new ResourceContext("IFO", DbContextFactory<TESSEntities>.Get("TEST_TESS_DB2")),
+                    new ResourceContext("VOO", DbContextFactory.Get<TESSEntities>("TEST_TESS_DB1"), typeof(TESSEntities)),
+                    new ResourceContext("IFO", DbContextFactory.Get<TESSEntities>("TEST_TESS_DB2"), typeof(TESSEntities)),
                 }    
             );
         }

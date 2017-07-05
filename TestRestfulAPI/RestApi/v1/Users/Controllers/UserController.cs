@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
+using TestRestfulAPI.Infrastructure.Helpers.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.v1.Users.Repositories;
 
@@ -17,7 +18,7 @@ namespace TestRestfulAPI.RestApi.v1.Users.Controllers
         public UserController()
         {
             this._userRepository = new UserRepository(
-                new ResourceContext("UserDB1", new UserEntities())
+                new ResourceContext("UserDB1", new UserEntities(), typeof(UserEntities))
             );
         }
         [HttpGet, Route("")]

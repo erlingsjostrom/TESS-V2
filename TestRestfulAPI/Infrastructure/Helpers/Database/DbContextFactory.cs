@@ -3,25 +3,32 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
-using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Entities.User;
 
-namespace TestRestfulAPI.Infrastructure.Helpers
+namespace TestRestfulAPI.Infrastructure.Helpers.Database
 {
     /// <summary>
     /// Factory class to return instances of DbContext for supported types
     /// </summary>
-    /// <typeparam name="T">UserEntities or TESSEntities</typeparam>
-    public class DbContextFactory<T> where T : DbContext
+    public class DbContextFactory
     {
         /// <summary>
         /// Get DbContext instance for provided database
         /// </summary>
         /// <param name="dbName">name of database to connect to</param>
         /// <returns></returns>
-        public static DbContext Get(string dbName)
+        public static DbContext Get<T>(string dbName) where T : DbContext
         {
             return new DbContext(GetEntityConnection(dbName, typeof(T).Name), true);  
+        }
+
+        public static DbContext Get(string dbName, Type type)
+        {
+            if (type == typeof(DbContext) || type.IsSubclassOf(typeof(DbContext)))
+            {
+                return new DbContext(GetEntityConnection(dbName, type.Name), true);
+            }
+            
+            throw new InvalidDbConnectionFactoryInput("Provided type: " + type.Name + " is not an instance of DbContext");     
         }
 
         /// <summary>
