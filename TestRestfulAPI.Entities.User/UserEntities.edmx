@@ -29,8 +29,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="Created_at" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_at" Type="datetime" StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -39,8 +39,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="Created_at" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_at" Type="datetime" StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="RolePermission">
           <Key>
@@ -57,8 +57,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Windows_user" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="Created_at" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_at" Type="datetime" StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -170,8 +170,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="Roles" Relationship="Self.RolePermission" FromRole="Permission" ToRole="Role" />
         </EntityType>
         <EntityType Name="Role">
@@ -181,8 +181,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="Permissions" Relationship="Self.RolePermission" FromRole="Role" ToRole="Permission" />
           <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
         </EntityType>
@@ -193,8 +193,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Windows_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="RolePermission">

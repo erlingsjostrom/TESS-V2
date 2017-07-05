@@ -6,9 +6,10 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
+using TestRestfulAPI.Infrastructure.Authorization;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Helpers;
-using TestRestfulAPI.Infrastructure.Helpers.Authorization;
+using TestRestfulAPI.RestApi.v1.Users.Exceptions;
 
 namespace TestRestfulAPI.Infrastructure.Filters
 {
@@ -114,6 +115,32 @@ namespace TestRestfulAPI.Infrastructure.Filters
                     };
                 }
                 context.Response = context.Request.CreateErrorResponse(HttpStatusCode.Forbidden, errorMessage);
+                return;
+            }
+            if (context.Exception is UserAlreadyExistException)
+            {
+                HttpError errorMessage;
+                if (GlobalVariables.IsDebuggingEnabled)
+                {
+                    errorMessage =
+                        new HttpError("This user does not have permission to view requested data with current role")
+                        {
+                            {"HTTPStatus", HttpStatusCode.BadRequest},
+                            {"ErrorCode", 5},
+                            {"ExceptionType", context.Exception.GetType().Name},
+                            {"ExceptionMessage", context.Exception.Message},
+                            {"StackTrace", context.Exception.StackTrace}
+                        };
+                }
+                else
+                {
+                    errorMessage = new HttpError("Invalid input to database connection factory.")
+                    {
+                        { "HTTPStatus", HttpStatusCode.Forbidden },
+                        { "ErrorCode", 5 }
+                    };
+                }
+                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
                 return;
             }
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace TestRestfulAPI.Infrastructure.Helpers
+namespace TestRestfulAPI.Infrastructure.Exceptions
 {
     [Serializable]
     internal class InvalidDbContextTypeException : Exception
