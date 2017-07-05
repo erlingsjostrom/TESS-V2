@@ -30,7 +30,7 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         }
 
         [UserHasRole("ProductOwner")]
-        [HttpGet, Route("{articles}")]
+        [HttpGet, Route("articles")]
         public IHttpActionResult Articles()
         {
            return Json(this._articleService.AllWithResourceContext(), "Collection");

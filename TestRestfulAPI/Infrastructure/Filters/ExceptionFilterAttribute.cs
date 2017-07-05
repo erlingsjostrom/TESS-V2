@@ -97,7 +97,7 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 HttpError errorMessage;
                 if (GlobalVariables.IsDebuggingEnabled)
                 {
-                    errorMessage = new HttpError("This user does not have permission to view requested data with current role")
+                    errorMessage = new HttpError("This user does not have permission to view requested data with current role.")
                     {
                         { "HTTPStatus", HttpStatusCode.Forbidden },
                         { "ErrorCode", 4 },
@@ -108,7 +108,7 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 }
                 else
                 {
-                    errorMessage = new HttpError("Invalid input to database connection factory.")
+                    errorMessage = new HttpError("This user does not have permission to view requested data with current role.")
                     {
                         { "HTTPStatus", HttpStatusCode.Forbidden },
                         { "ErrorCode", 4 }
@@ -123,7 +123,7 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 if (GlobalVariables.IsDebuggingEnabled)
                 {
                     errorMessage =
-                        new HttpError("This user does not have permission to view requested data with current role")
+                        new HttpError("A user with this windows identity is already existing.")
                         {
                             {"HTTPStatus", HttpStatusCode.BadRequest},
                             {"ErrorCode", 5},
@@ -134,7 +134,7 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 }
                 else
                 {
-                    errorMessage = new HttpError("Invalid input to database connection factory.")
+                    errorMessage = new HttpError("A user with this windows identity is already existing.")
                     {
                         { "HTTPStatus", HttpStatusCode.Forbidden },
                         { "ErrorCode", 5 }

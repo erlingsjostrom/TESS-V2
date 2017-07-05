@@ -46,14 +46,9 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
 
         public User Create(User entity)
         {
-            var user = GetByWindowsIdentityName(entity.Windows_user);
-            if (user != null)
-            {
-                throw new UserAlreadyExistException("User with windows identity " + entity.Windows_user + " does already exist.");
-            }
             this.ResourceContext.Context.Set<User>().Add(entity);
-            entity.Created_at = DateTime.Now;
-            entity.Updated_at = DateTime.Now;
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
             this.ResourceContext.Context.SaveChanges();
            
             return entity;
@@ -61,7 +56,7 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
         public User Update(User entity)
         {
             this.ResourceContext.Context.Entry(entity).State = EntityState.Modified;
-            entity.Updated_at = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
             this.ResourceContext.Context.SaveChanges();
 
             return entity;
