@@ -97,12 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Filters\NotImplExceptionFilterAttribute.cs" />
-    <Compile Include="Infrastructure\Helpers\DbConnectionFactory.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
     <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
     <Compile Include="Infrastructure\Helpers\Authorization\UserAuthorizationValidator.cs" />
+    <Compile Include="Infrastructure\Helpers\Authorization\UserDoesNotHaveRequiredRolesException.cs" />
     <Compile Include="Infrastructure\Helpers\Authorization\UserHasRoleAttribute.cs" />
+    <Compile Include="Infrastructure\Helpers\Database\DbContextFactory.cs" />
     <Compile Include="Infrastructure\Repositories\BaseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
