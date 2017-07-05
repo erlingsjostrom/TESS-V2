@@ -96,15 +96,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\Helpers\DbContextFactory.cs" />
+    <Compile Include="Infrastructure\Helpers\Database\DbContextFactory.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
     <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
-    <Compile Include="Infrastructure\Helpers\UserAuthorizationValidator.cs" />
-    <Compile Include="Infrastructure\Helpers\UserHasRoleAttribute.cs" />
+    <Compile Include="Infrastructure\Helpers\Authorization\UserAuthorizationValidator.cs" />
+    <Compile Include="Infrastructure\Helpers\Authorization\UserHasRoleAttribute.cs" />
     <Compile Include="Infrastructure\Repositories\BaseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
+    <Compile Include="Infrastructure\Helpers\Database\ResourceContext.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="RestApi\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="RestApi\v1\Articles\Repositories\ArticleRepository.cs" />

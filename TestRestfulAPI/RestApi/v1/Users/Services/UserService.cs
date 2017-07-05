@@ -20,5 +20,9 @@ namespace TestRestfulAPI.RestApi.v1.Users.Services
         {
             return this._userRepository.GetByWindowsIdentityName(windowsIdentityName);
         }
+
+        private void RefreshUserRepository()
+        {
+        }
     }
 }
