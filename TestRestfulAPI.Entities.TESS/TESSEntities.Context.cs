@@ -25,8 +25,8 @@ namespace TestRestfulAPI.Entities.TESS
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Article> Article { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Deleted> Deleted { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Deleted> Deleteds { get; set; }
     }
 }

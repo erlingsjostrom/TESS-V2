@@ -13,6 +13,7 @@ using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Helpers;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.v1.Articles.Repositories;
+using TestRestfulAPI.RestApi.v1.Articles.Services;
 using TestRestfulAPI.RestApi.v1.Users.Repositories;
 
 namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
@@ -21,38 +22,32 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
     [RoutePrefix("api/v1")]
     public class ArticleController : ApiJsonController
     {
-        private readonly ArticleRepository _articleRepository;
+        private readonly ArticleService _articleService = GlobalServices.ArticleService;
 
         public ArticleController()
         {
-            this._articleRepository = new ArticleRepository(
-                new List<ResourceContext>()
-                {
-                    new ResourceContext("VOO", DbContextFactory.Get<TESSEntities>("TEST_TESS_DB1"), typeof(TESSEntities)),
-                    new ResourceContext("IFO", DbContextFactory.Get<TESSEntities>("TEST_TESS_DB2"), typeof(TESSEntities)),
-                }    
-            );
+            
         }
 
         [UserHasRole("ProductOwner")]
         [HttpGet, Route("{articles}")]
         public IHttpActionResult Articles()
         {
-           return Json(this._articleRepository.AllWithResourceContext(), "Collection");
+           return Json(this._articleService.AllWithResourceContext(), "Collection");
         }
 
         [UserHasPermission("Read")]
         [HttpGet, Route("{resource}/articles")]
         public IHttpActionResult Articles(string resource)
         {
-            return Json(this._articleRepository.All(resource), "Articles");
+            return Json(this._articleService.All(resource), "Articles");
         }
 
-        [HttpGet, Route("{resource}/articles/{id}")]
-        public IHttpActionResult Articles(int id, string resource)
-        {
-            return Json(this._articleRepository.GetWithResourceContext(id, resource), "Article");
-        }
+        //[HttpGet, Route("{resource}/articles/{id}")]
+        //public IHttpActionResult Articles(int id, string resource)
+        //{
+        //    return Json(this._articleRepository.GetWithResourceContext(id, resource), "Article");
+        //}
     }
 
     

@@ -10,17 +10,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Entity_name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Entity_id" Type="int" Nullable="false" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Existing_databases">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntityId" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -29,8 +22,19 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -38,17 +42,17 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RolePermission">
           <Key>
-            <PropertyRef Name="Role_id" />
-            <PropertyRef Name="Permission_id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="PermissionId" />
           </Key>
-          <Property Name="Role_id" Type="int" Nullable="false" />
-          <Property Name="Permission_id" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -56,17 +60,25 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Windows_user" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Created_at" Type="datetime" Nullable="false" />
-          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="WindowsUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserResource">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResourceId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
-            <PropertyRef Name="User_id" />
-            <PropertyRef Name="Role_id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="User_id" Type="int" Nullable="false" />
-          <Property Name="Role_id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_RolePermission_Permission">
           <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
@@ -76,7 +88,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="RolePermission">
-              <PropertyRef Name="Permission_id" />
+              <PropertyRef Name="PermissionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -88,7 +100,31 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="RolePermission">
-              <PropertyRef Name="Role_id" />
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserResource_Resource">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="1" />
+          <End Role="UserResource" Type="Self.UserResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserResource">
+              <PropertyRef Name="ResourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserResource_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserResource" Type="Self.UserResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserResource">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -100,7 +136,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
-              <PropertyRef Name="Role_id" />
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -112,17 +148,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
-              <PropertyRef Name="User_id" />
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="UserEntitiesModelStoreContainer">
           <EntitySet Name="Deleted" EntityType="Self.Deleted" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Existing_databases" EntityType="Self.Existing_databases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resource" EntityType="Self.Resource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserResource" EntityType="Self.UserResource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
             <End Role="Permission" EntitySet="Permission" />
@@ -131,6 +168,14 @@
           <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserResource_Resource" Association="Self.FK_UserResource_Resource">
+            <End Role="Resource" EntitySet="Resource" />
+            <End Role="UserResource" EntitySet="UserResource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserResource_User" Association="Self.FK_UserResource_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserResource" EntitySet="UserResource" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
             <End Role="Role" EntitySet="Role" />
@@ -151,17 +196,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Entity_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Entity_id" Type="Int32" Nullable="false" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Existing_databases">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EntityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EntityId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -170,9 +208,21 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Roles" Relationship="Self.RolePermission" FromRole="Permission" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.UserResource" FromRole="Resource" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -180,9 +230,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Permissions" Relationship="Self.RolePermission" FromRole="Role" ToRole="Permission" />
           <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
         </EntityType>
@@ -192,14 +242,19 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Windows_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Created_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="WindowsUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Resources" Relationship="Self.UserResource" FromRole="User" ToRole="Resource" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="RolePermission">
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="UserResource">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
         <Association Name="UserRole">
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
@@ -207,13 +262,17 @@
         </Association>
         <EntityContainer Name="UserEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Deleteds" EntityType="Self.Deleted" />
-          <EntitySet Name="Existing_databases" EntityType="Self.Existing_databases" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Resources" EntityType="Self.Resource" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="RolePermission" Association="Self.RolePermission">
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserResource" Association="Self.UserResource">
+            <End Role="Resource" EntitySet="Resources" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="UserRole" Association="Self.UserRole">
             <End Role="Role" EntitySet="Roles" />
@@ -230,18 +289,10 @@
             <EntityTypeMapping TypeName="UserEntitiesModel.Deleted">
               <MappingFragment StoreEntitySet="Deleted">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Entity_name" ColumnName="Entity_name" />
-                <ScalarProperty Name="Entity_id" ColumnName="Entity_id" />
-                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
-                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Existing_databases">
-            <EntityTypeMapping TypeName="UserEntitiesModel.Existing_databases">
-              <MappingFragment StoreEntitySet="Existing_databases">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -251,8 +302,20 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
-                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources">
+            <EntityTypeMapping TypeName="UserEntitiesModel.Resource">
+              <MappingFragment StoreEntitySet="Resource">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -262,8 +325,8 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
-                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -272,26 +335,34 @@
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Windows_user" ColumnName="Windows_user" />
-                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
-                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+                <ScalarProperty Name="WindowsUser" ColumnName="WindowsUser" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="RolePermission" TypeName="UserEntitiesModel.RolePermission" StoreEntitySet="RolePermission">
             <EndProperty Name="Permission">
-              <ScalarProperty Name="Id" ColumnName="Permission_id" />
+              <ScalarProperty Name="Id" ColumnName="PermissionId" />
             </EndProperty>
             <EndProperty Name="Role">
-              <ScalarProperty Name="Id" ColumnName="Role_id" />
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserResource" TypeName="UserEntitiesModel.UserResource" StoreEntitySet="UserResource">
+            <EndProperty Name="Resource">
+              <ScalarProperty Name="Id" ColumnName="ResourceId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="UserRole" TypeName="UserEntitiesModel.UserRole" StoreEntitySet="UserRole">
             <EndProperty Name="Role">
-              <ScalarProperty Name="Id" ColumnName="Role_id" />
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
             <EndProperty Name="User">
-              <ScalarProperty Name="Id" ColumnName="User_id" />
+              <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

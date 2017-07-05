@@ -69,10 +69,10 @@
     <Compile Include="Deleted.cs">
       <DependentUpon>UserEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Existing_databases.cs">
+    <Compile Include="Permission.cs">
       <DependentUpon>UserEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Permission.cs">
+    <Compile Include="Resource.cs">
       <DependentUpon>UserEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">

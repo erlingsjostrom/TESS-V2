@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
-using System.Web.Routing;
-using System.Web.UI;
-using TestRestfulAPI.Entities.User;
-using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.Infrastructure.Helpers;
-using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Repositories;
+using TestRestfulAPI.RestApi.v1.Articles.Services;
 using TestRestfulAPI.RestApi.v1.Users.Services;
 
 
@@ -17,11 +8,8 @@ namespace TestRestfulAPI
 {
     public static class GlobalServices
     {
-        public static UserService UserService = new UserService(
-            new UserRepository(
-                new ResourceContext("User", new UserEntities(), typeof(UserEntities))
-            )
-       );
+        public static UserService UserService;
+        public static ArticleService ArticleService;
     }
 
     public static class GlobalVariables
@@ -41,6 +29,7 @@ namespace TestRestfulAPI
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configuration.Filters.Add(new Infrastructure.Filters.ExceptionFilterAttribute());
+            GlobalConfiguration.Configure(Services.Register);
         }
 
         protected void Session_Start(object sender, EventArgs e)
