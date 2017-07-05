@@ -108,9 +108,9 @@
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
     <Compile Include="Infrastructure\Helpers\Database\ResourceContext.cs" />
-	<Compile Include="Infrastructure\Helpers\Database\DbContextFactory.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="RestApi\v1\Articles\Controllers\ArticleController.cs" />
+    <Compile Include="RestApi\v1\Articles\Exceptions\ArticleDoesNotExistException.cs" />
     <Compile Include="RestApi\v1\Articles\Repositories\ArticleRepository.cs" />
     <Compile Include="RestApi\v1\Users\Controllers\UserController.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
