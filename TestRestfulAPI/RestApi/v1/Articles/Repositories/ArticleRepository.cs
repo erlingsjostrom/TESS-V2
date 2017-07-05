@@ -5,6 +5,7 @@ using System.Web;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.RestApi.v1.Articles.Exceptions;
 
 namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
@@ -25,16 +26,6 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             return results; 
         }
 
-        public IQueryable<Article> All(string resource)
-        {
-            var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);
-            if (results == null)
-            {
-                throw new InvalidDbContextTypeException("Resource not found");
-            }
-            return results.Context.Set<Article>();
-        }
-
         public ResultSet<IQueryable<Article>> AllWithResourceContext()
         {
             var results = new ResultSet<IQueryable<Article>>("Articles");
@@ -45,18 +36,29 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             return results;
         }
 
-        public IEnumerable<IQueryable<Article>> Get(int id, string resource)
+        public IQueryable<Article> All(string resource)
         {
-            throw new NotImplementedException();
+            var results = this.GetAndValidateResource(resource);
+            return results.Context.Set<Article>();
+        }
+        public Article Get(string resource, int id)
+        {
+            var results = GetAndValidateResource(resource);
+            var article = results
+                .Context.Set<Article>()
+                .FirstOrDefault(a => a.Id == id);
+            if (article == null)
+            {
+                throw new ArticleDoesNotExistException("Article with ID " + id + " does not exist");
+            }
+
+            return article;
         }
 
-        public ResultSet<Article> GetWithResourceContext(int id, string resource)
+        public ResultSet<Article> GetWithResourceContext(string resource, int id)
         {
-            var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);
-            if (results == null)
-            {
-                throw new InvalidDbContextTypeException("Resource not found");
-            }
+            var results = GetAndValidateResource(resource);
+
             var article = results
                 .Context.Set<Article>()
                 .FirstOrDefault(a => a.Id == id);
@@ -69,17 +71,46 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             return result;
         }
 
-        public Article Create(Article entity, string resource)
+        public Article Create(string resource, Article entity)
+        {
+            var results = GetAndValidateResource(resource);
+
+            results.Context.Set<Article>().Add(entity);
+            this.SetTimeStamps(ref entity);
+            results.Context.SaveChanges();
+
+            return entity;
+        }
+
+        // TODO: FIX CREATED_AT CONSTRAINT
+        public Article Update(string resource, Article entity)
+        {
+            var results = GetAndValidateResource(resource);
+
+            results.Context.Set<Article>().Attach(entity);
+            this.SetTimeStamps(ref entity);
+            results.Context.SaveChanges();
+
+            return entity;
+        }
+
+        private void SetTimeStamps(ref Article entity)
+        {
+            if (entity.CreatedAt == new DateTime())
+            {
+                entity.CreatedAt = DateTime.Now;
+            }
+            entity.UpdatedAt = DateTime.Now;
+        }
+
+        private ResourceContext GetAndValidateResource(string resource)
         {
             var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);
             if (results == null)
             {
                 throw new InvalidDbContextTypeException("Resource not found");
             }
-            results.Context.Set<Article>().Add(entity);
-            results.Context.SaveChanges();
-
-            return entity;
+            return results;
         }
     }
 }

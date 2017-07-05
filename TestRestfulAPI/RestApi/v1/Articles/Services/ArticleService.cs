@@ -39,6 +39,24 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Services
             return articleRepository.All(resource);
         }
 
+        public Article Get(string resource, int id)
+        {
+            var articleRepository = this.GetArticleRepository();
+            return articleRepository.Get(resource, id);
+        }
+
+        public Article Create(string resource, Article article)
+        {
+            var articleRepository = this.GetArticleRepository();
+            return articleRepository.Create(resource, article);
+        }
+
+        public Article Update(string resource, Article article)
+        {
+            var articleRepository = this.GetArticleRepository();
+            return articleRepository.Update(resource, article);
+        }
+
         private ArticleRepository GetArticleRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -55,5 +73,7 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Services
 
             return new ArticleRepository(resourceContexts);
         }
+
+        
     }
 }

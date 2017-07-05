@@ -60,6 +60,19 @@ namespace TestRestfulAPI.Infrastructure.Authorization
             return this.CheckForAdminOverride() || userHasPermission;
         }
 
+        /// <summary>
+        /// Validate that User has the requestedResources
+        /// </summary>
+        /// <param name="requestedResources">resources to check</param>
+        /// <returns>true if the user has the required resources</returns>
+        public bool UserHasResourceAccess(string[] requestedResources)
+        {
+            var resouces = this._user.Resources.Select(r => r.Name).ToArray();
+            // check if requiredResources is a subset of requestedResources
+            var hasResources = !requestedResources.Except(resouces).Any();
+            return hasResources;
+        }
+
         private IEnumerable<Role> GetUserRoles()
         {
             return this._user.Roles;

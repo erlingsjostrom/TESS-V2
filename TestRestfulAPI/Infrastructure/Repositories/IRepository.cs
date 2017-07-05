@@ -7,8 +7,8 @@ namespace TestRestfulAPI.Infrastructure.Repositories
     {
         IEnumerable<IQueryable<TEntity>> All();
         ResultSet<IQueryable<TEntity>> AllWithResourceContext();
-        IEnumerable<IQueryable<TEntity>> Get(TKey id, TResource resource);
-        ResultSet<TEntity> GetWithResourceContext(TKey id, TResource resource);
+        TEntity Get(TResource resource, TKey id);
+        ResultSet<TEntity> GetWithResourceContext(TResource resource, TKey id);
 
     }
 }

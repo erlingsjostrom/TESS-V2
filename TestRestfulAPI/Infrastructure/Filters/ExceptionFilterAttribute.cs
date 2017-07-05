@@ -6,9 +6,10 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
+using TestRestfulAPI.Infrastructure.Authorization;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Helpers;
-using TestRestfulAPI.Infrastructure.Helpers.Authorization;
+using TestRestfulAPI.RestApi.v1.Articles.Controllers;
 
 namespace TestRestfulAPI.Infrastructure.Filters
 {
@@ -116,6 +117,33 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 context.Response = context.Request.CreateErrorResponse(HttpStatusCode.Forbidden, errorMessage);
                 return;
             }
+
+            if (context.Exception is InvalidEndpointException)
+            {
+                HttpError errorMessage;
+                if (GlobalVariables.IsDebuggingEnabled)
+                {
+                    errorMessage = new HttpError("The requested endpoint does not exist.")
+                    {
+                        { "HTTPStatus", HttpStatusCode.BadRequest },
+                        { "ErrorCode", 1 },
+                        { "ExceptionType", context.Exception.GetType().Name },
+                        { "ExceptionMessage", context.Exception.Message },
+                        { "StackTrace", context.Exception.StackTrace }
+                    };
+                }
+                else
+                {
+                    errorMessage = new HttpError("The requested endpoint does not exist.")
+                    {
+                        { "HTTPStatus", HttpStatusCode.BadRequest },
+                        { "ErrorCode", 1 }
+                    };
+                }
+                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.NotFound, errorMessage);
+                return;
+            }
+
         }
     }
 }
