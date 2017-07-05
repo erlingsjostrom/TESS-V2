@@ -23,6 +23,18 @@ namespace TestRestfulAPI
             )
        );
     }
+
+    public static class GlobalVariables
+    {
+
+        #if DEBUG
+                public static readonly bool IsDebuggingEnabled = true;
+        #else
+                public static readonly bool IsDebuggingEnabled = false;
+        #endif
+
+    }
+
     public class WebApiApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
