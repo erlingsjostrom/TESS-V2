@@ -28,7 +28,7 @@ namespace TestRestfulAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            GlobalConfiguration.Configuration.Filters.Add(new Infrastructure.Filters.NotImplExceptionFilterAttribute());
+            GlobalConfiguration.Configuration.Filters.Add(new Infrastructure.Filters.ExceptionFilterAttribute());
         }
 
         protected void Session_Start(object sender, EventArgs e)
