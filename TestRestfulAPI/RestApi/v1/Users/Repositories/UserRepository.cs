@@ -64,6 +64,11 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
         }
         public User Update(User entity)
         {
+            var result = this.All().FirstOrDefault(u => u.Id == entity.Id);
+            if (result == null)
+            {
+                throw new UserDoesNotExistException("User with ID " + entity.Id + " does not exist");
+            }
             this.ResourceContext.Context.Set<User>().Attach(entity);
             entity.UpdatedAt = DateTime.Now;
             this.ResourceContext.Context.SaveChanges();
