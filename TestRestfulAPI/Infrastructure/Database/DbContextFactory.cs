@@ -3,8 +3,9 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
+using TestRestfulAPI.Infrastructure.Helpers;
 
-namespace TestRestfulAPI.Infrastructure.Helpers.Database
+namespace TestRestfulAPI.Infrastructure.Database
 {
     /// <summary>
     /// Factory class to return instances of DbContext for supported types
@@ -18,7 +19,7 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Database
         /// <returns></returns>
         public static DbContext Get<T>(string dbName) where T : DbContext
         {
-            return new DbContext(GetEntityConnection(dbName, typeof(T).Name), true);  
+            return new DbContext(GetEntityConnection(dbName, typeof(T).Name), true);
         }
 
         public static DbContext Get(string dbName, Type type)
@@ -27,8 +28,8 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Database
             {
                 return new DbContext(GetEntityConnection(dbName, type.Name), true);
             }
-            
-            throw new InvalidDbConnectionFactoryInput("Provided type: " + type.Name + " is not an instance of DbContext");     
+
+            throw new InvalidDbConnectionFactoryInput("Provided type: " + type.Name + " is not an instance of DbContext");
         }
 
         /// <summary>
@@ -46,7 +47,6 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Database
                 DataSource = GetDataSourceString(),
                 InitialCatalog = dbName,
                 MultipleActiveResultSets = true,
-                IntegratedSecurity = true,
                 ApplicationName = "EntityFramework",
                 UserID = GetDefaultUser(),
                 Password = GetDefaultPassword()
@@ -103,7 +103,7 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Database
                         "The Default DB user is missing.");
                 }
                 return basicInfo;
-            } 
+            }
             catch (ConfigurationErrorsException e)
             {
                 throw new InvalidDbConnectionFactoryInput(

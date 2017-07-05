@@ -1,7 +1,7 @@
 using System;
 using System.Data.Entity;
 
-namespace TestRestfulAPI.Infrastructure.Helpers.Database
+namespace TestRestfulAPI.Infrastructure.Database
 {
     public class ResourceContext
     {

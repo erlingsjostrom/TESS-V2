@@ -4,7 +4,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
-using TestRestfulAPI.Infrastructure.Helpers.Database;
+using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.v1.Users.Repositories;
 

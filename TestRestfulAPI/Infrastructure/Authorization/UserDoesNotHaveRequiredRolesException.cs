@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
+namespace TestRestfulAPI.Infrastructure.Authorization
 {
     [Serializable]
     internal class UserDoesNotHaveRequiredRolesException : UnauthorizedAccessException

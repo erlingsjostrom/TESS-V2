@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
+namespace TestRestfulAPI.Infrastructure.Authorization.Attributes
 {
     public class UserHasRoleAttribute : ActionFilterAttribute
     {

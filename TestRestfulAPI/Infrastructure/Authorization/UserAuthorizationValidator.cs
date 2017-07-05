@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TestRestfulAPI.Entities.User;
 
-namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
+namespace TestRestfulAPI.Infrastructure.Authorization
 {
+    /// <summary>
+    /// Provides validation of User Roles and Permissions. 
+    /// NOTICE: The Admin Role will override all rules.
+    /// </summary>
     public class UserAuthorizationValidator
     {
         private readonly User _user;
@@ -20,12 +25,13 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
         /// <param name="requiredRoles">roles to check</param>
         /// <returns>true if the User has the roles</returns>
         public bool UserHasRoles(string[] requiredRoles)
-        {
+        {        
             var userRoleNames = this.GetUserRoleNames().ToArray();
 
             // check if requiredRoles is a subset of userRoles
             var userHasRoles = !requiredRoles.Except(userRoleNames).Any();
-            return userHasRoles;
+    
+            return this.CheckForAdminOverride() || userHasRoles;
         }
 
         /// <summary>
@@ -35,6 +41,8 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
         /// <returns>true if the User has the required permissions</returns>
         public bool UserHasPermission(string[] requierdPermissions)
         {
+            this.CheckForAdminOverride();
+
             var userPermissions = new List<string>();
             // Fetch all permissions, from UserRoles, distinct
             this.GetUserRoles().ToList()
@@ -49,7 +57,7 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
 
             // check if requierdPermissions is a subset of userPermissions
             var userHasPermission = !requierdPermissions.Except(userPermissions.ToArray()).Any();
-            return userHasPermission;
+            return this.CheckForAdminOverride() || userHasPermission;
         }
 
         private IEnumerable<Role> GetUserRoles()
@@ -60,6 +68,11 @@ namespace TestRestfulAPI.Infrastructure.Helpers.Authorization
         private IEnumerable<string> GetUserRoleNames()
         {
             return this.GetUserRoles().Select(r => r.Name);
+        }
+
+        private bool CheckForAdminOverride()
+        {
+            return this.GetUserRoles().Any(r => r.Name == "Admin");
         }
     }
 }
