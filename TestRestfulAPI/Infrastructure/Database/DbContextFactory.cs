@@ -3,8 +3,9 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
+using TestRestfulAPI.Infrastructure.Helpers;
 
-namespace TestRestfulAPI.Infrastructure.Helpers.Database
+namespace TestRestfulAPI.Infrastructure.Database
 {
     /// <summary>
     /// Factory class to return instances of DbContext for supported types

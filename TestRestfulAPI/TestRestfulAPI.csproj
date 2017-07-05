@@ -96,18 +96,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Authorization\Attributes\UserHasPermissionAttribute.cs" />
+    <Compile Include="Infrastructure\Database\DbContextFactory.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
     <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
-    <Compile Include="Infrastructure\Helpers\Authorization\UserAuthorizationValidator.cs" />
-    <Compile Include="Infrastructure\Helpers\Authorization\UserDoesNotHaveRequiredRolesException.cs" />
-    <Compile Include="Infrastructure\Helpers\Authorization\UserHasRoleAttribute.cs" />
-    <Compile Include="Infrastructure\Helpers\Database\DbContextFactory.cs" />
+    <Compile Include="Infrastructure\Authorization\UserAuthorizationValidator.cs" />
+    <Compile Include="Infrastructure\Authorization\UserDoesNotHaveRequiredRolesException.cs" />
+    <Compile Include="Infrastructure\Authorization\Attributes\UserHasRoleAttribute.cs" />
     <Compile Include="Infrastructure\Repositories\BaseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
-    <Compile Include="Infrastructure\Helpers\Database\ResourceContext.cs" />
+    <Compile Include="Infrastructure\Database\ResourceContext.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="RestApi\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="RestApi\v1\Articles\Exceptions\ArticleDoesNotExistException.cs" />
@@ -135,6 +136,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure\Helpers\" />
     <Folder Include="RestApi\v1\Articles\Models\" />
     <Folder Include="RestApi\v1\Default\Events\" />
     <Folder Include="RestApi\v1\Default\Models\" />

@@ -5,7 +5,7 @@ using System.Data.Entity.Core.EntityClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
-using TestRestfulAPI.Infrastructure.Helpers.Database;
+using TestRestfulAPI.Infrastructure.Database;
 
 namespace TestRestfulAPI.Infrastructure.Repositories
 {

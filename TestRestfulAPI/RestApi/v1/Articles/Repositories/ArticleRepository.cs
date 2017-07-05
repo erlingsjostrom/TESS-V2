@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Infrastructure.Helpers;
-using TestRestfulAPI.Infrastructure.Helpers.Database;
+using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.v1.Articles.Exceptions;
 
