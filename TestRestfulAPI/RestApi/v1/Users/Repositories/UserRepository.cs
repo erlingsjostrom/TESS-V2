@@ -38,7 +38,7 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
             var user = this.All().Include("Roles").FirstOrDefault(u => u.WindowsUser == windowsIdentity);
             if (user == null)
             {
-                throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist");
+                throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist.");
             }
             
             return user;
@@ -46,30 +46,16 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
 
         public User Create(User entity)
         {
-            try
-            {
-                this.ResourceContext.Context.Set<User>().Add(entity);
-                this.ResourceContext.Context.SaveChanges();
-            }
-            catch (DbUpdateException e)
-            {
-                var message = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new StringContent(e.InnerException.Message)
-                };
-                throw new HttpResponseException(message);
-            }
+            this.ResourceContext.Context.Set<User>().Add(entity);
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
+            this.ResourceContext.Context.SaveChanges();
            
             return entity;
         }
         public User Update(User entity)
         {
-            var result = this.All().FirstOrDefault(u => u.Id == entity.Id);
-            if (result == null)
-            {
-                throw new UserDoesNotExistException("User with ID " + entity.Id + " does not exist");
-            }
-            this.ResourceContext.Context.Set<User>().Attach(entity);
+            this.ResourceContext.Context.Entry(entity).State = EntityState.Modified;
             entity.UpdatedAt = DateTime.Now;
             this.ResourceContext.Context.SaveChanges();
 

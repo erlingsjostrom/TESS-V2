@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestApi\v1\Users\Exceptions\UserDoesNotExistException.cs" />
+    <Compile Include="RestApi\v1\Users\Exceptions\UserAlreadyExistException.cs" />
     <Compile Include="RestApi\v1\Users\Repositories\UserRepository.cs" />
     <Compile Include="RestApi\v1\Users\Services\UserService.cs" />
   </ItemGroup>

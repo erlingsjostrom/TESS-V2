@@ -40,8 +40,8 @@ namespace TestRestfulAPI.RestApi.v1.Users.Controllers
             return JsonCreated(result, result.Id);
         }
 
-        [HttpPut, Route("update")]
-        public IHttpActionResult Update(User user)
+        [HttpPut, Route("{id:int}")]
+        public IHttpActionResult Update(int id, User user)
         {
             var result = this._userRepository.Update(user);
             return JsonCreated(result, result.Id);
