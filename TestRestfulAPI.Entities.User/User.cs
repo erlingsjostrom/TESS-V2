@@ -17,15 +17,18 @@ namespace TestRestfulAPI.Entities.User
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.Resources = new HashSet<Resource>();
             this.Roles = new HashSet<Role>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Windows_user { get; set; }
-        public System.DateTime Created_at { get; set; }
-        public Nullable<System.DateTime> Updated_at { get; set; }
+        public string WindowsUser { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public System.DateTime UpdatedAt { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Resource> Resources { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
     }

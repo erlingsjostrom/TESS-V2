@@ -15,9 +15,9 @@ namespace TestRestfulAPI.Entities.TESS
     public partial class Deleted
     {
         public int Id { get; set; }
-        public string Entity_name { get; set; }
-        public int Entity_id { get; set; }
-        public System.DateTime Created_at { get; set; }
-        public Nullable<System.DateTime> Updated_at { get; set; }
+        public string EntityName { get; set; }
+        public int EntityId { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public System.DateTime UpdatedAt { get; set; }
     }
 }

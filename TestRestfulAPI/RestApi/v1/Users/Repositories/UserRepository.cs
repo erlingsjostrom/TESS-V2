@@ -35,7 +35,7 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
         public User GetByWindowsIdentityName(string windowsIdentity)
         {
             this.RefreshContext();
-            var user = this.All().Include("Roles").FirstOrDefault(u => u.Windows_user == windowsIdentity);
+            var user = this.All().Include("Roles").FirstOrDefault(u => u.WindowsUser == windowsIdentity);
             if (user == null)
             {
                 throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist.");

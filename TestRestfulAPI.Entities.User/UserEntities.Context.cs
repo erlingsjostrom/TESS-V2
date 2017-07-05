@@ -26,8 +26,8 @@ namespace TestRestfulAPI.Entities.User
         }
     
         public virtual DbSet<Deleted> Deleteds { get; set; }
-        public virtual DbSet<Existing_databases> Existing_databases { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Resource> Resources { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }

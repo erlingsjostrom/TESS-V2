@@ -16,10 +16,10 @@ namespace TestRestfulAPI.Entities.TESS
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public System.DateTime Created_at { get; set; }
-        public Nullable<System.DateTime> Updated_at { get; set; }
-        public string Customer_type { get; set; }
-        public string Web_address { get; set; }
-        public string Corporate_identity_number { get; set; }
+        public string CustomerType { get; set; }
+        public string WebAddress { get; set; }
+        public string CorporateIdentityNumber { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public System.DateTime UpdatedAt { get; set; }
     }
 }
