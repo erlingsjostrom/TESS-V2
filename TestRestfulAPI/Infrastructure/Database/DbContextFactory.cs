@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
@@ -13,14 +14,14 @@ namespace TestRestfulAPI.Infrastructure.Database
     /// <summary>
     /// Factory class to return instances of DbContext for supported types
     /// </summary>
-    public class DbContextFactory<T> where T : DbContext
+    public class DbContextFactory
     {
         /// <summary>
         /// Get DbContext instance for provided database
         /// </summary>
         /// <param name="dbName">name of database to connect to</param>
         /// <returns></returns>
-        public static DbContext Get(string dbName) 
+        public static DbContext Get<T>(string dbName) where T : DbContext
         {
             if (typeof(T) == typeof(UserEntities))
             {
@@ -36,9 +37,13 @@ namespace TestRestfulAPI.Infrastructure.Database
 
         public static DbContext Get(string dbName, Type type)
         {
-            if (type == typeof(DbContext) || type.IsSubclassOf(typeof(DbContext)))
+            if (type == typeof(UserEntities))
             {
-                return new DbContext(GetEntityConnection(dbName, type.Name), true);
+                return new UserEntities(GetEntityConnection(dbName, type.Name));
+            }
+            else if (type == typeof(TESSEntities))
+            {
+                return new TESSEntities(GetEntityConnection(dbName, type.Name));
             }
 
             throw new InvalidDbConnectionFactoryInput("Provided type: " + type.Name + " is not an instance of DbContext");
@@ -50,7 +55,7 @@ namespace TestRestfulAPI.Infrastructure.Database
         /// <param name="dbName">name of database to connect to</param>
         /// <param name="contextName">name of context</param>
         /// <returns></returns>
-        private static EntityConnection GetEntityConnection(string dbName, string contextName)
+        private static SqlConnection GetEntityConnection(string dbName, string contextName)
         {
             ValidateDbName(dbName);
 
@@ -68,12 +73,12 @@ namespace TestRestfulAPI.Infrastructure.Database
             {
                 Provider = "System.Data.SqlClient",
                 ProviderConnectionString = sqlConnStringBuilder.ConnectionString,
-                Metadata = "res://*/" + contextName + ".csdl|" +
-                           "res://*/" + contextName + ".ssdl|" +
-                           "res://*/" + contextName + ".msl"
+                //Metadata = "res://*/" + contextName + ".csdl|" +
+                //           "res://*/" + contextName + ".ssdl|" +
+                //           "res://*/" + contextName + ".msl"
             };
 
-            var entityConnection = new EntityConnection(entityConnStringBuilder.ConnectionString);
+            var entityConnection = new SqlConnection(sqlConnStringBuilder.ConnectionString);
             return entityConnection;
         }
 

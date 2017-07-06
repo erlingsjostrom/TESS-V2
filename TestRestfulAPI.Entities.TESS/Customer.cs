@@ -1,4 +1,6 @@
-﻿namespace TestRestfulAPI.Entities.TESS
+﻿using TestRestfulAPI.Entities.User;
+
+namespace TestRestfulAPI.Entities.TESS
 {
     public class Customer : BaseEntity
     {

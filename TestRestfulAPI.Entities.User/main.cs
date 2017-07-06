@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TestRestfulAPI.Entities.TESS
+namespace TestRestfulAPI.Entities.User
 {
     public class MainClass
     {
@@ -54,7 +52,7 @@ namespace TestRestfulAPI.Entities.TESS
                     }
                     catch (Exception e)
                     {
-                        // Ignore all exceptions 8D
+                        e.ToString();
                     }
                     
                 }

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestRestfulAPI.Entities.User;
 
 namespace TestRestfulAPI.Entities.TESS
 {
@@ -15,7 +18,7 @@ namespace TestRestfulAPI.Entities.TESS
             
         }
 
-        public TESSEntities(EntityConnection entityConnection) : base(entityConnection, true)
+        public TESSEntities(DbConnection entityConnection) : base(entityConnection, true)
         {
             
         }

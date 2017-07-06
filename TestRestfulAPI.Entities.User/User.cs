@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace TestRestfulAPI.Entities.TESS
+namespace TestRestfulAPI.Entities.User
 {
     public class User : BaseEntity
     {
@@ -14,6 +9,7 @@ namespace TestRestfulAPI.Entities.TESS
             this.Roles = new HashSet<Role>();
             this.Resources = new HashSet<Resource>();
         }
+
 
         // Properties
         public string Name { get; set; }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0921D540-77FE-4F37-A22E-50B405B07452}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestRestfulAPI.Entities.TESS</RootNamespace>
     <AssemblyName>TestRestfulAPI.Entities.TESS</AssemblyName>
@@ -60,11 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
-    <Compile Include="BaseEntity.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="NamedEntity.cs" />
     <Compile Include="TESSEntities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestRestfulAPI.Entities.User\TestRestfulAPI.Entities.User.csproj">
+      <Project>{4DC44EE2-B234-4C85-97AB-0FF274279073}</Project>
+      <Name>TestRestfulAPI.Entities.User</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
