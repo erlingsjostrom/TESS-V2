@@ -3,6 +3,9 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
+using TestRestfulAPI.Entities.TESS;
+using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Helpers;
 
 namespace TestRestfulAPI.Infrastructure.Database
@@ -10,16 +13,25 @@ namespace TestRestfulAPI.Infrastructure.Database
     /// <summary>
     /// Factory class to return instances of DbContext for supported types
     /// </summary>
-    public class DbContextFactory
+    public class DbContextFactory<T> where T : DbContext
     {
         /// <summary>
         /// Get DbContext instance for provided database
         /// </summary>
         /// <param name="dbName">name of database to connect to</param>
         /// <returns></returns>
-        public static DbContext Get<T>(string dbName) where T : DbContext
+        public static DbContext Get(string dbName) 
         {
-            return new DbContext(GetEntityConnection(dbName, typeof(T).Name), true);
+            if (typeof(T) == typeof(UserEntities))
+            {
+                return new UserEntities(GetEntityConnection(dbName, typeof(T).Name));
+            }
+            else if (typeof(T) == typeof(TESSEntities))
+            {
+                return new TESSEntities(GetEntityConnection(dbName, typeof(T).Name));
+            }
+            throw new InvalidDbContextTypeException("Provided DbContext: " + typeof(T).Name + " is not supported.");
+            
         }
 
         public static DbContext Get(string dbName, Type type)
