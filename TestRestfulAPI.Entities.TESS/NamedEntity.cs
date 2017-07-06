@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestRestfulAPI.Entities.TESS
 {
-    abstract class BaseEntity
+    public abstract class NamedEntity : BaseEntity
     {
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

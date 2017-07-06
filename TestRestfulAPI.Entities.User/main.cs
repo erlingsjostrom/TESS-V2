@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestRestfulAPI.Entities.User
+namespace TestRestfulAPI.Entities.TESS
 {
     public class MainClass
     {

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0921D540-77FE-4F37-A22E-50B405B07452}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestRestfulAPI.Entities.TESS</RootNamespace>
     <AssemblyName>TestRestfulAPI.Entities.TESS</AssemblyName>
@@ -38,13 +38,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="TESSEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TESSEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="TESSEntities.edmx.diagram">
-      <DependentUpon>TESSEntities.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -66,42 +59,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Article.cs">
-      <DependentUpon>TESSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Customer.cs">
-      <DependentUpon>TESSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Deleted.cs">
-      <DependentUpon>TESSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TESSEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TESSEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TESSEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TESSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TESSEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TESSEntities.edmx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TESSEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TESSEntities.edmx</DependentUpon>
-      <LastGenOutput>TESSEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="TESSEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TESSEntities.edmx</DependentUpon>
-      <LastGenOutput>TESSEntities.cs</LastGenOutput>
-    </Content>
+    <Compile Include="Article.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="NamedEntity.cs" />
+    <Compile Include="TESSEntities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
