@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace TestRestfulAPI.Entities.User
         [Key]
         [Column("Id", Order = 1)]
         public int Id { get; set; }
+        [ReadOnly(true)]
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }

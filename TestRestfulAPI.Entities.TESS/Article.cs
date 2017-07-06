@@ -8,4 +8,9 @@ namespace TestRestfulAPI.Entities.TESS
         [Index(IsUnique = true)]
         public int ArticleNumber { get; set; }
     }
+
+    public class ArticleDto : NamedEntityDto
+    {
+
+    }
 }

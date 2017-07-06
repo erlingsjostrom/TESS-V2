@@ -39,8 +39,8 @@ namespace TestRestfulAPI.Infrastructure.Repositories
 
     public class ResultSet<T> : ISerializable  where T : class
     {
-        private List<string> Resources { get; }
-        private List<T> Data { get; }
+        public List<string> Resources { get; }
+        public List<T> Data { get; }
         public string ResultType { get; set; }
         public ResultSet(string resultType)
         {

@@ -1,9 +1,14 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
+using AutoMapper;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.v1.Articles.Services;
-
+using System.Collections.Generic;
 
 namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
 {
@@ -18,7 +23,7 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         [HttpGet, Route("articles")]
         public IHttpActionResult Articles()
         {
-           return Json(this._articleService.AllWithResourceContext(), "Collection");
+            return Json(this._articleService.AllWithResourceContext(), "Collection");
         }
 
         // GET: articles/{INVALID}
@@ -34,7 +39,8 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         [HttpGet, Route("{resource}/articles")]
         public IHttpActionResult Articles(string resource)
         {
-            return Json(this._articleService.All(resource));
+            var articles = this._articleService.All(resource);
+            return Json(articles.AsEnumerable().Select(a => Mapper.Map<ArticleDto>(a)));
         }
 
         // GET: {resource}/articles/{id}
@@ -43,7 +49,8 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         [HttpGet, Route("{resource}/articles/{id}")]
         public IHttpActionResult Articles(string resource, int id)
         {
-            return Json(this._articleService.Get(resource, id));
+            var article = this._articleService.Get(resource, id);
+            return Json(Mapper.Map<ArticleDto>(article));
         }
 
         // POST: {resource}/articles
@@ -53,7 +60,7 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         public IHttpActionResult Create(string resource, Article article)
         {
             var newArticle = this._articleService.Create(resource, article);
-            return JsonCreated(newArticle, newArticle.Id);
+            return JsonCreated(Mapper.Map<ArticleDto>(newArticle), newArticle.Id);
         }
 
         // PUT: {resource}/articles
@@ -62,8 +69,8 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
         [HttpPut, Route("{resource}/articles/{id}")]
         public IHttpActionResult Update(string resource, int id, Article article)
         {
-            var newArticle = this._articleService.Update(resource, article);
-            return Json(newArticle);
+            var updatedArticle = this._articleService.Update(resource, article);
+            return Json(Mapper.Map<ArticleDto>(updatedArticle));
         }
 
 

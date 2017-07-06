@@ -60,8 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="BaseEntityDto.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="NamedEntity.cs" />
+    <Compile Include="NamedEntityDto.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Role.cs" />
