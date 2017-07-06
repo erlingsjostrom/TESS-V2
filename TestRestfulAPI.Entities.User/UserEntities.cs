@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.EntityClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TestRestfulAPI.Entities.TESS
 {
-    class UserEntities : DbContext
+    public class UserEntities : DbContext
     {
         public UserEntities() : base("name=UserEntities")
         {
             
         }
+        public UserEntities(EntityConnection entityConnection) : base(entityConnection, true) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Resource> Resources { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
 
         public override int SaveChanges()
         {

@@ -7,12 +7,21 @@ using System.Threading.Tasks;
 
 namespace TestRestfulAPI.Entities.TESS
 {
-    class User : BaseEntity
+    public class User : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        public User()
+        {
+            this.Roles = new HashSet<Role>();
+            this.Resources = new HashSet<Resource>();
+        }
+
+        // Properties
         public string Name { get; set; }
         public string WindowsUser { get; set; }
 
+        // Relations
+        public virtual ICollection<Role> Roles { get; set; }
+
+        public virtual ICollection<Resource> Resources { get; set; }
     }
 }
