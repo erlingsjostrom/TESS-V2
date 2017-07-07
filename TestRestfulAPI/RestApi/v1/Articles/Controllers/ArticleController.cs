@@ -2,6 +2,7 @@
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
+using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.RestApi.v1.Articles.Services;
 
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
+namespace TestRestfulAPI.Infrastructure.Exceptions
 {
     [Serializable]
     internal class InvalidEndpointException : Exception

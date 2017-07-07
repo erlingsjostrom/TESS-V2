@@ -153,7 +153,7 @@ namespace TestRestfulAPI.Infrastructure.Filters
                     errorMessage = new HttpError("The requested endpoint does not exist.")
                     {
                         { "HTTPStatus", HttpStatusCode.BadRequest },
-                        { "ErrorCode", 1 },
+                        { "ErrorCode", 6 },
                         { "ExceptionType", context.Exception.GetType().Name },
                         { "ExceptionMessage", context.Exception.Message },
                         { "StackTrace", context.Exception.StackTrace }
@@ -164,13 +164,12 @@ namespace TestRestfulAPI.Infrastructure.Filters
                     errorMessage = new HttpError("The requested endpoint does not exist.")
                     {
                         { "HTTPStatus", HttpStatusCode.BadRequest },
-                        { "ErrorCode", 1 }
+                        { "ErrorCode", 6 }
                     };
                 }
                 context.Response = context.Request.CreateErrorResponse(HttpStatusCode.NotFound, errorMessage);
                 return;
             }
-
         }
     }
 }

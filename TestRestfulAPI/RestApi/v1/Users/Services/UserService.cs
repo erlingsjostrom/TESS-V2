@@ -9,7 +9,7 @@ namespace TestRestfulAPI.RestApi.v1.Users.Services
 {
     public class UserService
     {
-        private UserRepository _userRepository;
+        private readonly UserRepository _userRepository;
 
         public UserService(UserRepository userRepository)
         {
@@ -20,6 +20,25 @@ namespace TestRestfulAPI.RestApi.v1.Users.Services
         {
             return this._userRepository.GetByWindowsIdentityName(windowsIdentityName);
         }
-        
+
+        public IQueryable<User> All()
+        {
+            return this._userRepository.All();
+        }
+
+        public User Get(int id)
+        {
+            return this._userRepository.Get(id);
+        }
+
+        public User Create(User user)
+        {
+            return this._userRepository.Create(user);
+        }
+
+        public User Update(User user)
+        {
+            return this._userRepository.Update(user);
+        }
     }
 }

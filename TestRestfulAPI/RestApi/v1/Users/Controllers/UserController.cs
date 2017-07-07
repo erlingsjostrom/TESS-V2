@@ -7,44 +7,39 @@ using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.v1.Users.Repositories;
+using TestRestfulAPI.RestApi.v1.Users.Services;
 
 namespace TestRestfulAPI.RestApi.v1.Users.Controllers
 {
     [RoutePrefix("api/v1/users") /*Route("{action=Users}")*/]
     public class UserController : ApiJsonController
     {
-        private readonly UserRepository _userRepository;
+        private readonly UserService _userService = GlobalServices.UserService;
 
-        public UserController()
-        {
-            this._userRepository = new UserRepository(
-                new ResourceContext("UserDB1", new UserEntities(), typeof(UserEntities))
-            );
-        }
         [HttpGet, Route("")]
         public IHttpActionResult Users()
         {
-            return Json(this._userRepository.All(), "Users");
+            return Json(this._userService.All(), "Users");
         }
 
         [HttpGet, Route("{id:int}")]
         public IHttpActionResult Users(int id)
         {
-            return Json(this._userRepository.Get(id), "User");
+            return Json(this._userService.Get(id), "User");
         }
 
         [HttpPost, Route("")]
         public IHttpActionResult Users(User user)
         {
-            var result = this._userRepository.Create(user);
+            var result = this._userService.Create(user);
             return JsonCreated(result, result.Id);
         }
 
         [HttpPut, Route("{id:int}")]
-        public IHttpActionResult Update(int id, User user)
+        public IHttpActionResult Users(int id, User user)
         {
-            var result = this._userRepository.Update(user);
-            return JsonCreated(result, result.Id);
+            var updatedArticle = this._userService.Update(user);
+            return Json(updatedArticle);
         }
     }
 }

@@ -46,18 +46,19 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
 
         public User Create(User entity)
         {
-            this.ResourceContext.Context.Set<User>().Add(entity);
-            entity.CreatedAt = DateTime.Now;
-            entity.UpdatedAt = DateTime.Now;
-            this.ResourceContext.Context.SaveChanges();
+            ResourceContext.Context.Set<User>().Add(entity);
+            this.SetTimeStamps(ref entity);
+            ResourceContext.Context.SaveChanges();
            
             return entity;
         }
         public User Update(User entity)
         {
-            this.ResourceContext.Context.Entry(entity).State = EntityState.Modified;
-            entity.UpdatedAt = DateTime.Now;
-            this.ResourceContext.Context.SaveChanges();
+            //ResourceContext.Context.Entry(entity).State = EntityState.Modified;
+            //ResourceContext.Context.Set<User>().Attach(entity);
+            this.SetTimeStamps(ref entity);
+            ResourceContext.Context.SaveChanges();
+            ResourceContext.Context.Entry(entity).State = EntityState.Unchanged;
 
             return entity;
         }
@@ -65,6 +66,14 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
         private void RefreshContext()
         {
             this.ResourceContext.Refresh();
+        }
+        private void SetTimeStamps(ref User entity)
+        {
+            if (entity.CreatedAt == new DateTime())
+            {
+                entity.CreatedAt = DateTime.Now;
+            }
+            entity.UpdatedAt = DateTime.Now;
         }
     }
 }

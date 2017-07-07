@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using TestRestfulAPI.RestApi.v1.Articles.Services;
+using TestRestfulAPI.RestApi.v1.Customers.Services;
 using TestRestfulAPI.RestApi.v1.Users.Services;
 
 
@@ -10,6 +11,7 @@ namespace TestRestfulAPI
     {
         public static UserService UserService;
         public static ArticleService ArticleService;
+        public static CustomerService CustomerService;
     }
 
     public static class GlobalVariables
