@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TestRestfulAPI.Entities.TESS;
@@ -77,7 +78,6 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             var results = GetAndValidateResource(resource);
 
             results.Context.Set<Article>().Add(entity);
-            this.SetTimeStamps(ref entity);
             results.Context.SaveChanges();
 
             return entity;
@@ -88,20 +88,13 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
         {
             var results = GetAndValidateResource(resource);
 
-            results.Context.Set<Article>().Attach(entity);
-            this.SetTimeStamps(ref entity);
+            var dbEntry = this.Get(resource, entity.Id);
+            
+            results.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
+            
             results.Context.SaveChanges();
 
-            return entity;
-        }
-
-        private void SetTimeStamps(ref Article entity)
-        {
-            if (entity.CreatedAt == new DateTime())
-            {
-                entity.CreatedAt = DateTime.Now;
-            }
-            entity.UpdatedAt = DateTime.Now;
+            return dbEntry;
         }
 
         private ResourceContext GetAndValidateResource(string resource)

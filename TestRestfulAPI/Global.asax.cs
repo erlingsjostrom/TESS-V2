@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using AutoMapper;
 using TestRestfulAPI.RestApi.v1.Articles.Services;
 using TestRestfulAPI.RestApi.v1.Customers.Services;
 using TestRestfulAPI.RestApi.v1.Users.Services;
@@ -16,7 +17,7 @@ namespace TestRestfulAPI
 
     public static class GlobalVariables
     {
-
+       
         #if DEBUG
                 public static readonly bool IsDebuggingEnabled = true;
         #else
@@ -32,6 +33,7 @@ namespace TestRestfulAPI
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configuration.Filters.Add(new Infrastructure.Filters.ExceptionFilterAttribute());
             GlobalConfiguration.Configure(Services.Register);
+            GlobalConfiguration.Configure(EntityMappings.Register);
         }
 
         protected void Session_Start(object sender, EventArgs e)
