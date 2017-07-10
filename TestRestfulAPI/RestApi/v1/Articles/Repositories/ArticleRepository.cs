@@ -7,7 +7,6 @@ using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.RestApi.v1.Articles.Exceptions;
 
 namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
