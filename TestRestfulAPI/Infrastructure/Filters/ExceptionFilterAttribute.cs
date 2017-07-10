@@ -18,187 +18,82 @@ namespace TestRestfulAPI.Infrastructure.Filters
     {
         public override void OnException(HttpActionExecutedContext context)
         {
+            HttpError errorMessage;
+            string msg;
+            HttpStatusCode statusCode;
+            int errorCode;
+
             if (context.Exception is DoesNotExistException)
             {
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage = new HttpError("The requested ID does not exist.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.NotFound },
-                        { "ErrorCode", 1 },
-                        { "ExceptionType", context.Exception.GetType().Name },
-                        { "ExceptionMessage", context.Exception.Message },
-                        { "StackTrace", context.Exception.StackTrace }
-                    };
-                }
-                else
-                {
-                    errorMessage = new HttpError("The requested ID does not exist.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.NotFound },
-                        { "ErrorCode", 1 }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.NotFound, errorMessage);
-                return;
+                msg = "The requested resource does not exist.";
+                statusCode = HttpStatusCode.NotFound;
+                errorCode = 1;
             }
-            if (context.Exception is InvalidDbContextTypeException)
+            else if (context.Exception is InvalidDbContextTypeException)
             {
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage = new HttpError("Invalid database.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.InternalServerError },
-                        { "ErrorCode", 2 },
-                        { "ExceptionType", context.Exception.GetType().Name },
-                        { "ExceptionMessage", context.Exception.Message },
-                        { "StackTrace", context.Exception.StackTrace }
-                    };
-                }
-                else
-                {
-                    errorMessage = new HttpError("Invalid database.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.InternalServerError },
-                        { "ErrorCode", 2 }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, errorMessage);
-                return;
+                msg = "Invalid database.";
+                statusCode = HttpStatusCode.InternalServerError;
+                errorCode = 2;
             }
-            if (context.Exception is InvalidDbConnectionFactoryInput)
+            else if (context.Exception is InvalidDbConnectionFactoryInput)
             {
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage = new HttpError("Invalid input to database connection factory.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.InternalServerError },
-                        { "ErrorCode", 3 },
-                        { "ExceptionType", context.Exception.GetType().Name },
-                        { "ExceptionMessage", context.Exception.Message },
-                        { "StackTrace", context.Exception.StackTrace }
-                    };
-                }
-                else
-                {
-                    errorMessage = new HttpError("Invalid input to database connection factory.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.InternalServerError },
-                        { "ErrorCode", 3 }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, errorMessage);
-                return;
+                msg = "Invalid input to database connection factory.";
+                statusCode = HttpStatusCode.InternalServerError;
+                errorCode = 3;
             }
-            if (context.Exception is UserDoesNotHaveRequiredRolesException)
+            else if (context.Exception is UserDoesNotHaveRequiredRolesException)
             {
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage = new HttpError("This user does not have permission to view requested data with current role.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.Forbidden },
-                        { "ErrorCode", 4 },
-                        { "ExceptionType", context.Exception.GetType().Name },
-                        { "ExceptionMessage", context.Exception.Message },
-                        { "StackTrace", context.Exception.StackTrace }
-                    };
-                }
-                else
-                {
-                    errorMessage = new HttpError("This user does not have permission to view requested data with current role.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.Forbidden },
-                        { "ErrorCode", 4 }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.Forbidden, errorMessage);
-                return;
+                msg = "This user does not have permission to view requested data with current role.";
+                statusCode = HttpStatusCode.Forbidden;
+                errorCode = 4;
             }
-            if (context.Exception is UserAlreadyExistException)
+            else if (context.Exception is AlreadyExistException)
             {
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage =
-                        new HttpError("A user with this windows identity is already existing.")
-                        {
-                            {"HTTPStatus", HttpStatusCode.BadRequest},
-                            {"ErrorCode", 5},
-                            {"ExceptionType", context.Exception.GetType().Name},
-                            {"ExceptionMessage", context.Exception.Message},
-                            {"StackTrace", context.Exception.StackTrace}
-                        };
-                }
-                else
-                {
-                    errorMessage = new HttpError("A user with this windows identity is already existing.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.Forbidden },
-                        { "ErrorCode", 5 }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
-                return;
+                msg = "The resource does already exist.";
+                statusCode = HttpStatusCode.BadRequest;
+                errorCode = 5;
             }
 
-            if (context.Exception is InvalidEndpointException)
+            else if (context.Exception is InvalidEndpointException)
             {
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage = new HttpError("The requested endpoint is not valid.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.BadRequest },
-                        { "ErrorCode", 6 },
-                        { "ExceptionType", context.Exception.GetType().Name },
-                        { "ExceptionMessage", context.Exception.Message },
-                        { "StackTrace", context.Exception.StackTrace }
-                    };
-                }
-                else
-                {
-                    errorMessage = new HttpError("The requested endpoint is not valid.")
-                    {
-                        { "HTTPStatus", HttpStatusCode.BadRequest },
-                        { "ErrorCode", 6 }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
-                return;
+                msg = "The requested endpoint is not valid.";
+                statusCode = HttpStatusCode.BadRequest;
+                errorCode = 6;
             }
 
-            if (context.Exception is MissingEndpointException)
+            else if (context.Exception is MissingEndpointException)
             {
-                const string msg = "The requested endpoint does not exist.";
-                const HttpStatusCode statusCode = HttpStatusCode.NotFound;
-                const int errorCode = 7;
-                HttpError errorMessage;
-                if (GlobalVariables.IsDebuggingEnabled)
-                {
-                    errorMessage = new HttpError(msg)
-                    {
-                        { "HTTPStatus", statusCode },
-                        { "ErrorCode", errorCode },
-                        { "ExceptionType", context.Exception.GetType().Name },
-                        { "ExceptionMessage", context.Exception.Message },
-                        { "StackTrace", context.Exception.StackTrace }
-                    };
-                }
-                else
-                {
-                    errorMessage = new HttpError(msg)
-                    {
-                        { "HTTPStatus", statusCode },
-                        { "ErrorCode", errorCode }
-                    };
-                }
-                context.Response = context.Request.CreateErrorResponse(statusCode, errorMessage);
-                return;
+                msg = "The requested endpoint does not exist.";
+                statusCode = HttpStatusCode.NotFound;
+                errorCode = 7;
             }
+            else
+            {
+                msg = context.Exception.Message;
+                statusCode = HttpStatusCode.BadRequest;
+                errorCode = -1;
+            }
+
+            if (GlobalVariables.IsDebuggingEnabled)
+            {
+                errorMessage = new HttpError(msg)
+                {
+                    { "HTTPStatus", statusCode },
+                    { "ErrorCode", errorCode },
+                    { "ExceptionType", context.Exception.GetType().Name },
+                    { "ExceptionMessage", context.Exception.Message },
+                    { "StackTrace", context.Exception.StackTrace }
+                };
+            }
+            else
+            {
+                errorMessage = new HttpError(msg)
+                {
+                    { "HTTPStatus", statusCode },
+                    { "ErrorCode", errorCode }
+                };
+            }
+            context.Response = context.Request.CreateErrorResponse(statusCode, errorMessage);
         }
     }
 }

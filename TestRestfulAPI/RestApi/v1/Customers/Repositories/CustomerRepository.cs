@@ -6,6 +6,7 @@ using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.RestApi.v1.Customers.Exceptions;
 
 namespace TestRestfulAPI.RestApi.v1.Customers.Repositories
 {
@@ -60,7 +61,7 @@ namespace TestRestfulAPI.RestApi.v1.Customers.Repositories
                 .FirstOrDefault(a => a.Id == id);
             if (customer == null)
             {
-                throw new CustomerDoesNotExistException("Customer with ID " + id + " does not exist");
+                throw new CustomerDoesNotExistException("Customer with ID " + id + " does not exist.");
             }
             var result = new ResultSet<Customer>("Customers");
             result.Add(resource, customer);
@@ -70,6 +71,13 @@ namespace TestRestfulAPI.RestApi.v1.Customers.Repositories
         {
             var results = GetAndValidateResource(resource);
 
+            var customer = results
+                .Context.Set<Customer>()
+                .FirstOrDefault(c => c.CorporateIdentityNumber == entity.CorporateIdentityNumber);
+            if (customer != null)
+            {
+                throw new CustomerAlreadyExistException("Customer with Corporate Identity Number does already exist.");
+            }
             results.Context.Set<Customer>().Add(entity);
             this.SetTimeStamps(ref entity);
             results.Context.SaveChanges();

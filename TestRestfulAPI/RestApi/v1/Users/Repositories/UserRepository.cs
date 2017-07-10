@@ -46,6 +46,11 @@ namespace TestRestfulAPI.RestApi.v1.Users.Repositories
 
         public User Create(User entity)
         {
+            var user = this.All().FirstOrDefault(u => u.WindowsUser == entity.WindowsUser);
+            if (user != null)
+            {
+                throw new UserAlreadyExistException("User with Windows identity " + entity.WindowsUser + " does already exist.");
+            }
             ResourceContext.Context.Set<User>().Add(entity);
             this.SetTimeStamps(ref entity);
             ResourceContext.Context.SaveChanges();

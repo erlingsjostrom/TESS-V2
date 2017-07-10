@@ -106,6 +106,7 @@
     <Compile Include="Infrastructure\Authorization\Attributes\UserHasPermissionAttribute.cs" />
     <Compile Include="Infrastructure\Authorization\Attributes\UserHasResourceAccessAttribute.cs" />
     <Compile Include="Infrastructure\Database\DbContextFactory.cs" />
+    <Compile Include="Infrastructure\Exceptions\AlreadyExistException.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="RestApi\v1\Articles\Services\ArticleService.cs" />
     <Compile Include="RestApi\v1\Customers\Controllers\CustomerController.cs" />
     <Compile Include="RestApi\v1\Customers\Exceptions\CustomerDoesNotExistException.cs" />
+    <Compile Include="RestApi\v1\Customers\Exceptions\CustomerAlreadyExistException.cs" />
     <Compile Include="RestApi\v1\Customers\Repositories\CustomerRepository.cs" />
     <Compile Include="RestApi\v1\Customers\Services\CustomerService.cs" />
     <Compile Include="RestApi\v1\Users\Controllers\UserController.cs" />
