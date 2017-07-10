@@ -12,11 +12,11 @@ namespace TestRestfulAPI
     {
         public static void Register(HttpConfiguration config)
         {
-            Mapper.Initialize(cfg => 
-                cfg.CreateMap<Article, ArticleDto>()
-            );
             Mapper.Initialize(cfg =>
-                cfg.CreateMap<Customer, CustomerDto>()
+                {
+                    cfg.CreateMap<Article, ArticleDto>();
+                    cfg.CreateMap<Customer, CustomerDto>();
+                }  
             );
         }
     }
