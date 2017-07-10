@@ -19,19 +19,18 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Controllers
     {
         private readonly ArticleService _articleService = GlobalServices.ArticleService;
 
-        // GET: articles
-        [UserHasRole("ProductOwner")]
+        // GET: articles (NOT SUPPORTED)
         [HttpGet, Route("articles")]
         public IHttpActionResult Articles()
         {
-            return Json(this._articleService.AllWithResourceContext(), "Collection");
+            throw new InvalidEndpointException("This endpoint requires you to specifiy a resource. e.g. {resource}/articles");
         }
 
         // GET: articles/{INVALID}
         [HttpGet, Route("articles/{INVALID}")]
         public IHttpActionResult Articles(object invalid)
         {
-            throw new InvalidEndpointException("This endpoint is not supported.");
+            throw new MissingEndpointException("This endpoint is not supported and does not exist.");
         }
 
         // GET: {resource}/articles
