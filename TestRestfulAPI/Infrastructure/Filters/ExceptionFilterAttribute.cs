@@ -150,7 +150,7 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 HttpError errorMessage;
                 if (GlobalVariables.IsDebuggingEnabled)
                 {
-                    errorMessage = new HttpError("The requested endpoint does not exist.")
+                    errorMessage = new HttpError("The requested endpoint is not valid.")
                     {
                         { "HTTPStatus", HttpStatusCode.BadRequest },
                         { "ErrorCode", 6 },
@@ -161,13 +161,42 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 }
                 else
                 {
-                    errorMessage = new HttpError("The requested endpoint does not exist.")
+                    errorMessage = new HttpError("The requested endpoint is not valid.")
                     {
                         { "HTTPStatus", HttpStatusCode.BadRequest },
                         { "ErrorCode", 6 }
                     };
                 }
-                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.NotFound, errorMessage);
+                context.Response = context.Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+                return;
+            }
+
+            if (context.Exception is MissingEndpointException)
+            {
+                const string msg = "The requested endpoint does not exist.";
+                const HttpStatusCode statusCode = HttpStatusCode.NotFound;
+                const int errorCode = 7;
+                HttpError errorMessage;
+                if (GlobalVariables.IsDebuggingEnabled)
+                {
+                    errorMessage = new HttpError(msg)
+                    {
+                        { "HTTPStatus", statusCode },
+                        { "ErrorCode", errorCode },
+                        { "ExceptionType", context.Exception.GetType().Name },
+                        { "ExceptionMessage", context.Exception.Message },
+                        { "StackTrace", context.Exception.StackTrace }
+                    };
+                }
+                else
+                {
+                    errorMessage = new HttpError(msg)
+                    {
+                        { "HTTPStatus", statusCode },
+                        { "ErrorCode", errorCode }
+                    };
+                }
+                context.Response = context.Request.CreateErrorResponse(statusCode, errorMessage);
                 return;
             }
         }
