@@ -7,7 +7,7 @@ using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.RestApi.v1.Articles.Repositories;
 using TestRestfulAPI.RestApi.v1.Articles.Services;
-using TestRestfulAPI.RestApi.v1.Customers.Services;
+using TestRestfulAPI.RestApi.odata.Customers.Services;
 using TestRestfulAPI.RestApi.v1.Users.Repositories;
 using TestRestfulAPI.RestApi.v1.Users.Services;
 

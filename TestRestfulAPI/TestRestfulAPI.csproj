@@ -160,6 +160,11 @@
     <Compile Include="RestApi\odata\Controllers\ArticlesController.cs" />
     <Compile Include="RestApi\odata\Controllers\ResourceMissingException.cs" />
     <Compile Include="RestApi\odata\Controllers\ResourceODataController.cs" />
+    <Compile Include="RestApi\odata\Customers\Controllers\CustomerController.cs" />
+    <Compile Include="RestApi\odata\Customers\Exceptions\CustomerAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\Customers\Exceptions\CustomerDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\Customers\Repositories\CustomerRepository.cs" />
+    <Compile Include="RestApi\odata\Customers\Services\CustomerService.cs" />
     <Compile Include="RestApi\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
     <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
@@ -196,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Helpers\" />
+    <Folder Include="RestApi\odata\Customers\Events\" />
+    <Folder Include="RestApi\odata\Customers\Models\" />
+    <Folder Include="RestApi\odata\Customers\Requests\" />
     <Folder Include="RestApi\v1\Articles\Models\" />
     <Folder Include="RestApi\v1\Customers\Events\" />
     <Folder Include="RestApi\v1\Customers\Models\" />
