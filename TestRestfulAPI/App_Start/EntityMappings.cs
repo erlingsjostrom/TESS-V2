@@ -15,6 +15,9 @@ namespace TestRestfulAPI
             Mapper.Initialize(cfg => 
                 cfg.CreateMap<Article, ArticleDto>()
             );
+            Mapper.Initialize(cfg =>
+                cfg.CreateMap<Customer, CustomerDto>()
+            );
         }
     }
 }

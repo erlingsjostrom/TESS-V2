@@ -9,4 +9,11 @@ namespace TestRestfulAPI.Entities.TESS
         public string WebAddress { get; set; }
         public string CorporateIdentityNumber { get; set; }
     }
+
+    public class CustomerDto : BaseEntityDto
+    {
+        public string Name { get; set; }
+        public string CustomerType { get; set; }
+        public string CorporateIdentityNumber { get; set; }
+    }
 }

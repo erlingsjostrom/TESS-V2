@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using AutoMapper;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
@@ -39,7 +40,8 @@ namespace TestRestfulAPI.RestApi.v1.Customers.Controllers
         [HttpGet, Route("{resource}/customers")]
         public IHttpActionResult Customers(string resource)
         {
-            return Json(this._customerService.All(resource));
+            var customers = this._customerService.All(resource);
+            return Json(customers.AsEnumerable().Select(a => Mapper.Map<CustomerDto>(a)));
         }
 
         // GET: {resource}/customers/{id}
@@ -48,7 +50,8 @@ namespace TestRestfulAPI.RestApi.v1.Customers.Controllers
         [HttpGet, Route("{resource}/customers/{id}")]
         public IHttpActionResult Customers(string resource, int id)
         {
-            return Json(this._customerService.Get(resource, id));
+            var customer = (this._customerService.Get(resource, id));
+            return Json(Mapper.Map<CustomerDto>(customer));
         }
 
         // POST: {resource}/customers
@@ -58,7 +61,7 @@ namespace TestRestfulAPI.RestApi.v1.Customers.Controllers
         public IHttpActionResult Create(string resource, Customer customer)
         {
             var newCustomer = this._customerService.Create(resource, customer);
-            return JsonCreated(newCustomer, newCustomer.Id);
+            return JsonCreated(Mapper.Map<CustomerDto>(newCustomer), newCustomer.Id);
         }
         
         // PUT: {resource}/customers
@@ -67,7 +70,7 @@ namespace TestRestfulAPI.RestApi.v1.Customers.Controllers
         public IHttpActionResult Update(string resource, int id, Customer customer)
         {
             var updatedCustomer = this._customerService.Update(resource, customer);
-            return Json(updatedCustomer);
+            return Json(Mapper.Map<CustomerDto>(updatedCustomer));
         }
     }
 }
