@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Web.Http;
 using AutoMapper;
-using TestRestfulAPI.RestApi.v1.Articles.Services;
-using TestRestfulAPI.RestApi.v1.Customers.Services;
-using TestRestfulAPI.RestApi.v1.Users.Services;
+using TestRestfulAPI.RestApi.odata.Articles.Services;
+using TestRestfulAPI.RestApi.odata.Users.Services;
 
 
 namespace TestRestfulAPI
@@ -12,7 +11,7 @@ namespace TestRestfulAPI
     {
         public static UserService UserService;
         public static ArticleService ArticleService;
-        public static CustomerService CustomerService;
+       // public static CustomerService CustomerService;
     }
 
     public static class GlobalVariables

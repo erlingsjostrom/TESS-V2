@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 using System.Web.OData;
 
 namespace TestRestfulAPI.RestApi.odata.Controllers
@@ -24,6 +25,16 @@ namespace TestRestfulAPI.RestApi.odata.Controllers
                 throw new ResourceMissingException("Resource is missing");
             }
 
+        }
+        protected IHttpActionResult ODataCreated<T>(T result, int id) where T : class
+        {
+            var location = HttpContext.Current.Request.Url.AbsoluteUri + "(" + id + ")";
+            return Created(location, result);
+        }
+        protected IEnumerable<string> ODataDeleted()
+        {
+            HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.NoContent;
+            return new List<string>();
         }
     }
 }

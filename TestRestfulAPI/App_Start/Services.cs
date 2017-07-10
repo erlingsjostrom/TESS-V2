@@ -5,11 +5,9 @@ using System.Web;
 using System.Web.Http;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.RestApi.v1.Articles.Repositories;
-using TestRestfulAPI.RestApi.v1.Articles.Services;
-using TestRestfulAPI.RestApi.v1.Customers.Services;
-using TestRestfulAPI.RestApi.v1.Users.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Services;
+using TestRestfulAPI.RestApi.odata.Articles.Services;
+using TestRestfulAPI.RestApi.odata.Users.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Services;
 
 namespace TestRestfulAPI
 {
@@ -31,7 +29,7 @@ namespace TestRestfulAPI
                 )
             );
             GlobalServices.ArticleService = new ArticleService(GlobalServices.UserService);
-            GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
+            //GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
         }
     }
 }

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.Infrastructure.Exceptions;
-using TestRestfulAPI.RestApi.v1.Articles.Exceptions;
+using TestRestfulAPI.RestApi.odata.Articles.Exceptions;
+using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
+namespace TestRestfulAPI.RestApi.odata.Articles.Repositories
 {
     public class ArticleRepository : BaseRepository<Article>, IRepository<Article, int, string>
     {
@@ -83,7 +80,6 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             return entity;
         }
 
-        // TODO: FIX CREATED_AT CONSTRAINT
         public Article Update(string resource, Article entity)
         {
             var results = GetAndValidateResource(resource);
@@ -91,10 +87,35 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Repositories
             var dbEntry = this.Get(resource, entity.Id);
             
             results.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
+            results.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
             
             results.Context.SaveChanges();
 
             return dbEntry;
+        }
+
+        public Article PartialUpdate(string resource, int id, Delta<Article> entity)
+        {
+            var results = GetAndValidateResource(resource);
+
+            var dbEntry = this.Get(resource, id);
+
+            entity.Patch(dbEntry);
+            results.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+        
+            results.Context.SaveChanges();
+
+            return dbEntry;
+        }
+
+        public void Delete(string resource, int id)
+        {
+            var results = GetAndValidateResource(resource);
+
+            var dbEntry = this.Get(resource, id);
+
+            results.Context.Set<Article>().Remove(dbEntry);
+            results.Context.SaveChanges();
         }
 
         private ResourceContext GetAndValidateResource(string resource)
