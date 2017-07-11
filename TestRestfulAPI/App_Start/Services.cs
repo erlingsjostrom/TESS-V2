@@ -8,7 +8,7 @@ using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.RestApi.odata.Articles.Services;
 using TestRestfulAPI.RestApi.odata.Users.Repositories;
 using TestRestfulAPI.RestApi.odata.Users.Services;
-
+using TestRestfulAPI.RestApi.odata.Customers.Services;
 namespace TestRestfulAPI
 {
     public static class Services
@@ -29,7 +29,7 @@ namespace TestRestfulAPI
                 )
             );
             GlobalServices.ArticleService = new ArticleService(GlobalServices.UserService);
-            //GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
+            GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
         }
     }
 }
