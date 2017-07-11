@@ -41,8 +41,6 @@ namespace TestRestfulAPI.Infrastructure.Authorization
         /// <returns>true if the User has the required permissions</returns>
         public bool UserHasPermission(string[] requierdPermissions)
         {
-            this.CheckForAdminOverride();
-
             var userPermissions = new List<string>();
             // Fetch all permissions, from UserRoles, distinct
             this.GetUserRoles().ToList()
