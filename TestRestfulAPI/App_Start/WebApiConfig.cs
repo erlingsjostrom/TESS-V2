@@ -23,7 +23,7 @@ namespace TestRestfulAPI
             //);
             
             config.AddApiVersioning(o => o.AssumeDefaultVersionWhenUnspecified = true);
-          
+            
             config.MapODataServiceRoute(
                 routeName: "odata",
                 routePrefix: "odata/{apiVersion}/{resource}/",
@@ -39,7 +39,7 @@ namespace TestRestfulAPI
             builder.EntitySet<Customer>("Customers");
             builder.EntityType<Customer>().OrderBy().Filter().Select();
             builder.EntitySet<User>("Users");
-            builder.EntityType<User>().OrderBy().Filter().Select();
+            builder.EntityType<User>().OrderBy().Filter().Select().Expand();
 
             var edmModel = builder.GetEdmModel();
             return edmModel;
