@@ -14,7 +14,6 @@ using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.RestApi.odata.Articles.Controllers;
 using TestRestfulAPI.RestApi.odata.Customers.Services;
-using TestRestfulAPI.RestApi.odata.Controllers;
 
 namespace TestRestfulAPI.RestApi.odata.Customers.Controllers
 {
