@@ -28,6 +28,24 @@ namespace TestRestfulAPI
                     )
                 )
             );
+            GlobalServices.RoleService = new RoleService(
+                new RoleRepository(
+                    new ResourceContext(
+                        "Role",
+                        DbContextFactory.Get<UserEntities>("TEST_TESS_USER"),
+                        typeof(UserEntities)
+                    )
+                )
+            );
+            GlobalServices.PermissionService = new PermissionService(
+                new PermissionRepository(
+                    new ResourceContext(
+                        "Permission",
+                        DbContextFactory.Get<UserEntities>("TEST_TESS_USER"),
+                        typeof(UserEntities)
+                    )
+                )
+            );
             GlobalServices.ArticleService = new ArticleService(GlobalServices.UserService);
             GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
         }

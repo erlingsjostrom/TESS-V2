@@ -5,7 +5,6 @@ using System.Web.OData.Routing;
 using Microsoft.Web.Http;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
-using TestRestfulAPI.RestApi.odata.Articles.Controllers;
 using TestRestfulAPI.RestApi.odata.Users.Services;
 
 namespace TestRestfulAPI.RestApi.odata.Users.Controllers
@@ -17,14 +16,14 @@ namespace TestRestfulAPI.RestApi.odata.Users.Controllers
         private readonly UserService _userService = GlobalServices.UserService;
 
         // GET: {resource}/Users
-        [EnableQuery, HttpGet, ODataRoute()]
+        [EnableQuery, HttpGet, ODataRoute("()")]
         public IQueryable<User> Get()
         {
             return this._userService.All();
         }
 
         // GET: {resource}/Users({id})
-        [EnableQuery, HttpGet, ODataRoute("{id}")]
+        [EnableQuery, HttpGet, ODataRoute("({id})")]
         public User Get(int id)
         {
             return this._userService.Get(id);
