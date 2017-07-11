@@ -158,6 +158,7 @@
     <Compile Include="Infrastructure\Database\ResourceContext.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="RestApi\odata\Articles\Controllers\ArticleController.cs" />
+    <Compile Include="RestApi\odata\Articles\Controllers\ICrudController.cs" />
     <Compile Include="RestApi\odata\Articles\Exceptions\ArticleDoesNotExistException.cs" />
     <Compile Include="RestApi\odata\Articles\Repositories\ArticleRepository.cs" />
     <Compile Include="RestApi\odata\Articles\Services\ArticleService.cs" />
