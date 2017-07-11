@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
-using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
-using TestRestfulAPI.RestApi.odata.Users.Services;
+using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 
-namespace TestRestfulAPI.RestApi.odata.Users.Controllers
+namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Permissions")]
@@ -55,7 +52,7 @@ namespace TestRestfulAPI.RestApi.odata.Users.Controllers
 
         // DELETE: {resource}/Permissions({id})
         [EnableQuery, HttpDelete, ODataRoute("({id})")]
-        public void Deleted(int id)
+        public void Delete(int id)
         {
             this.ParseResource();
             this._permissionService.Delete(id);

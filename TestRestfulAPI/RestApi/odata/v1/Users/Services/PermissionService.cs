@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using System.Web.OData;
-using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.RestApi.odata.Users.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Users.Repositories;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.odata.Users.Services
+namespace TestRestfulAPI.RestApi.odata.v1.Users.Services
 {
     public class PermissionService
     {

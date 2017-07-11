@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.OData;
-using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.odata.Users.Exceptions;
+using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Users.Exceptions;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.odata.Users.Repositories
+namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 {
     public class RoleRepository : SingleBaseRepository<Role>, ISingleRepository<Role, int>
     {

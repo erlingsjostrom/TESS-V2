@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
-using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
+using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 
-namespace TestRestfulAPI.RestApi.odata.Users.Controllers
+namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Roles")]
@@ -53,7 +52,7 @@ namespace TestRestfulAPI.RestApi.odata.Users.Controllers
 
         // DELETE: {resource}/Roles({id})
         [EnableQuery, HttpDelete, ODataRoute("({id})")]
-        public void Deleted(int id)
+        public void Delete(int id)
         {
             this.ParseResource();
             this._roleService.Delete(id);
