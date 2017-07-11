@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.OData.Builder;
 using System.Web.Http;
 using System.Web.OData.Extensions;
+using Microsoft.OData.Edm;
 using TestRestfulAPI.Entities.TESS;
 
 namespace TestRestfulAPI
@@ -22,17 +23,24 @@ namespace TestRestfulAPI
             //);
             
             config.AddApiVersioning(o => o.AssumeDefaultVersionWhenUnspecified = true);
-            
+          
+            config.MapODataServiceRoute(
+                routeName: "odata",
+                routePrefix: "odata/{apiVersion}/{resource}/",
+                model: GetEdmModel());
 
+        }
+
+        private static IEdmModel GetEdmModel()
+        {
             ODataModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Article>("Articles");
             builder.EntityType<Article>().OrderBy().Filter().Select();
+            builder.EntitySet<Customer>("Customers");
+            builder.EntityType<Customer>().OrderBy().Filter().Select();
 
-            config.MapODataServiceRoute(
-                routeName: "Articles",
-                routePrefix: "odata/{apiVersion}/{resource}/",
-                model: builder.GetEdmModel());
-
+            var edmModel = builder.GetEdmModel();
+            return edmModel;
         }
     }
 }

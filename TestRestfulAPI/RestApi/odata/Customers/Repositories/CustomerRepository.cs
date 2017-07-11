@@ -6,7 +6,7 @@ using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Customers.Exceptions;
+using TestRestfulAPI.RestApi.odata.Customers.Exceptions;
 
 namespace TestRestfulAPI.RestApi.odata.Customers.Repositories
 {

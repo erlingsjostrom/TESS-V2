@@ -5,9 +5,8 @@ using System.Web;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Articles.Repositories;
-using TestRestfulAPI.RestApi.v1.Customers.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Services;
+using TestRestfulAPI.RestApi.odata.Customers.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Services;
 
 namespace TestRestfulAPI.RestApi.odata.Customers.Services
 {
