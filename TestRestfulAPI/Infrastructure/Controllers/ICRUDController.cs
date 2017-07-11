@@ -48,6 +48,6 @@ namespace TestRestfulAPI.Infrastructure.Controllers
         /// </summary>
         /// <param name="id">id to select</param>
         /// <returns>204 No Content</returns>
-        void Deleted(int id);
+        void Delete(int id);
     }
 }

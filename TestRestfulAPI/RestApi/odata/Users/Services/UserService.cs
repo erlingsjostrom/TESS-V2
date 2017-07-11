@@ -2,12 +2,13 @@
 using System.Web.OData;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
+using TestRestfulAPI.Infrastructure.Services;
 using TestRestfulAPI.RestApi.odata.Users.Repositories;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.Users.Services
 {
-    public class UserService
+    public class UserService : ISingleService<User, int>
     {
         private UserRepository _userRepository;
 

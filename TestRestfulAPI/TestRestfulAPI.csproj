@@ -207,15 +207,7 @@
     <Folder Include="RestApi\odata\Users\Events\" />
     <Folder Include="RestApi\odata\Users\Models\" />
     <Folder Include="RestApi\odata\Users\Requests\" />
-    <Folder Include="RestApi\odata\Customers\Events\" />
-    <Folder Include="RestApi\odata\Customers\Models\" />
-    <Folder Include="RestApi\odata\Customers\Requests\" />
-
-    <Folder Include="RestApi\v1\Default\Events\" />
-    <Folder Include="RestApi\v1\Default\Models\" />
-    <Folder Include="RestApi\v1\Default\Repositories\" />
-    <Folder Include="RestApi\v1\Default\Requests\" />
-    <Folder Include="RestApi\v1\Default\Services\" />
+    <Folder Include="RestApi\odata\v1\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

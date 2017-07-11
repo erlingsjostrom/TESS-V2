@@ -28,18 +28,6 @@ namespace TestRestfulAPI.RestApi.odata.Users.Repositories
             return result;
         }
 
-        public User GetByWindowsIdentityName(string windowsIdentity)
-        {
-            this.RefreshContext();
-            var user = this.All().Include("Roles").FirstOrDefault(u => u.WindowsUser == windowsIdentity);
-            if (user == null)
-            {
-                throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist.");
-            }
-            
-            return user;
-        }
-
         public User Create(User entity)
         {
             this.RefreshContext();
@@ -87,6 +75,18 @@ namespace TestRestfulAPI.RestApi.odata.Users.Repositories
 
             ResourceContext.Context.Set<User>().Remove(dbEntry);
             ResourceContext.Context.SaveChanges();
+        }
+
+        public User GetByWindowsIdentityName(string windowsIdentity)
+        {
+            this.RefreshContext();
+            var user = this.All().Include("Roles").FirstOrDefault(u => u.WindowsUser == windowsIdentity);
+            if (user == null)
+            {
+                throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist.");
+            }
+
+            return user;
         }
 
         private void RefreshContext()

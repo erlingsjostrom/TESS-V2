@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
 using TestRestfulAPI.Entities.TESS;
+using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.odata.Articles.Services;
 
@@ -13,11 +12,13 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Articles")]
+    [UserHasPermission("ArticleAccess")]
     public class ArticlesController : ResourceODataController, ICrudController<Article>
     {
         private readonly ArticleService _articleService = GlobalServices.ArticleService;
 
-        // GET: {resource}/Article()
+        // GET: {resource}/Articles()
+        [UserHasResourceAccess, UserHasPermission("Read")]
         [EnableQuery, HttpGet, ODataRoute()]
         public IQueryable<Article> Get()
         {
@@ -25,7 +26,8 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
             return this._articleService.All(this.Resource);
         }
 
-        // GET: {resource}/Article({id})
+        // GET: {resource}/Articles({id})
+        [UserHasResourceAccess, UserHasPermission("Read")]
         [EnableQuery, HttpGet, ODataRoute("({id})")]
         public Article Get(int id)
         {
@@ -33,7 +35,8 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
             return this._articleService.Get(this.Resource, id);
         }
 
-        // POST: {resource}/Article()
+        // POST: {resource}/Articles()
+        [UserHasResourceAccess, UserHasPermission("Write")]
         [EnableQuery, HttpPost, ODataRoute("()")]
         public IHttpActionResult Create([FromBody] Article article)
         {
@@ -41,7 +44,8 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
             return ODataCreated(this._articleService.Create(this.Resource, article), article.Id);
         }
 
-        // PUT: {resource}/Article({id})
+        // PUT: {resource}/Articles({id})
+        [UserHasResourceAccess, UserHasPermission("Modify")]
         [EnableQuery, HttpPut, ODataRoute("({id})")]
         public Article Update(int id, [FromBody] Article article)
         {
@@ -49,7 +53,8 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
             return this._articleService.Update(this.Resource, article);
         }
 
-        // PATCH: {resource}/Article({id})
+        // PATCH: {resource}/Articles({id})
+        [UserHasResourceAccess, UserHasPermission("Modify")]
         [EnableQuery, HttpPatch, ODataRoute("({id})")]
         public Article PartialUpdate(int id, [FromBody] Delta<Article> article)
         {
@@ -57,9 +62,10 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
             return this._articleService.PartialUpdate(this.Resource, id, article);
         }
 
-        // DELETE: {resource}/Article({id})
+        // DELETE: {resource}/Articles({id})
+        [UserHasResourceAccess, UserHasPermission("Remove")]
         [EnableQuery, HttpDelete, ODataRoute("({id})")]
-        public void Deleted(int id)
+        public void Delete(int id)
         {
             this.ParseResource();
             this._articleService.Delete(this.Resource, id);

@@ -6,6 +6,7 @@ using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.Infrastructure.Services;
 using TestRestfulAPI.RestApi.odata.Customers.Repositories;
 using TestRestfulAPI.RestApi.odata.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
@@ -13,25 +14,13 @@ using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.Customers.Services
 {
-    public class CustomerService
+    public class CustomerService : IService<Customer, int, string>
     {
         private readonly UserService _userService;
 
         public CustomerService(UserService userService)
         {
             this._userService = userService;
-        }
-
-        public IEnumerable<IQueryable<Customer>> All()
-        {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.All();
-        }
-
-        public ResultSet<IQueryable<Customer>> AllWithResourceContext()
-        {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.AllWithResourceContext();
         }
 
         public IQueryable<Customer> All(string resource)

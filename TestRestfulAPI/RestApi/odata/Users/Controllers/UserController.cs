@@ -4,14 +4,15 @@ using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
 using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
-using TestRestfulAPI.RestApi.odata.Articles.Controllers;
 using TestRestfulAPI.RestApi.odata.Users.Services;
 
 namespace TestRestfulAPI.RestApi.odata.Users.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Users")]
+    [UserHasRole("UserControl")]
     public class UserController : ResourceODataController, ICrudController<User>
     {
         private readonly UserService _userService = GlobalServices.UserService;
@@ -53,7 +54,7 @@ namespace TestRestfulAPI.RestApi.odata.Users.Controllers
 
         // DELETE: {resource}/Users({id})
         [EnableQuery, HttpDelete, ODataRoute("({id})")]
-        public void Deleted(int id)
+        public void Delete(int id)
         {
             this.ParseResource();
             this._userService.Delete(id);
