@@ -12,6 +12,8 @@ namespace TestRestfulAPI
         public static UserService UserService;
         public static ArticleService ArticleService;
         public static CustomerService CustomerService;
+        public static RoleService RoleService;
+        public static PermissionService PermissionService;
     }
 
     public static class GlobalVariables

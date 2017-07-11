@@ -175,6 +175,7 @@
     <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
     <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\RoleController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\PermissionController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\UserController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Entities\Permission.cs" />
     <Compile Include="RestApi\odata\v1\Users\Entities\Resource.cs" />
@@ -182,8 +183,16 @@
     <Compile Include="RestApi\odata\v1\Users\Entities\User.cs" />
     <Compile Include="RestApi\odata\v1\Users\Exceptions\UserAlreadyExistException.cs" />
     <Compile Include="RestApi\odata\v1\Users\Exceptions\UserDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionAlreadyExistException.cs" />
     <Compile Include="RestApi\odata\v1\Users\Repositories\UserRepository.cs" />
     <Compile Include="RestApi\odata\v1\Users\Services\UserService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\PermissionService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\RoleService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\PermissionRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\RoleRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
     <Compile Include="RestApi\odata\v1\Default\Controller\DefaultController.cs" />

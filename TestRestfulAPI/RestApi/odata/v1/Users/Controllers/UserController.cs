@@ -18,7 +18,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
         private readonly UserService _userService = GlobalServices.UserService;
 
         // GET: {resource}/Users
-        [EnableQuery, HttpGet, ODataRoute()]
+        [EnableQuery, HttpGet, ODataRoute("()")]
         public IQueryable<User> Get()
         {
             return this._userService.All();
