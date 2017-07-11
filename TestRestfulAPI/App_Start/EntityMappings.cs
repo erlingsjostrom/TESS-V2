@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using AutoMapper;
-using TestRestfulAPI.Entities.TESS;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 
 namespace TestRestfulAPI
 {

@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
-using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Entities;
 
 namespace TestRestfulAPI.Infrastructure.Controllers
 {
@@ -48,6 +48,6 @@ namespace TestRestfulAPI.Infrastructure.Controllers
         /// </summary>
         /// <param name="id">id to select</param>
         /// <returns>204 No Content</returns>
-        void Deleted(int id);
+        void Delete(int id);
     }
 }

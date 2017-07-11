@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using TestRestfulAPI.Entities.User;
+﻿using System.Web.Http;
+using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.RestApi.odata.Articles.Services;
-using TestRestfulAPI.RestApi.odata.Users.Repositories;
-using TestRestfulAPI.RestApi.odata.Users.Services;
-using TestRestfulAPI.RestApi.odata.Customers.Services;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Services;
+using TestRestfulAPI.RestApi.odata.v1.Customers.Services;
+using TestRestfulAPI.RestApi.odata.v1.Users.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Users.Services;
+
 namespace TestRestfulAPI
 {
     public static class Services

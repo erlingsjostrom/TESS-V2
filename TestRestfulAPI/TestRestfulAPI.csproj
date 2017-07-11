@@ -145,7 +145,16 @@
     <Compile Include="Infrastructure\Authorization\Attributes\UserDoesNotHaveResourceAccessException.cs" />
     <Compile Include="Infrastructure\Authorization\Attributes\UserHasPermissionAttribute.cs" />
     <Compile Include="Infrastructure\Authorization\Attributes\UserHasResourceAccessAttribute.cs" />
+    <Compile Include="Infrastructure\Contexts\TESSEntities.cs" />
+    <Compile Include="Infrastructure\Contexts\UserEntities.cs" />
     <Compile Include="Infrastructure\Database\DbContextFactory.cs" />
+    <Compile Include="Infrastructure\Database\Seeds\ArticleSeeder.cs" />
+    <Compile Include="Infrastructure\Database\Seeds\CustomerSeeder.cs" />
+    <Compile Include="Infrastructure\Database\Seeds\UserSeeder.cs" />
+    <Compile Include="Infrastructure\Entities\BaseEntity.cs" />
+    <Compile Include="Infrastructure\Entities\BaseEntityDto.cs" />
+    <Compile Include="Infrastructure\Entities\NamedEntity.cs" />
+    <Compile Include="Infrastructure\Entities\NamedEntityDto.cs" />
     <Compile Include="Infrastructure\Exceptions\AlreadyExistException.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
@@ -159,40 +168,46 @@
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="Infrastructure\Services\ISingleService.cs" />
-    <Compile Include="RestApi\odata\Articles\Controllers\ArticleController.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="Infrastructure\Controllers\ICrudController.cs" />
-    <Compile Include="RestApi\odata\Articles\Exceptions\ArticleDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\Articles\Repositories\ArticleRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Entities\Article.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Exceptions\ArticleDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Repositories\ArticleRepository.cs" />
     <Compile Include="Infrastructure\Repositories\IRepository.cs" />
-    <Compile Include="RestApi\odata\Articles\Services\ArticleService.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Services\ArticleService.cs" />
     <Compile Include="Infrastructure\Exceptions\ResourceMissingException.cs" />
     <Compile Include="Infrastructure\Controllers\ResourceODataController.cs" />
     <Compile Include="Infrastructure\Services\IService.cs" />
-    <Compile Include="RestApi\odata\Customers\Controllers\CustomerController.cs" />
-    <Compile Include="RestApi\odata\Customers\Exceptions\CustomerAlreadyExistException.cs" />
-    <Compile Include="RestApi\odata\Customers\Exceptions\CustomerDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\Customers\Repositories\CustomerRepository.cs" />
-    <Compile Include="RestApi\odata\Customers\Services\CustomerService.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Controllers\CustomerController.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Entities\Customer.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Exceptions\CustomerAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Exceptions\CustomerDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Repositories\CustomerRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Services\CustomerService.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
     <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
-    <Compile Include="RestApi\odata\Users\Controllers\PermissionController.cs" />
-    <Compile Include="RestApi\odata\Users\Controllers\RoleController.cs" />
-    <Compile Include="RestApi\odata\Users\Controllers\UserController.cs" />
-    <Compile Include="RestApi\odata\Users\Exceptions\UserAlreadyExistException.cs" />
-    <Compile Include="RestApi\odata\Users\Exceptions\UserDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\Users\Exceptions\RoleAlreadyExistException.cs" />
-    <Compile Include="RestApi\odata\Users\Exceptions\RoleDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\Users\Exceptions\PermissionDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\Users\Exceptions\PermissionAlreadyExistException.cs" />
-    <Compile Include="RestApi\odata\Users\Repositories\PermissionRepository.cs" />
-    <Compile Include="RestApi\odata\Users\Repositories\RoleRepository.cs" />
-    <Compile Include="RestApi\odata\Users\Repositories\UserRepository.cs" />
-    <Compile Include="RestApi\odata\Users\Services\PermissionService.cs" />
-    <Compile Include="RestApi\odata\Users\Services\RoleService.cs" />
-    <Compile Include="RestApi\odata\Users\Services\UserService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\RoleController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\PermissionController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\UserController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\Permission.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\Resource.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\Role.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\User.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\UserAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\UserDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\UserRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\UserService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\PermissionService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\RoleService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\PermissionRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\RoleRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
-    <Compile Include="RestApi\odata\Default\Controller\DefaultController.cs" />
+    <Compile Include="RestApi\odata\v1\Default\Controller\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -210,31 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Helpers\" />
-    <Folder Include="RestApi\odata\Articles\Models\" />
-    <Folder Include="RestApi\odata\Customers\Events\" />
-    <Folder Include="RestApi\odata\Customers\Models\" />
-    <Folder Include="RestApi\odata\Customers\Requests\" />
-    <Folder Include="RestApi\odata\Users\Events\" />
-    <Folder Include="RestApi\odata\Users\Models\" />
-    <Folder Include="RestApi\odata\Users\Requests\" />
-    <Folder Include="RestApi\v1\Default\Events\" />
-    <Folder Include="RestApi\v1\Default\Models\" />
-    <Folder Include="RestApi\v1\Default\Repositories\" />
-    <Folder Include="RestApi\v1\Default\Requests\" />
-    <Folder Include="RestApi\v1\Default\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestRestfulAPI.Entities.TESS\TestRestfulAPI.Entities.TESS.csproj">
-      <Project>{0921d540-77fe-4f37-a22e-50b405b07452}</Project>
-      <Name>TestRestfulAPI.Entities.TESS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestRestfulAPI.Entities.User\TestRestfulAPI.Entities.User.csproj">
-      <Project>{4dc44ee2-b234-4c85-97ab-0ff274279073}</Project>
-      <Name>TestRestfulAPI.Entities.User</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

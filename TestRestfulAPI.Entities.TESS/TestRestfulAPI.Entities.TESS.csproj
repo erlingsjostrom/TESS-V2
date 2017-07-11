@@ -67,16 +67,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Article.cs" />
-    <Compile Include="Customer.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="TESSEntities.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestRestfulAPI.Entities.User\TestRestfulAPI.Entities.User.csproj">
-      <Project>{4DC44EE2-B234-4C85-97AB-0FF274279073}</Project>
-      <Name>TestRestfulAPI.Entities.User</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

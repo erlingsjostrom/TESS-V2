@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Web.OData;
-using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Entities;
 
 namespace TestRestfulAPI.Infrastructure.Repositories
 {
