@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Web.OData;
 using TestRestfulAPI.Entities.User;
-using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.Users.Exceptions;
+using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.Users.Repositories
 {
@@ -41,39 +42,56 @@ namespace TestRestfulAPI.RestApi.odata.Users.Repositories
 
         public User Create(User entity)
         {
+            this.RefreshContext();
             var user = this.All().FirstOrDefault(u => u.WindowsUser == entity.WindowsUser);
             if (user != null)
             {
                 throw new UserAlreadyExistException("User with Windows identity " + entity.WindowsUser + " does already exist.");
             }
             ResourceContext.Context.Set<User>().Add(entity);
-            this.SetTimeStamps(ref entity);
             ResourceContext.Context.SaveChanges();
            
             return entity;
         }
+
         public User Update(User entity)
         {
-            //ResourceContext.Context.Entry(entity).State = EntityState.Modified;
-            //ResourceContext.Context.Set<User>().Attach(entity);
-            this.SetTimeStamps(ref entity);
-            ResourceContext.Context.SaveChanges();
-            ResourceContext.Context.Entry(entity).State = EntityState.Unchanged;
+            this.RefreshContext();
+            var dbEntry = this.Get(entity.Id);
 
-            return entity;
+            ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
+            ResourceContext.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+
+            ResourceContext.Context.SaveChanges();
+
+            return dbEntry;
+        }
+
+        public User PartialUpdate(int id, Delta<User> entity)
+        {
+            this.RefreshContext();
+            var dbEntry = this.Get(id);
+
+            entity.Patch(dbEntry);
+            ResourceContext.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+
+            ResourceContext.Context.SaveChanges();
+
+            return dbEntry;
+        }
+
+        public void Delete(int id)
+        {
+            this.RefreshContext();
+            var dbEntry = this.Get(id);
+
+            ResourceContext.Context.Set<User>().Remove(dbEntry);
+            ResourceContext.Context.SaveChanges();
         }
 
         private void RefreshContext()
         {
             this.ResourceContext.Refresh();
-        }
-        private void SetTimeStamps(ref User entity)
-        {
-            if (entity.CreatedAt == new DateTime())
-            {
-                entity.CreatedAt = DateTime.Now;
-            }
-            entity.UpdatedAt = DateTime.Now;
         }
     }
 }

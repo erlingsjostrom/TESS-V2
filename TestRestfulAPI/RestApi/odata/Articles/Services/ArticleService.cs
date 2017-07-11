@@ -4,32 +4,20 @@ using System.Web;
 using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.Infrastructure.Services;
 using TestRestfulAPI.RestApi.odata.Articles.Repositories;
 using TestRestfulAPI.RestApi.odata.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.Articles.Services
 {
-    public class ArticleService
+    public class ArticleService : IService<Article, int, string>
     {
         private readonly UserService _userService;
 
         public ArticleService(UserService userService)
         {
             this._userService = userService;
-        }
-
-        public IEnumerable<IQueryable<Article>> All()
-        {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.All();
-        }
-
-        public ResultSet<IQueryable<Article>> AllWithResourceContext()
-        {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.AllWithResourceContext();
         }
 
         public IQueryable<Article> All(string resource)

@@ -1,39 +1,63 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+using System.Web.OData.Routing;
+using Microsoft.Web.Http;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
+using TestRestfulAPI.RestApi.odata.Articles.Controllers;
 using TestRestfulAPI.RestApi.odata.Users.Services;
 
 namespace TestRestfulAPI.RestApi.odata.Users.Controllers
 {
-    [RoutePrefix("api/v1/users") /*Route("{action=Users}")*/]
-    public class UserController : ApiJsonController
+    [ApiVersion("1.0")]
+    [ODataRoutePrefix("Users")]
+    public class UserController : ResourceODataController, ICrudController<User>
     {
         private readonly UserService _userService = GlobalServices.UserService;
 
-        [HttpGet, Route("")]
-        public IHttpActionResult Users()
+        // GET: {resource}/Users
+        [EnableQuery, HttpGet, ODataRoute()]
+        public IQueryable<User> Get()
         {
-            return Json(this._userService.All(), "Users");
+            return this._userService.All();
         }
 
-        [HttpGet, Route("{id:int}")]
-        public IHttpActionResult Users(int id)
+        // GET: {resource}/Users({id})
+        [EnableQuery, HttpGet, ODataRoute("{id}")]
+        public User Get(int id)
         {
-            return Json(this._userService.Get(id), "User");
+            return this._userService.Get(id);
         }
 
-        [HttpPost, Route("")]
-        public IHttpActionResult Users(User user)
+        // POST: {resource}/Users()
+        [EnableQuery, HttpPost, ODataRoute("()")]
+        public IHttpActionResult Create(User entity)
         {
-            var result = this._userService.Create(user);
-            return JsonCreated(result, result.Id);
+            return ODataCreated(this._userService.Create(entity), entity.Id);
         }
 
-        [HttpPut, Route("{id:int}")]
-        public IHttpActionResult Users(int id, User user)
+        // PUT: {resource}/Users({id})
+        [EnableQuery, HttpPut, ODataRoute("({id})")]
+        public User Update(int id, User entity)
         {
-            var updatedArticle = this._userService.Update(user);
-            return Json(updatedArticle);
+            return this._userService.Update(entity);
+        }
+
+        // PATCH: {resource}/Users({id})
+        [EnableQuery, HttpPatch, ODataRoute("({id})")]
+        public User PartialUpdate(int id, Delta<User> entity)
+        {
+            return this._userService.PartialUpdate(id, entity);
+        }
+
+        // DELETE: {resource}/Users({id})
+        [EnableQuery, HttpDelete, ODataRoute("({id})")]
+        public void Deleted(int id)
+        {
+            this.ParseResource();
+            this._userService.Delete(id);
+            this.ODataDeleted(); // Set response headers
         }
     }
 }
