@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 
 namespace TestRestfulAPI.Infrastructure.Authorization
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Http;
 using AutoMapper;
-using TestRestfulAPI.RestApi.odata.Articles.Services;
-using TestRestfulAPI.RestApi.odata.Users.Services;
-using TestRestfulAPI.RestApi.odata.Customers.Services;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Services;
+using TestRestfulAPI.RestApi.odata.v1.Customers.Services;
+using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 
 namespace TestRestfulAPI
 {

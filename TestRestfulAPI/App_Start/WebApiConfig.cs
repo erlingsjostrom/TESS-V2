@@ -1,11 +1,10 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.OData.Builder;
-using System.Web.Http;
 using System.Web.OData.Extensions;
 using Microsoft.OData.Edm;
-using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 
 namespace TestRestfulAPI
 {

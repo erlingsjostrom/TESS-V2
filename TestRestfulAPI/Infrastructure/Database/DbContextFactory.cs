@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Configuration;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
-using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Entities.User;
+using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Helpers;
 
