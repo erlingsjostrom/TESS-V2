@@ -9,8 +9,6 @@ using System.Web.Http.Filters;
 using TestRestfulAPI.Infrastructure.Authorization;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Helpers;
-using TestRestfulAPI.RestApi.v1.Users.Exceptions;
-using TestRestfulAPI.RestApi.v1.Articles.Controllers;
 
 namespace TestRestfulAPI.Infrastructure.Filters
 {

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Http.ModelBinding;
+using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Articles.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Services;
+using TestRestfulAPI.RestApi.odata.Articles.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Services;
+using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.v1.Articles.Services
+namespace TestRestfulAPI.RestApi.odata.Articles.Services
 {
     public class ArticleService
     {
@@ -56,6 +54,18 @@ namespace TestRestfulAPI.RestApi.v1.Articles.Services
         {
             var articleRepository = this.GetArticleRepository();
             return articleRepository.Update(resource, article);
+        }
+
+        public Article PartialUpdate(string resource, int id, Delta<Article> article)
+        {
+            var articleRepository = this.GetArticleRepository();
+            return articleRepository.PartialUpdate(resource, id, article);
+        }
+
+        public void Delete(string resource, int id)
+        {
+            var articleRepository = this.GetArticleRepository();
+            articleRepository.Delete(resource, id);
         }
 
         private ArticleRepository GetArticleRepository()

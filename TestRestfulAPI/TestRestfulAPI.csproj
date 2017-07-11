@@ -157,7 +157,11 @@
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
     <Compile Include="Infrastructure\Database\ResourceContext.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
-    <Compile Include="RestApi\odata\Controllers\ArticlesController.cs" />
+    <Compile Include="RestApi\odata\Articles\Controllers\ArticleController.cs" />
+    <Compile Include="RestApi\odata\Articles\Controllers\ICrudController.cs" />
+    <Compile Include="RestApi\odata\Articles\Exceptions\ArticleDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\Articles\Repositories\ArticleRepository.cs" />
+    <Compile Include="RestApi\odata\Articles\Services\ArticleService.cs" />
     <Compile Include="RestApi\odata\Controllers\ResourceMissingException.cs" />
     <Compile Include="RestApi\odata\Controllers\ResourceODataController.cs" />
     <Compile Include="RestApi\odata\Customers\Controllers\CustomerController.cs" />
@@ -165,18 +169,13 @@
     <Compile Include="RestApi\odata\Customers\Exceptions\CustomerDoesNotExistException.cs" />
     <Compile Include="RestApi\odata\Customers\Repositories\CustomerRepository.cs" />
     <Compile Include="RestApi\odata\Customers\Services\CustomerService.cs" />
-    <Compile Include="RestApi\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
     <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
-    <Compile Include="RestApi\v1\Articles\Exceptions\ArticleDoesNotExistException.cs" />
-    <Compile Include="RestApi\v1\Articles\Repositories\ArticleRepository.cs" />
-    <Compile Include="RestApi\v1\Articles\Services\ArticleService.cs" />
-    <Compile Include="RestApi\v1\Customers\Controllers\CustomerController.cs" />
-    <Compile Include="RestApi\v1\Customers\Exceptions\CustomerDoesNotExistException.cs" />
-    <Compile Include="RestApi\v1\Customers\Exceptions\CustomerAlreadyExistException.cs" />
-    <Compile Include="RestApi\v1\Customers\Repositories\CustomerRepository.cs" />
-    <Compile Include="RestApi\v1\Customers\Services\CustomerService.cs" />
-    <Compile Include="RestApi\v1\Users\Controllers\UserController.cs" />
+    <Compile Include="RestApi\odata\Users\Controllers\UserController.cs" />
+    <Compile Include="RestApi\odata\Users\Exceptions\UserAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\Users\Exceptions\UserDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\Users\Repositories\UserRepository.cs" />
+    <Compile Include="RestApi\odata\Users\Services\UserService.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
     <Compile Include="RestApi\v1\Default\Controller\DefaultController.cs" />
@@ -184,10 +183,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestApi\v1\Users\Exceptions\UserDoesNotExistException.cs" />
-    <Compile Include="RestApi\v1\Users\Exceptions\UserAlreadyExistException.cs" />
-    <Compile Include="RestApi\v1\Users\Repositories\UserRepository.cs" />
-    <Compile Include="RestApi\v1\Users\Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -201,21 +196,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\Helpers\" />
+    <Folder Include="RestApi\odata\Articles\Models\" />
+    <Folder Include="RestApi\odata\Users\Events\" />
+    <Folder Include="RestApi\odata\Users\Models\" />
+    <Folder Include="RestApi\odata\Users\Requests\" />
     <Folder Include="RestApi\odata\Customers\Events\" />
     <Folder Include="RestApi\odata\Customers\Models\" />
     <Folder Include="RestApi\odata\Customers\Requests\" />
-    <Folder Include="RestApi\v1\Articles\Models\" />
-    <Folder Include="RestApi\v1\Customers\Events\" />
-    <Folder Include="RestApi\v1\Customers\Models\" />
-    <Folder Include="RestApi\v1\Customers\Requests\" />
+
     <Folder Include="RestApi\v1\Default\Events\" />
     <Folder Include="RestApi\v1\Default\Models\" />
     <Folder Include="RestApi\v1\Default\Repositories\" />
     <Folder Include="RestApi\v1\Default\Requests\" />
     <Folder Include="RestApi\v1\Default\Services\" />
-    <Folder Include="RestApi\v1\Users\Events\" />
-    <Folder Include="RestApi\v1\Users\Models\" />
-    <Folder Include="RestApi\v1\Users\Requests\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

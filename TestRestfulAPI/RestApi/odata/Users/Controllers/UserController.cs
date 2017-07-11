@@ -1,15 +1,9 @@
-﻿using System.IO;
-using System.Web;
-using System.Web.Http;
-using System.Collections.Generic;
+﻿using System.Web.Http;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Controllers;
-using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Services;
+using TestRestfulAPI.RestApi.odata.Users.Services;
 
-namespace TestRestfulAPI.RestApi.v1.Users.Controllers
+namespace TestRestfulAPI.RestApi.odata.Users.Controllers
 {
     [RoutePrefix("api/v1/users") /*Route("{action=Users}")*/]
     public class UserController : ApiJsonController

@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using TestRestfulAPI.Infrastructure.Exceptions;
 
-namespace TestRestfulAPI.RestApi.v1.Users.Exceptions
+namespace TestRestfulAPI.RestApi.odata.Users.Exceptions
 {
     [Serializable]
     internal class UserAlreadyExistException : AlreadyExistException

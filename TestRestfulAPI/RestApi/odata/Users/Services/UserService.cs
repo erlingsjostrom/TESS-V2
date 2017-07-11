@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.RestApi.v1.Users.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Repositories;
 
-namespace TestRestfulAPI.RestApi.v1.Users.Services
+namespace TestRestfulAPI.RestApi.odata.Users.Services
 {
     public class UserService
     {

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using TestRestfulAPI.Infrastructure.Exceptions;
-using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
-using TestRestfulAPI.RestApi.v1.Users.Exceptions;
+using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Exceptions;
 
-namespace TestRestfulAPI.RestApi.v1.Users.Repositories
+namespace TestRestfulAPI.RestApi.odata.Users.Repositories
 {
     public class UserRepository : SingleBaseRepository<User>, ISingleRepository<User, int>
     {
