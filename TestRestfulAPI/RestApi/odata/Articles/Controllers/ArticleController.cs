@@ -63,7 +63,7 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
         {
             this.ParseResource();
             this._articleService.Delete(this.Resource, id);
-            HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.NoContent;
+            this.ODataDeleted(); // Set response headers
         }
 
     }
