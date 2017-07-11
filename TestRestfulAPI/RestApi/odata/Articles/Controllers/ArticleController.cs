@@ -8,7 +8,6 @@ using Microsoft.Web.Http;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.odata.Articles.Services;
-using TestRestfulAPI.RestApi.odata.Controllers;
 
 namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
 {
@@ -64,7 +63,7 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
         {
             this.ParseResource();
             this._articleService.Delete(this.Resource, id);
-            HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.NoContent;
+            this.ODataDeleted(); // Set response headers
         }
 
     }

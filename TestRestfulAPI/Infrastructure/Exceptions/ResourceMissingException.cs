@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace TestRestfulAPI.RestApi.odata.Controllers
+namespace TestRestfulAPI.Infrastructure.Exceptions
 {
     [Serializable]
     internal class ResourceMissingException : Exception

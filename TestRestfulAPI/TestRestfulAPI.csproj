@@ -164,8 +164,8 @@
     <Compile Include="RestApi\odata\Articles\Exceptions\ArticleDoesNotExistException.cs" />
     <Compile Include="RestApi\odata\Articles\Repositories\ArticleRepository.cs" />
     <Compile Include="RestApi\odata\Articles\Services\ArticleService.cs" />
-    <Compile Include="RestApi\odata\Controllers\ResourceMissingException.cs" />
-    <Compile Include="RestApi\odata\Controllers\ResourceODataController.cs" />
+    <Compile Include="Infrastructure\Exceptions\ResourceMissingException.cs" />
+    <Compile Include="Infrastructure\Controllers\ResourceODataController.cs" />
     <Compile Include="RestApi\odata\Customers\Controllers\CustomerController.cs" />
     <Compile Include="RestApi\odata\Customers\Exceptions\CustomerAlreadyExistException.cs" />
     <Compile Include="RestApi\odata\Customers\Exceptions\CustomerDoesNotExistException.cs" />
@@ -180,7 +180,7 @@
     <Compile Include="RestApi\odata\Users\Services\UserService.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
-    <Compile Include="RestApi\v1\Default\Controller\DefaultController.cs" />
+    <Compile Include="RestApi\odata\Default\Controller\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,6 +205,10 @@
     <Folder Include="RestApi\odata\Users\Events\" />
     <Folder Include="RestApi\odata\Users\Models\" />
     <Folder Include="RestApi\odata\Users\Requests\" />
+    <Folder Include="RestApi\odata\Customers\Events\" />
+    <Folder Include="RestApi\odata\Customers\Models\" />
+    <Folder Include="RestApi\odata\Customers\Requests\" />
+
     <Folder Include="RestApi\v1\Default\Events\" />
     <Folder Include="RestApi\v1\Default\Models\" />
     <Folder Include="RestApi\v1\Default\Repositories\" />

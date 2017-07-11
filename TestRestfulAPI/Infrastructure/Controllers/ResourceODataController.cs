@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.OData;
+using TestRestfulAPI.Infrastructure.Exceptions;
 
-namespace TestRestfulAPI.RestApi.odata.Controllers
+namespace TestRestfulAPI.Infrastructure.Controllers
 {
     public class ResourceODataController : ODataController
     {
@@ -31,10 +27,9 @@ namespace TestRestfulAPI.RestApi.odata.Controllers
             var location = HttpContext.Current.Request.Url.AbsoluteUri + "(" + id + ")";
             return Created(location, result);
         }
-        protected IEnumerable<string> ODataDeleted()
+        protected void ODataDeleted()
         {
             HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.NoContent;
-            return new List<string>();
         }
     }
 }
