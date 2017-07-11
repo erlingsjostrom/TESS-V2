@@ -65,6 +65,12 @@ namespace TestRestfulAPI.Infrastructure.Filters
                 statusCode = HttpStatusCode.NotFound;
                 errorCode = 7;
             }
+            else if (context.Exception is ResourceMissingException)
+            {
+                msg = "The resource is missing.";
+                statusCode = HttpStatusCode.BadRequest;
+                errorCode = 8;
+            }
             else
             {
                 msg = context.Exception.Message;

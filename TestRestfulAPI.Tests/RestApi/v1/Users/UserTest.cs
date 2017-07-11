@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using TestRestfulAPI.RestApi.v1.Users.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Repositories;
 
 namespace TestRestfulAPI.Tests.RestApi.v1.Users
 {
