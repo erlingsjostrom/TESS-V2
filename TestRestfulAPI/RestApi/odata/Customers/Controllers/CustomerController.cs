@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Http;
 using System.Web.OData;
@@ -11,7 +12,7 @@ using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.Infrastructure.Exceptions;
-using TestRestfulAPI.RestApi.v1.Articles.Controllers;
+using TestRestfulAPI.RestApi.odata.Articles.Controllers;
 using TestRestfulAPI.RestApi.odata.Customers.Services;
 using TestRestfulAPI.RestApi.odata.Controllers;
 
@@ -19,47 +20,64 @@ namespace TestRestfulAPI.RestApi.odata.Customers.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Customers")]
-    public class CustomerController : ResourceODataController
+    public class CustomerController : ResourceODataController, ICrudController<Customer>
     {
-        //private readonly CustomerService _customerService = GlobalServices.CustomerService;
+        private readonly CustomerService _customerService = GlobalServices.CustomerService;
 
+        // GET: {resource}/Customer()
         [UserHasResourceAccess]
         [UserHasPermission("Read")]
         [EnableQuery, HttpGet, ODataRoute()]
         public IQueryable<Customer> Get()
         {
             this.ParseResource();
-            return GlobalServices.CustomerService.All(this.Resource);
+            return this._customerService.All(this.Resource);
         }
 
-        // GET: {resource}/Customers({id})
+        // GET: {resource}/Customer({id})
         [UserHasResourceAccess]
         [UserHasPermission("Read")]
         [EnableQuery, HttpGet, ODataRoute("({id})")]
         public Customer Get(int id)
         {
             this.ParseResource();
-            return GlobalServices.CustomerService.Get(this.Resource, id);
+            return this._customerService.Get(this.Resource, id);
         }
 
-        // POST: {resource}/Customers
+        // POST: {resource}/Customer()
         [UserHasResourceAccess]
-        [UserHasPermission("Create")]
+        [UserHasPermission("Write")]
         [EnableQuery, HttpPost, ODataRoute("()")]
-        public Customer Create(Customer customer)
+        public IHttpActionResult Create([FromBody] Customer customer)
         {
             this.ParseResource();
-            return GlobalServices.CustomerService.Create(this.Resource, customer);
+            return ODataCreated(this._customerService.Create(this.Resource, customer), customer.Id);
         }
-        
-        // PUT: {resource}/Customers
+
         [UserHasResourceAccess]
         [UserHasPermission("Modify")]
-        [EnableQuery, HttpPut, ODataRoute("()")]
-        public Customer Update(Customer customer)
+        [EnableQuery, HttpPut, ODataRoute("({id})")]
+        public Customer Update(int id, [FromBody] Customer customer)
         {
             this.ParseResource();
-            return GlobalServices.CustomerService.Update(this.Resource, customer);
+            return this._customerService.Update(this.Resource, customer);
+        }
+
+        [UserHasResourceAccess]
+        [UserHasPermission("Modify")]
+        [EnableQuery, HttpPatch, ODataRoute("({id})")]
+        public Customer PartialUpdate(int id, [FromBody] Delta<Customer> customer)
+        {
+            this.ParseResource();
+            return this._customerService.PartialUpdate(this.Resource, id, customer);
+        }
+
+        [EnableQuery, HttpDelete, ODataRoute("({id})")]
+        public void Deleted(int id)
+        {
+            this.ParseResource();
+            this._customerService.Delete(this.Resource, id);
+            HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.NoContent;
         }
     }
 }

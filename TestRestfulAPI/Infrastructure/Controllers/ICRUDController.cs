@@ -1,10 +1,9 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
-using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Entities.User;
 
-namespace TestRestfulAPI.RestApi.odata.Articles.Controllers
+namespace TestRestfulAPI.Infrastructure.Controllers
 {
     public interface ICrudController<TEntity> where TEntity : BaseEntity
     {

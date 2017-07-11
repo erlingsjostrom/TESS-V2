@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Articles.Repositories;
-using TestRestfulAPI.RestApi.v1.Customers.Repositories;
-using TestRestfulAPI.RestApi.v1.Users.Services;
+using TestRestfulAPI.RestApi.odata.Customers.Repositories;
+using TestRestfulAPI.RestApi.odata.Users.Services;
+using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
+
 
 namespace TestRestfulAPI.RestApi.odata.Customers.Services
 {
@@ -52,6 +54,18 @@ namespace TestRestfulAPI.RestApi.odata.Customers.Services
         {
             var customerRepository = this.GetCustomerRepository();
             return customerRepository.Update(resource, customer);
+        }
+
+        public Customer PartialUpdate(string resource, int id, Delta<Customer> customer)
+        {
+            var customerRepository = this.GetCustomerRepository();
+            return customerRepository.PartialUpdate(resource, id, customer);
+        }
+
+        public void Delete(string resource, int id)
+        {
+            var customerRepository = this.GetCustomerRepository();
+            customerRepository.Delete(resource, id);
         }
 
         private CustomerRepository GetCustomerRepository()

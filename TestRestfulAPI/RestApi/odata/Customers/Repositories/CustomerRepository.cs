@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
-using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.v1.Customers.Exceptions;
+using TestRestfulAPI.RestApi.odata.Customers.Exceptions;
+using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.Customers.Repositories
 {
@@ -88,11 +90,35 @@ namespace TestRestfulAPI.RestApi.odata.Customers.Repositories
         {
             var results = GetAndValidateResource(resource);
 
-            results.Context.Set<Customer>().Attach(entity);
-            this.SetTimeStamps(ref entity);
+            var dbEntry = this.Get(resource, entity.Id);
+
+            results.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
+            results.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+
+            results.Context.SaveChanges();
+            return dbEntry;
+        }
+
+        public Customer PartialUpdate(string resource, int id, Delta<Customer> entity)
+        {
+            var results = GetAndValidateResource(resource);
+            var dbEntry = this.Get(resource, id);
+            entity.Patch(dbEntry);
+            results.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+
             results.Context.SaveChanges();
 
-            return entity;
+            return dbEntry;
+        }
+
+        public void Delete(string resource, int id)
+        {
+            var results = GetAndValidateResource(resource);
+
+            var dbEntry = this.Get(resource, id);
+
+            results.Context.Set<Customer>().Remove(dbEntry);
+            results.Context.SaveChanges();
         }
         private void SetTimeStamps(ref Customer entity)
         {

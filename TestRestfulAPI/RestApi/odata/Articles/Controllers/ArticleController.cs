@@ -6,6 +6,7 @@ using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
 using TestRestfulAPI.Entities.TESS;
+using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.odata.Articles.Services;
 using TestRestfulAPI.RestApi.odata.Controllers;
 
