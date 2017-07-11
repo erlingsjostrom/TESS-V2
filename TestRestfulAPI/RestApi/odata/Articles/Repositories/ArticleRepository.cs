@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.OData;
 using TestRestfulAPI.Entities.TESS;
@@ -15,31 +16,12 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Repositories
         {
         }
 
-        public IEnumerable<IQueryable<Article>> All()
-        {
-            var results = new List<IQueryable<Article>>();
-            foreach (var resourceContext in this.ResourceContexts)
-            {
-                results.Add(resourceContext.Context.Set<Article>());
-            }
-            return results; 
-        }
-
-        public ResultSet<IQueryable<Article>> AllWithResourceContext()
-        {
-            var results = new ResultSet<IQueryable<Article>>("Articles");
-            foreach (var resourceContext in this.ResourceContexts)
-            {
-                results.Add(resourceContext.Name, resourceContext.Context.Set<Article>());
-            }
-            return results;
-        }
-
         public IQueryable<Article> All(string resource)
         {
             var results = this.GetAndValidateResource(resource);
             return results.Context.Set<Article>();
         }
+
         public Article Get(string resource, int id)
         {
             var results = GetAndValidateResource(resource);
@@ -52,22 +34,6 @@ namespace TestRestfulAPI.RestApi.odata.Articles.Repositories
             }
 
             return article;
-        }
-
-        public ResultSet<Article> GetWithResourceContext(string resource, int id)
-        {
-            var results = GetAndValidateResource(resource);
-
-            var article = results
-                .Context.Set<Article>()
-                .FirstOrDefault(a => a.Id == id);
-            if (article == null)
-            {
-                throw new ArticleDoesNotExistException("Article with ID " + id + " does not exist");
-            }
-            var result = new ResultSet<Article>("Articles");
-            result.Add(resource, article);
-            return result;
         }
 
         public Article Create(string resource, Article entity)

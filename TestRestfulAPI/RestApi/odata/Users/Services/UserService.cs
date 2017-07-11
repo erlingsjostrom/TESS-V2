@@ -1,7 +1,9 @@
 ﻿using System.Linq;
+using System.Web.OData;
 using TestRestfulAPI.Entities.User;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.RestApi.odata.Users.Repositories;
+using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.Users.Services
 {
@@ -37,6 +39,16 @@ namespace TestRestfulAPI.RestApi.odata.Users.Services
         public User Update(User user)
         {
             return this._userRepository.Update(user);
+        }
+
+        public User PartialUpdate(int id, Delta<User> user)
+        {
+            return this._userRepository.PartialUpdate(id, user);
+        }
+
+        public void Delete(int id)
+        {
+            this._userRepository.Delete(id);
         }
 
         private void InitRepository()

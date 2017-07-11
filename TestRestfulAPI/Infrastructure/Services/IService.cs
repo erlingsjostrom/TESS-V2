@@ -2,9 +2,9 @@ using System.Linq;
 using System.Web.OData;
 using TestRestfulAPI.Entities.User;
 
-namespace TestRestfulAPI.Infrastructure.Repositories
+namespace TestRestfulAPI.Infrastructure.Services
 {
-    public interface IRepository<TEntity, in TKey, in TResource> where TEntity : BaseEntity
+    public interface IService<TEntity, in TKey, in TResource> where TEntity : BaseEntity
     {
         IQueryable<TEntity> All(TResource resource);
         TEntity Get(TResource resource, TKey id);

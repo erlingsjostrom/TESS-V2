@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.OData.Extensions;
 using Microsoft.OData.Edm;
 using TestRestfulAPI.Entities.TESS;
+using TestRestfulAPI.Entities.User;
 
 namespace TestRestfulAPI
 {
@@ -38,6 +39,8 @@ namespace TestRestfulAPI
             builder.EntityType<Article>().OrderBy().Filter().Select();
             builder.EntitySet<Customer>("Customers");
             builder.EntityType<Customer>().OrderBy().Filter().Select();
+            builder.EntitySet<User>("Users");
+            builder.EntityType<User>().OrderBy().Filter().Select();
 
             var edmModel = builder.GetEdmModel();
             return edmModel;
