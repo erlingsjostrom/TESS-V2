@@ -23,7 +23,7 @@ namespace TestRestfulAPI
             //);
             
             config.AddApiVersioning(o => o.AssumeDefaultVersionWhenUnspecified = true);
-          
+            
             config.MapODataServiceRoute(
                 routeName: "odata",
                 routePrefix: "odata/{apiVersion}/{resource}/",
@@ -35,15 +35,15 @@ namespace TestRestfulAPI
         {
             ODataModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Article>("Articles");
-            builder.EntityType<Article>().OrderBy().Filter().Select();
+            builder.EntityType<Article>().OrderBy().Filter().Select().Expand();
             builder.EntitySet<Customer>("Customers");
-            builder.EntityType<Customer>().OrderBy().Filter().Select();
+            builder.EntityType<Customer>().OrderBy().Filter().Select().Expand();
             builder.EntitySet<User>("Users");
-            builder.EntityType<User>().OrderBy().Filter().Select();
+            builder.EntityType<User>().OrderBy().Filter().Select().Expand();
             builder.EntitySet<Role>("Roles");
-            builder.EntityType<Role>().OrderBy().Filter().Select();
+            builder.EntityType<Role>().OrderBy().Filter().Select().Expand();
             builder.EntitySet<Permission>("Permissions");
-            builder.EntityType<Role>().OrderBy().Filter().Select();
+            builder.EntityType<Role>().OrderBy().Filter().Select().Expand();
 
             var edmModel = builder.GetEdmModel();
             return edmModel;
