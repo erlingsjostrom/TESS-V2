@@ -14,17 +14,11 @@ namespace TestRestfulAPI.Infrastructure.Repositories
         public SingleBaseRepository(ResourceContext resourceContext)
         {
             this.ResourceContext = resourceContext;
-            this.DisableLazyLoading();
         }
 
         public void Dispose()
         {
             this.ResourceContext.Context.Dispose();
-        }
-
-        private void DisableLazyLoading()
-        {
-            this.ResourceContext.Context.Configuration.LazyLoadingEnabled = false;     
         }
     }
 }

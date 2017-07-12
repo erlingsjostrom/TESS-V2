@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
+using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
@@ -11,6 +12,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Permissions")]
+    [UserHasRole("UserControl")]
     public class PermissionController : ResourceODataController, ICrudController<Permission>
     {
         private readonly PermissionService _permissionService = GlobalServices.PermissionService;

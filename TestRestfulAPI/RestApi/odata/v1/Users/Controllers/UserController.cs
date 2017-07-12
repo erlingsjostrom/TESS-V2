@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
@@ -59,6 +62,20 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
             this.ParseResource();
             this._userService.Delete(id);
             this.ODataDeleted(); // Set response headers
+        }
+
+        // PUT: {resource}/Users({userId})/Roles({roleId})
+        [EnableQuery, HttpPut, ODataRoute("({userId})/Roles({roleId})")]
+        public IHttpActionResult AddRole(int userId, int roleId)
+        {
+            return ODataCreated(this._userService.AddRole(userId, roleId), userId);
+        }
+
+        // DELETE {resource}/Users({userId})/Roles({roleId})
+        [EnableQuery, HttpDelete, ODataRoute("({userId})/Roles({roleId})")]
+        public IHttpActionResult RemoveRole(int userId, int roleId)
+        {
+            return ODataCreated(this._userService.RemoveRole(userId, roleId), userId);
         }
     }
 }

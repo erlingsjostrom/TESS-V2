@@ -43,7 +43,7 @@ namespace TestRestfulAPI
             builder.EntitySet<Role>("Roles");
             builder.EntityType<Role>().OrderBy().Filter().Select().Expand();
             builder.EntitySet<Permission>("Permissions");
-            builder.EntityType<Role>().OrderBy().Filter().Select().Expand();
+            builder.EntityType<Permission>().OrderBy().Filter().Select().Expand();
 
             var edmModel = builder.GetEdmModel();
             return edmModel;

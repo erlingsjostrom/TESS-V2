@@ -15,6 +15,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
     public class CustomerService : IService<Customer, int, string>
     {
         private readonly UserService _userService;
+        private CustomerRepository _customerRepository;
 
         public CustomerService(UserService userService)
         {
@@ -23,39 +24,39 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
 
         public IQueryable<Customer> All(string resource)
         {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.All(resource);
+            this.InitRepository();
+            return _customerRepository.All(resource);
         }
 
         public Customer Get(string resource, int id)
         {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.Get(resource, id);
+            this.InitRepository();
+            return _customerRepository.Get(resource, id);
         }
         public Customer Create(string resource, Customer customer)
         {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.Create(resource, customer);
+            this.InitRepository();
+            return _customerRepository.Create(resource, customer);
         }
         public Customer Update(string resource, Customer customer)
         {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.Update(resource, customer);
+            this.InitRepository();
+            return _customerRepository.Update(resource, customer);
         }
 
         public Customer PartialUpdate(string resource, int id, Delta<Customer> customer)
         {
-            var customerRepository = this.GetCustomerRepository();
-            return customerRepository.PartialUpdate(resource, id, customer);
+            this.InitRepository();
+            return _customerRepository.PartialUpdate(resource, id, customer);
         }
 
         public void Delete(string resource, int id)
         {
-            var customerRepository = this.GetCustomerRepository();
-            customerRepository.Delete(resource, id);
+            this.InitRepository();
+            _customerRepository.Delete(resource, id);
         }
 
-        private CustomerRepository GetCustomerRepository()
+        private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
             var user = this._userService.GetByWindowsIdentityName(userName);
@@ -69,7 +70,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
                     )
                 ).ToList();
 
-            return new CustomerRepository(resourceContexts);
+            this._customerRepository = new CustomerRepository(resourceContexts);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Services
     public class ArticleService : IService<Article, int, string>
     {
         private readonly UserService _userService;
+        private ArticleRepository _articleRepository;
 
         public ArticleService(UserService userService)
         {
@@ -22,41 +23,41 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Services
 
         public IQueryable<Article> All(string resource)
         {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.All(resource);
+            this.InitRepository();
+            return _articleRepository.All(resource);
         }
 
         public Article Get(string resource, int id)
         {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.Get(resource, id);
+            this.InitRepository();
+            return _articleRepository.Get(resource, id);
         }
 
         public Article Create(string resource, Article article)
         {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.Create(resource, article);
+            this.InitRepository();
+            return _articleRepository.Create(resource, article);
         }
 
         public Article Update(string resource, Article article)
         {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.Update(resource, article);
+            this.InitRepository();
+            return _articleRepository.Update(resource, article);
         }
 
         public Article PartialUpdate(string resource, int id, Delta<Article> article)
         {
-            var articleRepository = this.GetArticleRepository();
-            return articleRepository.PartialUpdate(resource, id, article);
+            this.InitRepository();
+            return _articleRepository.PartialUpdate(resource, id, article);
         }
 
         public void Delete(string resource, int id)
         {
-            var articleRepository = this.GetArticleRepository();
-            articleRepository.Delete(resource, id);
+            this.InitRepository();
+            _articleRepository.Delete(resource, id);
         }
 
-        private ArticleRepository GetArticleRepository()
+        private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
             var user = this._userService.GetByWindowsIdentityName(userName);
@@ -70,7 +71,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Services
                                             )
                                         ).ToList();
 
-            return new ArticleRepository(resourceContexts);
+            this._articleRepository = new ArticleRepository(resourceContexts);
         }
 
         
