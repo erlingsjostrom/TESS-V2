@@ -1,0 +1,17 @@
+@import "users.table.scss";
+
+.edit-table-container {
+  margin: 1em 0;
+}
+.edit-changes-wrapper{
+  width: 100%;
+  margin-top: 1em;
+  .edit-changes-container {
+    display: inline-block;
+  }
+}
+
+.edit-active {
+  padding: 3px;
+  border: 1px solid $success;
+}
