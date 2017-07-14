@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { ModalService, ModalSize, ModalType } from '../../../../shared/modals/modal.service';
 import { IUser, UserService } from '../../../../shared/users/user.service';
 
 
@@ -12,13 +13,15 @@ import { IUser, UserService } from '../../../../shared/users/user.service';
 export class Users {
   state = {
     edited: false,
-    loading: true
+    loading: true,
+    editMode: false,
   }
 
   content: DataTableList<IUser> = new DataTableList<IUser>();
   
   constructor(
     private userService: UserService,
+    private modalService: ModalService
   ) {
     this.userService.get().subscribe((users) => {
       this.content.load(users);
@@ -34,47 +37,52 @@ export class Users {
     this.editTimeout = setTimeout(() => {
       this.editedIds.push(event.Id);
       this.state.edited = this.content.isModified();
-      console.log("Modified row: ", event.index);
     }, 800)
   }
 
   onEditComplete(event){
     clearTimeout(this.editTimeout);
     this.state.edited = this.content.isModified();
-    console.log("Modified Id: ", event.data.Id);
+  }
+
+  toggleEditMode() {
+    if (this.state.edited){
+      this.modalService.showConfirmModal(
+        'Undo changes?', 
+        'Edited content exists, do you really want to undo these changes?', 
+        () => console.log("YEY CONTINUE!!"),
+        'Undo changes',
+        'Keep changes',
+        ModalSize.Large
+      );
+      return;
+    } 
+    this.state.editMode = !this.state.editMode;
   }
 
 }
-export interface Identifiable {
-  Id: number
-  test
-}
-export class DataTableList<Identifiable> {
-  data: Identifiable[] = [];
-  private rawData: Identifiable[] = [];
+
+export class DataTableList<T> {
+  data: T[] = [];
+  private rawData: T[] = [];
   
-  load(data: Identifiable[]) {
+  load(data: T[]) {
     this.data = data;
     this.rawData = this.cloneData(data);
   }
 
-  modified(ids?: number[]): Identifiable[] {
-    if (ids) {
-      const modifies = this.data.filter((item) => item.test )
-    } else {
-      return this.data.filter((item, index: number) => {
-        return !(JSON.stringify(item) === JSON.stringify(this.rawData[index]));
-      });
-    }
+  modified(): T[] {
+    return this.data.filter((item, index: number) => {
+      return !(JSON.stringify(item) === JSON.stringify(this.rawData[index]));
+    });
   }
 
-  isModified(ids?: number[]): boolean {
-    return this.modified(id).length > 0;
+  isModified(): boolean {
+    return this.modified().length > 0;
   }
   
-
-  private cloneData(data: Identifiable[]): Identifiable[] {
-    let clonedData: Identifiable[] = [];
+  private cloneData(data: T[]): T[] {
+    let clonedData: T[] = [];
     data.forEach(item => {
       clonedData.push(Object.assign({}, JSON.parse(JSON.stringify(item))));
     });

@@ -5,34 +5,45 @@
       <div class="col-12">
          <form class="form-inline">
             <div class="form-group">
-                <label class="sr-only" for="exampleInputAmount">Filter</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-search"></i>
-                  </div>
-                  <input #filterTable type="text" class="form-control" placeholder="Filter..">
+              <label class="sr-only" for="exampleInputAmount">Filter</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-search"></i>
                 </div>
+                <input #filterTable type="text" class="form-control" placeholder="Filter..">
               </div>
+            </div>
           </form>
           <p-dataTable  (onEdit)="onEdit($event)"  (onEditComplete)="onEditComplete($event)" [value]="content.data"  
-                        [globalFilter]="filterTable" tableStyleClass="ng-dataTable" [editable]="true"
-                        [loading]="state.loading" >
+                        [globalFilter]="filterTable" tableStyleClass="ng-dataTable" [editable]="state.editMode"
+                        [rows]="15" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" 
+                        [loading]="state.loading">
               <p-column field="Id" header="Id" [sortable]="true" [editable]="false" [style]="{'width': '80px'}"></p-column>
               <p-column field="Name" header="Name" [sortable]="true" [editable]="true"></p-column>
               <p-column field="WindowsUser" header="Windows User" [sortable]="true" [editable]="true"></p-column>
+              <!--<p-column field="Roles" header="Roles" [sortable]="true" [editable]="true">
+                <ng-template let-col let-user="rowData" pTemplate="body">
+                    <span>{{user[col.field].Id}}</span>
+                </ng-template>
+               
+              </p-column>-->
           </p-dataTable>
       </div>
-      <div class="col-12 row justify-content-end mt-3">
-        <div class="col-3 row justify-content-end">
-          <div class="col-9 row align-items-center">
-            <span class="text-extra" [hidden]="!state.edited">Remember to save your changes</span>
-          </div>
-          <div class="col-3">
-            <button class="btn btn-success-dark save" [disabled]="!state.edited">
-              <i class="fa fa-save"></i>
-              <strong>Save</strong>
+      <div class="col-12 row mt-3">
+        <div class="col-6">
+            <button (click)="toggleEditMode()" class="btn" [hidden]="!state.editMode">
+              <i class="ion-ios-undo"></i>
+              <strong>Exit edit mode</strong>
             </button>
-          </div>
+            <button (click)="toggleEditMode()" class="btn" [hidden]="state.editMode"> 
+              <i class="fa fa-pencil-square-o"></i>
+              <strong>Edit</strong>
+            </button>
+             <button class="btn btn-success-dark save" [disabled]="!state.edited" [hidden]="!state.editMode">
+              <i class="fa fa-save"></i>
+              <strong>Save changes</strong>
+            </button>
+            <span class="text-extra ml-2" [hidden]="!state.edited">Remember to save your changes</span>
         </div>
       </div>
     </ba-card>

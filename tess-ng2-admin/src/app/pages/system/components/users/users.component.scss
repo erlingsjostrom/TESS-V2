@@ -19,6 +19,18 @@ div.ui-datatable{
   .ui-datatable-loading-content {
     top: 55%;
   }
+  .ui-paginator-bottom {
+    background-color: $primary-dark;
+    a.ui-paginator-element {
+      color: $default-text;
+      cursor: pointer;
+      &:hover {
+        background-color: $info-light-hover;
+        color: $primary-dark;
+        cursor: pointer !important;
+      }
+    }
+  }
   table.ng-dataTable {
     border-color: $border;
     // TableHead
@@ -35,7 +47,7 @@ div.ui-datatable{
     }
     tr.ui-widget-content{
       color: $default-text;
-
+      cursor: text;
       &.ui-datatable-even {
         background-color: darken($info-dark, 5%);
       }

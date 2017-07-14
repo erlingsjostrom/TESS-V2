@@ -1,5 +1,29 @@
 
 // Buttons
+button.btn {
+  &:hover {
+    transform: none;
+    background-color: lighten($normal, 5%);
+  }
+  &:disabled {
+    cursor: default;
+  }
+  
+  &.btn-primary:hover {
+    background-color: lighten($primary, 5%);
+  }
+  &.btn-primary-dark:hover {
+    background-color: lighten($primary-dark, 5%);
+  }
+  &.btn-success:hover {
+    background-color: lighten($success, 5%);
+  }
+  &.btn-success-dark:hover {
+    background-color: lighten($success-dark, 5%);
+  }
+  
+}
+
 button.btn.btn-primary-dark {
   background-color: $primary-dark;
   color: $default-text;
