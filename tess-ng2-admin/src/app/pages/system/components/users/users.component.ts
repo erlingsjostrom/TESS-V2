@@ -1,91 +1,83 @@
-import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { IUser, UserService } from '../../../../shared/users/user.service';
-import { ArrayJoinRenderComponent } from './array-join-render.component';
 
 
 @Component({
   selector: 'users-component',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class Users {
-  editEnable: boolean = false;
-  source: LocalDataSource = new LocalDataSource();
+  state = {
+    edited: false,
+    loading: true
+  }
 
-  settings = {
-    // hideSubHeader: true,
-    actions: {
-      edit: false,
-      delete: false,
-    },
-    add: {
-      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-      createButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="ion-edit"></i>',
-      saveButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true
-    },
-    columns: {
-      Id: {
-        title: 'ID',
-        type: 'text',
-        width: '50px',
-        editable: false,
-      },
-      Name: {
-        title: 'Name',
-        type: 'text',
-      },
-      WindowsUser: {
-        title: 'Windows User',
-        type: 'text'
-      },
-      // Roles : {
-      //   title: 'Roles',
-      //   type: 'custom',
-      //   renderComponent: ArrayJoinRenderComponent,
-      // }
-      // CreatedAt: {
-      //   title: 'Created at',
-      //   type: 'date'
-      // },
-      // UpdatedAt: {
-      //   title: 'Updated at',
-      //   type: 'date'
-      // }
-    }
-  };
-
-  constructor(private userService: UserService) {
-    console.log(this.source);
+  content: DataTableList<IUser> = new DataTableList<IUser>();
+  
+  constructor(
+    private userService: UserService,
+  ) {
     this.userService.get().subscribe((users) => {
-      this.source.load(users);
+      this.content.load(users);
+      this.state.loading = false;
     })
   }
+  
+  private editTimeout;
+  private editedIds: number[] = [];
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
+  onEdit(event){
+    clearTimeout(this.editTimeout);
+    this.editTimeout = setTimeout(() => {
+      this.editedIds.push(event.Id);
+      this.state.edited = this.content.isModified();
+      console.log("Modified row: ", event.index);
+    }, 800)
+  }
+
+  onEditComplete(event){
+    clearTimeout(this.editTimeout);
+    this.state.edited = this.content.isModified();
+    console.log("Modified Id: ", event.data.Id);
+  }
+
+}
+export interface Identifiable {
+  Id: number
+  test
+}
+export class DataTableList<Identifiable> {
+  data: Identifiable[] = [];
+  private rawData: Identifiable[] = [];
+  
+  load(data: Identifiable[]) {
+    this.data = data;
+    this.rawData = this.cloneData(data);
+  }
+
+  modified(ids?: number[]): Identifiable[] {
+    if (ids) {
+      const modifies = this.data.filter((item) => item.test )
     } else {
-      event.confirm.reject();
+      return this.data.filter((item, index: number) => {
+        return !(JSON.stringify(item) === JSON.stringify(this.rawData[index]));
+      });
     }
   }
 
-  onEditToggle() {
-    this.editEnable = !this.editEnable;
-    // this.settings.hideSubHeader = !this.settings.hideSubHeader;
-    this.settings.actions.edit = !this.settings.actions.edit;
-    this.settings.actions.delete = !this.settings.actions.delete;
+  isModified(ids?: number[]): boolean {
+    return this.modified(id).length > 0;
+  }
+  
 
-    this.settings = Object.assign({}, this.settings);
+  private cloneData(data: Identifiable[]): Identifiable[] {
+    let clonedData: Identifiable[] = [];
+    data.forEach(item => {
+      clonedData.push(Object.assign({}, JSON.parse(JSON.stringify(item))));
+    });
+    return clonedData;
   }
 }

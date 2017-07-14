@@ -1,0 +1,27 @@
+
+// Buttons
+button.btn.btn-primary-dark {
+  background-color: $primary-dark;
+  color: $default-text;
+}
+button.btn.btn-success-dark {
+  background-color: $success-dark;
+  color: $default-text;
+}
+
+// Layout
+.default-margin {
+  margin: 0;
+}
+.valign-center {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+// Text classes
+.text-normal {
+  font-size: $default-text-size;
+}
+.text-extra {
+  font-size: $default-text-size + 3;
+}

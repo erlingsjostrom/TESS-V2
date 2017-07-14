@@ -1,17 +1,62 @@
 @import "users.table.scss";
 
-.edit-table-container {
+div.save-changes-container {
   margin: 1em 0;
-}
-.edit-changes-wrapper{
-  width: 100%;
-  margin-top: 1em;
-  .edit-changes-container {
-    display: inline-block;
+  button:disabled {
+    cursor: default;
+    &:hover {
+      transform: none;
+    }
   }
 }
 
-.edit-active {
-  padding: 3px;
-  border: 1px solid $success;
+
+// ngprime DataTable
+div.ui-datatable{
+  .ui-widget-content {
+    background-color: $primary-dark;
+  }
+  .ui-datatable-loading-content {
+    top: 55%;
+  }
+  table.ng-dataTable {
+    border-color: $border;
+    // TableHead
+    .ui-datatable-thead > tr > th {
+      background-color: $primary-dark;
+      color: $default-text;
+      font-weight: bold;
+      &:hover {
+        background-color: $primary-dark-hover;
+      }
+      &.ui-state-active {
+        border-color: $border;
+      }
+    }
+    tr.ui-widget-content{
+      color: $default-text;
+
+      &.ui-datatable-even {
+        background-color: darken($info-dark, 5%);
+      }
+      &.ui-datatable-odd {
+        background-color: $info-dark;
+      }
+    }
+  }
+}
+form.form-inline {
+  div.input-group {
+    div.input-group-addon {
+      background: $primary-dark;
+      color: white;
+      border-color: $border;
+      border: 1px 0 1px 1px solid;
+    }
+    input {
+      color: $default-text;
+      background-color: $info-dark;
+    }
+  }
+ 
 }

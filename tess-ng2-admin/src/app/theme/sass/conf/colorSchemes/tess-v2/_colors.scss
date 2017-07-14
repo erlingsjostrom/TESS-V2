@@ -4,6 +4,7 @@ $body-bg: #fff; // default bg color
 $default-text: $default; // default text color layout (usually is the same as $default)
 $content-text: $default-text; // content text color on card, panels, form, etc
 $help-text: $default-text; // additional text color for hits
+$default-text-size: 13px;
 
 $label-text: $default-text; // labels color
 $disabled: rgba(255, 255, 255, 0.4); // color for disabled state
@@ -61,6 +62,11 @@ $danger-bg: tint($danger, 20%);
 // link colors
 $activelink: $primary;
 $hoverlink: darken($activelink, 5%);
+
+// extra
+$primary-dark-hover: lighten($primary-dark, 8%);
+
+
 
 // main background
 @mixin body-bg() {

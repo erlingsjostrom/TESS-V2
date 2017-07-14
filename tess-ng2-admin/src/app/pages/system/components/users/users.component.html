@@ -1,9 +1,40 @@
 <div class="widgets">
 
   <div class="row">
-    <ba-card cardTitle="All Users" baCardClass="with-scroll" class="smart-table-container">
-      
+    <ba-card cardTitle="Displaying all users" baCardClass="with-scroll">
+      <div class="col-12">
+         <form class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputAmount">Filter</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-search"></i>
+                  </div>
+                  <input #filterTable type="text" class="form-control" placeholder="Filter..">
+                </div>
+              </div>
+          </form>
+          <p-dataTable  (onEdit)="onEdit($event)"  (onEditComplete)="onEditComplete($event)" [value]="content.data"  
+                        [globalFilter]="filterTable" tableStyleClass="ng-dataTable" [editable]="true"
+                        [loading]="state.loading" >
+              <p-column field="Id" header="Id" [sortable]="true" [editable]="false" [style]="{'width': '80px'}"></p-column>
+              <p-column field="Name" header="Name" [sortable]="true" [editable]="true"></p-column>
+              <p-column field="WindowsUser" header="Windows User" [sortable]="true" [editable]="true"></p-column>
+          </p-dataTable>
+      </div>
+      <div class="col-12 row justify-content-end mt-3">
+        <div class="col-3 row justify-content-end">
+          <div class="col-9 row align-items-center">
+            <span class="text-extra" [hidden]="!state.edited">Remember to save your changes</span>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success-dark save" [disabled]="!state.edited">
+              <i class="fa fa-save"></i>
+              <strong>Save</strong>
+            </button>
+          </div>
+        </div>
+      </div>
     </ba-card>
   </div>
-
 </div>
