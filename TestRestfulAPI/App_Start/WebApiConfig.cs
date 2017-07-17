@@ -25,7 +25,8 @@ namespace TestRestfulAPI
             //);
             
             config.AddApiVersioning(o => o.AssumeDefaultVersionWhenUnspecified = true);
-            
+            config.EnableCors();
+            config.Select().Expand().Filter().OrderBy().MaxTop(600).Count();
             config.MapODataServiceRoute(
                 routeName: "odata",
                 routePrefix: "odata/{apiVersion}/{resource}/",
