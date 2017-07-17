@@ -2,6 +2,7 @@
 using System.Web.Http;
 using AutoMapper;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Services;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Services;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Services;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
@@ -18,6 +19,7 @@ namespace TestRestfulAPI
         public static OfferService OfferService;
         public static ContentService ContentService;
         public static TextItemService TextItemService;
+        public static TemplateService TemplateService;
     }
 
     public static class GlobalVariables

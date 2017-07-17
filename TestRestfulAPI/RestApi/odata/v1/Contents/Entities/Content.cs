@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using TestRestfulAPI.Infrastructure.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Entities
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Entities
 {
     public class Content : BaseEntity
     {
@@ -13,5 +11,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Entities
 
         public virtual Offer Offer { get; set; }
         public virtual ICollection<TextItem> TextItems { get; set; }
+        public virtual Template Template { get; set; }
     }
 }

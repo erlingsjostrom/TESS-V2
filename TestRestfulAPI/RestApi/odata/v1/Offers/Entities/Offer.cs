@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TestRestfulAPI.Infrastructure.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Offers.Entities

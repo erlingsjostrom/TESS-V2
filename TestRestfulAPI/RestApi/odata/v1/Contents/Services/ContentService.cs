@@ -4,18 +4,20 @@ using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
 {
     public class ContentService : IService<Content, int, string>
     {
         private readonly UserService _userService;
         private ContentRepository _contentRepository;
         private OfferRepository _offerRepository;
+        private TemplateRepository _templateRepository;
 
         public ContentService(UserService userService)
         {
@@ -56,6 +58,13 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
             this.InitRepository();
             return _contentRepository.Update(resource, content);
         }
+
+        public Content AddToTemplate(string resource, Content content, int templateId)
+        {
+            this.InitRepository();
+            var template = this._templateRepository.Get(resource, templateId);
+            return _contentRepository.AddToTemplate(resource, content, template);
+        }
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -72,6 +81,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
 
             this._contentRepository = new ContentRepository(resourceContexts);
             this._offerRepository = new OfferRepository(resourceContexts);
+            this._templateRepository = new TemplateRepository(resourceContexts);
         }
     }
 }

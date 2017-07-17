@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Exceptions;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Exceptions;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
 {
     public class TextItemRepository : BaseRepository<TextItem>, IRepository<TextItem, int, string>
     {
@@ -100,6 +99,15 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             results.Context.Set<TextItem>().Remove(dbEntry);
             results.Context.SaveChanges();
         }
+
+        public TextItem CreateContentTextItem(string resource, TextItem textitem, Content content)
+        {
+            var results = GetAndValidateResource(resource);
+            content.TextItems.Add(textitem);
+            results.Context.SaveChanges();
+            return textitem;
+        }
+
         private ResourceContext GetAndValidateResource(string resource)
         {
             var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);

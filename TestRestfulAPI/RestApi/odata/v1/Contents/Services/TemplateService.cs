@@ -1,61 +1,61 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
 {
-    public class TextItemService : IService<TextItem, int, string>
+    public class TemplateService : IService<Template, int, string>
     {
         private readonly UserService _userService;
-        private TextItemRepository _textitemRepository;
-
-        public TextItemService(UserService userService)
+        private TemplateRepository _templateRepository;
+        public TemplateService(UserService userService)
         {
             this._userService = userService;
         }
-        public IQueryable<TextItem> All(string resource)
+        public IQueryable<Template> All(string resource)
         {
             this.InitRepository();
-            return _textitemRepository.All(resource);
+            return _templateRepository.All(resource);
         }
 
-        public TextItem Get(string resource, int id)
+        public Template Get(string resource, int id)
         {
             this.InitRepository();
-            return _textitemRepository.Get(resource, id);
+            return _templateRepository.Get(resource, id);
         }
 
-        public TextItem Create(string resource, TextItem textitem)
+        public Template Create(string resource, Template template)
         {
             this.InitRepository();
-            return _textitemRepository.Create(resource, textitem);
+            return _templateRepository.Create(resource, template);
         }
 
-        public TextItem Update(string resource, TextItem textitem)
+        public Template Update(string resource, Template template)
         {
             this.InitRepository();
-            return _textitemRepository.Update(resource, textitem);
+            return _templateRepository.Update(resource, template);
         }
 
-        public TextItem PartialUpdate(string resource, int id, Delta<TextItem> textitem)
+        public Template PartialUpdate(string resource, int id, Delta<Template> template)
         {
             this.InitRepository();
-            return _textitemRepository.PartialUpdate(resource, id, textitem);
+            return _templateRepository.PartialUpdate(resource, id, template);
         }
 
         public void Delete(string resource, int id)
         {
             this.InitRepository();
-            _textitemRepository.Delete(resource, id);
+            _templateRepository.Delete(resource, id);
         }
-
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -70,7 +70,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
                     )
                 ).ToList();
 
-            this._textitemRepository = new TextItemRepository(resourceContexts);
+            this._templateRepository = new TemplateRepository(resourceContexts);
         }
     }
 }
