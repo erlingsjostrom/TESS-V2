@@ -4,6 +4,7 @@ using System.Web.OData.Extensions;
 using Microsoft.OData.Edm;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 
 namespace TestRestfulAPI
@@ -35,16 +36,29 @@ namespace TestRestfulAPI
         private static IEdmModel GetEdmModel()
         {
             ODataModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Article>("Articles");
+            builder.EntitySet<Article>("Articles").EntityType.Name = "Article";
             builder.EntityType<Article>().OrderBy().Filter().Select().Expand();
-            builder.EntitySet<Customer>("Customers");
+
+            builder.EntitySet<Offer>("Offers");
+            builder.EntityType<Offer>().OrderBy().Filter().Select().Expand();
+
+            builder.EntitySet<Customer>("Customers").EntityType.Name = "Customer";
             builder.EntityType<Customer>().OrderBy().Filter().Select().Expand();
-            builder.EntitySet<User>("Users");
+
+            builder.EntitySet<User>("Users").EntityType.Name = "User";
             builder.EntityType<User>().OrderBy().Filter().Select().Expand();
-            builder.EntitySet<Role>("Roles");
+
+            builder.EntitySet<Role>("Roles").EntityType.Name = "Role";
             builder.EntityType<Role>().OrderBy().Filter().Select().Expand();
-            builder.EntitySet<Permission>("Permissions");
+
+            builder.EntitySet<Permission>("Permissions").EntityType.Name = "Permission";
             builder.EntityType<Permission>().OrderBy().Filter().Select().Expand();
+
+            builder.EntitySet<Content>("Contents").EntityType.Name = "Content";
+            builder.EntityType<Content>().OrderBy().Filter().Select().Expand();
+
+            builder.EntitySet<TextItem>("TextItems").EntityType.Name = "TextItem";
+            builder.EntityType<TextItem>().OrderBy().Filter().Select().Expand();
 
             var edmModel = builder.GetEdmModel();
             return edmModel;

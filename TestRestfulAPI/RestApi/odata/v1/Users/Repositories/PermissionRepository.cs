@@ -30,7 +30,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public Permission Create(Permission entity)
         {
-            this.RefreshContext();
             var role = this.All().FirstOrDefault(r => r.Name == entity.Name);
             if (role != null)
             {
@@ -43,7 +42,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
         }
         public Permission Update(Permission entity)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(entity.Id);
 
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
@@ -55,7 +53,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
         }
         public Permission PartialUpdate(int id, Delta<Permission> entity)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(id);
 
             entity.Patch(dbEntry);
@@ -68,15 +65,10 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public void Delete(int id)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(id);
 
             ResourceContext.Context.Set<Permission>().Remove(dbEntry);
             ResourceContext.Context.SaveChanges();
-        }
-        private void RefreshContext()
-        {
-            this.ResourceContext.Refresh();
         }
     }
 }

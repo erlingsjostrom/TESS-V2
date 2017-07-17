@@ -17,7 +17,6 @@ namespace TestRestfulAPI.Infrastructure.Repositories
         protected BaseRepository(IEnumerable<ResourceContext> resourceContexts)
         {
             this.ResourceContexts = resourceContexts;
-            this.DisableLazyLoading();
         }
 
         public void Dispose()
@@ -25,14 +24,6 @@ namespace TestRestfulAPI.Infrastructure.Repositories
             foreach (var resourceContext in this.ResourceContexts)
             {
                 resourceContext.Context.Dispose();
-            }
-        }
-
-        private void DisableLazyLoading()
-        {
-            foreach (var resourceContext in this.ResourceContexts)
-            {
-                resourceContext.Context.Configuration.LazyLoadingEnabled = false;
             }
         }
     }

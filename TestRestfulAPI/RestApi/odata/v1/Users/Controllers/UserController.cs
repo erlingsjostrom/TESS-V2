@@ -63,5 +63,19 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
             this._userService.Delete(id);
             this.ODataDeleted(); // Set response headers
         }
+
+        // PUT: {resource}/Users({userId})/Roles({roleId})
+        [EnableQuery, HttpPut, ODataRoute("({userId})/Roles({roleId})")]
+        public IHttpActionResult AddRole(int userId, int roleId)
+        {
+            return ODataCreated(this._userService.AddRole(userId, roleId), userId);
+        }
+
+        // DELETE {resource}/Users({userId})/Roles({roleId})
+        [EnableQuery, HttpDelete, ODataRoute("({userId})/Roles({roleId})")]
+        public IHttpActionResult RemoveRole(int userId, int roleId)
+        {
+            return ODataCreated(this._userService.RemoveRole(userId, roleId), userId);
+        }
     }
 }

@@ -4,58 +4,58 @@ using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
-using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
-using TestRestfulAPI.RestApi.odata.v1.Customers.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-
-namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
+namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
 {
-    public class CustomerService : IService<Customer, int, string>
+    public class ContentService : IService<Content, int, string>
     {
         private readonly UserService _userService;
-        private CustomerRepository _customerRepository;
+        private ContentRepository _contentRepository;
+        private OfferRepository _offerRepository;
 
-        public CustomerService(UserService userService)
+        public ContentService(UserService userService)
         {
             this._userService = userService;
         }
-
-        public IQueryable<Customer> All(string resource)
+        public IQueryable<Content> All(string resource)
         {
             this.InitRepository();
-            return _customerRepository.All(resource);
+            return _contentRepository.All(resource);
         }
 
-        public Customer Get(string resource, int id)
+        public Content Create(string resource, Content content)
         {
             this.InitRepository();
-            return _customerRepository.Get(resource, id);
-        }
-        public Customer Create(string resource, Customer customer)
-        {
-            this.InitRepository();
-            return _customerRepository.Create(resource, customer);
-        }
-        public Customer Update(string resource, Customer customer)
-        {
-            this.InitRepository();
-            return _customerRepository.Update(resource, customer);
-        }
-
-        public Customer PartialUpdate(string resource, int id, Delta<Customer> customer)
-        {
-            this.InitRepository();
-            return _customerRepository.PartialUpdate(resource, id, customer);
+            return _contentRepository.Create(resource, content);
         }
 
         public void Delete(string resource, int id)
         {
             this.InitRepository();
-            _customerRepository.Delete(resource, id);
+            _contentRepository.Delete(resource, id);
         }
 
+        public Content Get(string resource, int id)
+        {
+            this.InitRepository();
+            return _contentRepository.Get(resource, id);
+        }
+
+        public Content PartialUpdate(string resource, int id, Delta<Content> content)
+        {
+            this.InitRepository();
+            return _contentRepository.PartialUpdate(resource, id, content);
+        }
+
+        public Content Update(string resource, Content content)
+        {
+            this.InitRepository();
+            return _contentRepository.Update(resource, content);
+        }
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -70,7 +70,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
                     )
                 ).ToList();
 
-            this._customerRepository = new CustomerRepository(resourceContexts);
+            this._contentRepository = new ContentRepository(resourceContexts);
+            this._offerRepository = new OfferRepository(resourceContexts);
         }
     }
 }

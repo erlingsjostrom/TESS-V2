@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
+using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
@@ -11,6 +12,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Roles")]
+    [UserHasRole("UserControl")]
     public class RoleController : ResourceODataController, ICrudController<Role>
     {
         private readonly RoleService _roleService = GlobalServices.RoleService;
@@ -57,6 +59,20 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
             this.ParseResource();
             this._roleService.Delete(id);
             this.ODataDeleted(); // Set response headers
+        }
+
+        // PUT: {resource}/Roles({roleId})/Permissions({permissionId})
+        [EnableQuery, HttpPut, ODataRoute("({roleId})/Permissions({permissionId})")]
+        public IHttpActionResult AddPermission(int roleId, int permissionId)
+        {
+            return ODataCreated(this._roleService.AddPermission(roleId, permissionId), roleId);
+        }
+
+        // DELETE: {resource}/Roles({roleId})/Permissions({permissionId})
+        [EnableQuery, HttpDelete, ODataRoute("({roleId})/Permissions({permissionId})")]
+        public IHttpActionResult RemoveRole(int roleId, int permissionId)
+        {
+            return ODataCreated(this._roleService.RemovePermission(roleId, permissionId), roleId);
         }
     }
 }

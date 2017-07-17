@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
@@ -30,7 +31,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public Role Create(Role entity)
         {
-            this.RefreshContext();
             var role = this.All().FirstOrDefault(r => r.Name == entity.Name);
             if (role != null)
             {
@@ -45,7 +45,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public Role Update(Role entity)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(entity.Id);
 
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
@@ -58,7 +57,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public Role PartialUpdate(int id, Delta<Role> entity)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(id);
 
             entity.Patch(dbEntry);
@@ -69,18 +67,36 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
             return dbEntry;
         }
 
+        public Role AddPermission(int roleId, Permission permission)
+        {
+            var role = this.All().Include("Permissions").FirstOrDefault(r => r.Id == roleId);
+            if (role.Permissions.Any(r => r.Equals(permission)))
+            {
+                throw new PermissionAlreadyExistException("Role with ID " + roleId + " does already have the permission " + permission.Name + ".");
+            }
+            role.Permissions.Add(permission);
+            ResourceContext.Context.SaveChanges();
+            return role;
+        }
+
+        public Role RemovePermission(int roleId, Permission permission)
+        {
+            var role = this.All().Include("Permissions").FirstOrDefault(r => r.Id == roleId);
+            if (!role.Permissions.Any(r => r.Equals(permission)))
+            {
+                throw new PermissionDoesNotExistException("Role with ID " + roleId + " does not have the permission " + permission.Name + ".");
+            }
+            role.Permissions.Remove(permission);
+            ResourceContext.Context.SaveChanges();
+            return role;
+        }
+
         public void Delete(int id)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(id);
 
             ResourceContext.Context.Set<Role>().Remove(dbEntry);
             ResourceContext.Context.SaveChanges();
-        }
-
-        private void RefreshContext()
-        {
-            this.ResourceContext.Refresh();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.OData;
+using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Users.Exceptions;
@@ -29,7 +30,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public User Create(User entity)
         {
-            this.RefreshContext();
             var user = this.All().FirstOrDefault(u => u.WindowsUser == entity.WindowsUser);
             if (user != null)
             {
@@ -43,7 +43,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public User Update(User entity)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(entity.Id);
 
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
@@ -56,7 +55,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public User PartialUpdate(int id, Delta<User> entity)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(id);
 
             entity.Patch(dbEntry);
@@ -69,7 +67,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public void Delete(int id)
         {
-            this.RefreshContext();
             var dbEntry = this.Get(id);
 
             ResourceContext.Context.Set<User>().Remove(dbEntry);
@@ -78,7 +75,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
         public User GetByWindowsIdentityName(string windowsIdentity)
         {
-            this.RefreshContext();
             var user = this.All().Include("Roles").FirstOrDefault(u => u.WindowsUser == windowsIdentity);
             if (user == null)
             {
@@ -88,9 +84,28 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
             return user;
         }
 
-        private void RefreshContext()
+        public User AddRole(int userId, Role role)
         {
-            this.ResourceContext.Refresh();
+            var user = this.All().Include("Roles").FirstOrDefault(u => u.Id == userId);
+            if (user.Roles.Any(r => r.Equals(role)))
+            {
+                throw new RoleAlreadyExistException("User with ID " + userId + " does already have the role " + role.Name + ".");
+            }
+            user.Roles.Add(role);
+            ResourceContext.Context.SaveChanges();
+            return user;
+        }
+
+        public User RemoveRole(int userId, Role role)
+        {
+            var user = this.All().Include("Roles").FirstOrDefault(u => u.Id == userId);
+            if (!user.Roles.Any(r => r.Equals(role)))
+            {
+                throw new PermissionDoesNotExistException("User with ID " + userId + " does not have the role " + role.Name + ".");
+            }
+            user.Roles.Remove(role);
+            ResourceContext.Context.SaveChanges();
+            return user;
         }
     }
 }

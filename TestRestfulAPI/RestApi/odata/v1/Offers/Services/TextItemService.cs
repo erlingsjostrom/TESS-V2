@@ -4,56 +4,56 @@ using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
-using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
-using TestRestfulAPI.RestApi.odata.v1.Customers.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-
-namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
+namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
 {
-    public class CustomerService : IService<Customer, int, string>
+    public class TextItemService : IService<TextItem, int, string>
     {
         private readonly UserService _userService;
-        private CustomerRepository _customerRepository;
+        private TextItemRepository _textitemRepository;
 
-        public CustomerService(UserService userService)
+        public TextItemService(UserService userService)
         {
             this._userService = userService;
         }
-
-        public IQueryable<Customer> All(string resource)
+        public IQueryable<TextItem> All(string resource)
         {
             this.InitRepository();
-            return _customerRepository.All(resource);
+            return _textitemRepository.All(resource);
         }
 
-        public Customer Get(string resource, int id)
+        public TextItem Get(string resource, int id)
         {
             this.InitRepository();
-            return _customerRepository.Get(resource, id);
-        }
-        public Customer Create(string resource, Customer customer)
-        {
-            this.InitRepository();
-            return _customerRepository.Create(resource, customer);
-        }
-        public Customer Update(string resource, Customer customer)
-        {
-            this.InitRepository();
-            return _customerRepository.Update(resource, customer);
+            return _textitemRepository.Get(resource, id);
         }
 
-        public Customer PartialUpdate(string resource, int id, Delta<Customer> customer)
+        public TextItem Create(string resource, TextItem textitem)
         {
             this.InitRepository();
-            return _customerRepository.PartialUpdate(resource, id, customer);
+            return _textitemRepository.Create(resource, textitem);
+        }
+
+        public TextItem Update(string resource, TextItem textitem)
+        {
+            this.InitRepository();
+            return _textitemRepository.Update(resource, textitem);
+        }
+
+        public TextItem PartialUpdate(string resource, int id, Delta<TextItem> textitem)
+        {
+            this.InitRepository();
+            return _textitemRepository.PartialUpdate(resource, id, textitem);
         }
 
         public void Delete(string resource, int id)
         {
             this.InitRepository();
-            _customerRepository.Delete(resource, id);
+            _textitemRepository.Delete(resource, id);
         }
 
         private void InitRepository()
@@ -70,7 +70,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
                     )
                 ).ToList();
 
-            this._customerRepository = new CustomerRepository(resourceContexts);
+            this._textitemRepository = new TextItemRepository(resourceContexts);
         }
     }
 }
