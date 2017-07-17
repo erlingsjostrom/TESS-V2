@@ -156,6 +156,15 @@
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="Infrastructure\Services\ISingleService.cs" />
+    <Compile Include="Migrations\201707140700027_Initial-Create.cs" />
+    <Compile Include="Migrations\201707140700027_Initial-Create.Designer.cs">
+      <DependentUpon>201707140700027_Initial-Create.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707141349125_AddTextItemsTable.cs" />
+    <Compile Include="Migrations\201707141349125_AddTextItemsTable.Designer.cs">
+      <DependentUpon>201707141349125_AddTextItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RestApi\odata\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="Infrastructure\Controllers\ICrudController.cs" />
     <Compile Include="RestApi\odata\v1\Articles\Entities\Article.cs" />
@@ -174,6 +183,21 @@
     <Compile Include="RestApi\odata\v1\Customers\Services\CustomerService.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
     <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Controllers\ContentController.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Controllers\OfferController.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Controllers\TextItemController.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Entities\Content.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Entities\Offer.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Entities\TextItem.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Exceptions\OfferDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Exceptions\ContentDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Repositories\ContentRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Repositories\OfferRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Exceptions\TextItemDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Repositories\TextItemRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Services\ContentService.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Services\OfferService.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Services\TextItemService.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\RoleController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\PermissionController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\UserController.cs" />
@@ -216,6 +240,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707140700027_Initial-Create.resx">
+      <DependentUpon>201707140700027_Initial-Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707141349125_AddTextItemsTable.resx">
+      <DependentUpon>201707141349125_AddTextItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

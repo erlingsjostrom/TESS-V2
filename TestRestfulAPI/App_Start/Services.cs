@@ -1,9 +1,7 @@
 ﻿using System.Web.Http;
-using TestRestfulAPI.Infrastructure.Contexts;
-using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Services;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Services;
-using TestRestfulAPI.RestApi.odata.v1.Users.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 
 namespace TestRestfulAPI
@@ -21,6 +19,9 @@ namespace TestRestfulAPI
             GlobalServices.PermissionService = new PermissionService();
             GlobalServices.ArticleService = new ArticleService(GlobalServices.UserService);
             GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
+            GlobalServices.OfferService = new OfferService(GlobalServices.UserService);
+            GlobalServices.ContentService = new ContentService(GlobalServices.UserService);
+            GlobalServices.TextItemService = new TextItemService(GlobalServices.UserService);
         }
     }
 }

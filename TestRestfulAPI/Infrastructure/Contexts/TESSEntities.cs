@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestRestfulAPI.Infrastructure.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 
 namespace TestRestfulAPI.Infrastructure.Contexts
 {
@@ -23,6 +24,9 @@ namespace TestRestfulAPI.Infrastructure.Contexts
 
         public DbSet<Article> Articles { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<Content> Contents { get; set; }
+        public DbSet<TextItem> TextItems { get; set; }
 
         public override int SaveChanges()
         {
