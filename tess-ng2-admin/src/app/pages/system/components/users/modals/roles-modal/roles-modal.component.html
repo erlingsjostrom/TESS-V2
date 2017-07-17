@@ -1,0 +1,24 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit roles</h4>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-check">
+        <ng-container *ngFor="let data of checkData; let i = index">
+          <label class="form-check-label">
+            <input [name]="data.value.Name" [(ngModel)]="data.checked" type="checkbox" class="form-check-input">
+            {{ data.value.Name }}
+          </label>
+        </ng-container>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn" (click)="closeModal()">Cancel</button>
+    <button class="btn btn-success-dark confirm-btn" (click)="saveChanges()">Select roles</button>
+  </div>
+</div>

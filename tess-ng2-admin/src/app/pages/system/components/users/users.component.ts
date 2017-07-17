@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalService, ModalSize, ModalType } from '../../../../shared/modals/modal.service';
-import { IUser, UserService } from '../../../../shared/users/user.service';
+import { IRole, IUser, UserService } from '../../../../shared/users/user.service';
+import { RolesModal } from './modals/roles-modal/roles-modal.component';
 
 
 @Component({
@@ -58,6 +59,14 @@ export class Users {
       return;
     } 
     this.state.editMode = !this.state.editMode;
+  }
+
+  editRoles(user: IUser) {
+    this.modalService.showCustomModal(
+        RolesModal,
+        user,
+        ModalSize.Small
+    );
   }
 
 }

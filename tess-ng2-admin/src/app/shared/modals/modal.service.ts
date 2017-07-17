@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DefaultModal } from './default-modal/default-modal.component';
 import { ConfirmModal } from './confirm-modal/confirm-modal.component';
@@ -41,6 +41,17 @@ export class ModalService {
     activeModal.componentInstance.modalContinueButtonCallback = continueButtonCallback;
     activeModal.componentInstance.modalContinueButtonText = modalContinueButtonText;
     activeModal.componentInstance.modalCloseButtonText = modalCloseButtonText;
+  }
+
+  showCustomModal(
+    modalComponent: Component,
+    data: any,
+    size?: ModalSize, 
+    isStatic?: boolean
+  ) {
+    const settings = this.parseSettings(size, isStatic);
+    const activeModal = this.ngbModalService.open(modalComponent, settings);
+    activeModal.componentInstance.setData(data);
   }
 
   private parseSettings(size?: ModalSize, isStatic?: boolean) {
