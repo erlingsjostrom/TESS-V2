@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestRestfulAPI.Infrastructure.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
 using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Services;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
 {
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Contents")]
@@ -70,6 +71,15 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
         {
             this.ParseResource();
             return this._contentService.Update(this.Resource, content);
+        }
+
+        // PUT: {resource}/Contents({id})
+        [UserHasResourceAccess, UserHasPermission("Modify")]
+        [EnableQuery, HttpPut, ODataRoute("({id})")]
+        public Content AddToTemplate(Content content, int templateId)
+        {
+            this.ParseResource();
+            return this._contentService.AddToTemplate(this.Resource, content, templateId);
         }
     }
 }

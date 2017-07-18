@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using TestRestfulAPI.Infrastructure.Exceptions;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Exceptions
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Exceptions
 {
     [Serializable]
     internal class ContentDoesNotExistException : DoesNotExistException

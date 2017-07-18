@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
 using Microsoft.Web.Http;
+using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Services;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
-using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
 {
     [ApiVersion("1.0")]
-    [ODataRoutePrefix("Contents")]
+    [ODataRoutePrefix("TextItems")]
     public class TextItemController : ResourceODataController, ICrudController<TextItem>
     {
         private readonly TextItemService _textitemService = GlobalServices.TextItemService;
@@ -71,6 +70,16 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
             this.ParseResource();
             this._textitemService.Delete(this.Resource, id);
             this.ODataDeleted(); // Set response headers
+        }
+
+        // Put: {resource}/TextItems({contentId})
+        [UserHasResourceAccess, UserHasPermission("Write")]
+        [EnableQuery, HttpPost, ODataRoute("({contentId})")]
+        public IHttpActionResult CreateContentTextItem(TextItem textitem, int contentId)
+        {
+            this.ParseResource();
+            return ODataCreated(this._textitemService.CreateContentTextItem(this.Resource, textitem, contentId), textitem.Id);
+
         }
     }
 }

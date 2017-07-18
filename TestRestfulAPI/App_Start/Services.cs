@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Services;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Services;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Services;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
@@ -22,6 +23,7 @@ namespace TestRestfulAPI
             GlobalServices.OfferService = new OfferService(GlobalServices.UserService);
             GlobalServices.ContentService = new ContentService(GlobalServices.UserService);
             GlobalServices.TextItemService = new TextItemService(GlobalServices.UserService);
+            GlobalServices.TemplateService = new TemplateService(GlobalServices.UserService);
         }
     }
 }

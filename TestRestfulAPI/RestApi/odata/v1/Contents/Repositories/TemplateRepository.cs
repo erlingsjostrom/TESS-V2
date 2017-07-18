@@ -1,66 +1,67 @@
-﻿using System;
+﻿using TestRestfulAPI.Infrastructure.Repositories;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Exceptions;
-using TestRestfulAPI.Infrastructure.Repositories;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Exceptions;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Exceptions;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
-namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
+namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
 {
-    public class ContentRepository : BaseRepository<Content>, IRepository<Content, int, string>
+    public class TemplateRepository : BaseRepository<Template>, IRepository<Template, int, string>
     {
-        public ContentRepository(IEnumerable<ResourceContext> resourceContexts) : base(resourceContexts)
-        {
-        }
 
-        public IEnumerable<IQueryable<Content>> All()
+        public TemplateRepository(IEnumerable<ResourceContext> resourceContexts) : base(resourceContexts)
         {
-            var results = new List<IQueryable<Content>>();
+        }
+        public IEnumerable<IQueryable<Template>> All()
+        {
+            var results = new List<IQueryable<Template>>();
             foreach (var resourceContext in this.ResourceContexts)
             {
-                results.Add(resourceContext.Context.Set<Content>());
+                results.Add(resourceContext.Context.Set<Template>());
             }
             return results;
         }
-        public ResultSet<IQueryable<Content>> AllWithResourceContext()
+        public ResultSet<IQueryable<Template>> AllWithResourceContext()
         {
-            var results = new ResultSet<IQueryable<Content>>("Contents");
+            var results = new ResultSet<IQueryable<Template>>("Templates");
             foreach (var resourceContext in this.ResourceContexts)
             {
-                results.Add(resourceContext.Name, resourceContext.Context.Set<Content>());
+                results.Add(resourceContext.Name, resourceContext.Context.Set<Template>());
             }
             return results;
         }
-        public IQueryable<Content> All(string resource)
+        public IQueryable<Template> All(string resource)
         {
             var results = this.GetAndValidateResource(resource);
-            return results.Context.Set<Content>();
+            return results.Context.Set<Template>();
         }
-        public ResultSet<Content> GetWithResourceContext(string resource, int id)
+        public ResultSet<Template> GetWithResourceContext(string resource, int id)
         {
             var results = GetAndValidateResource(resource);
 
-            var content = results
-                .Context.Set<Content>()
+            var template = results
+                .Context.Set<Template>()
                 .FirstOrDefault(o => o.Id == id);
-            if (content == null)
+            if (template == null)
             {
-                throw new ContentDoesNotExistException("Content with ID " + id + " does not exist.");
+                throw new TemplateDoesNotExistException("Content with ID " + id + " does not exist.");
             }
-            var result = new ResultSet<Content>("Contents");
-            result.Add(resource, content);
+            var result = new ResultSet<Template>("Templates");
+            result.Add(resource, template);
             return result;
         }
 
-        public Content Create(string resource, Content entity)
+        public Template Create(string resource, Template entity)
         {
             var results = GetAndValidateResource(resource);
 
-            results.Context.Set<Content>().Add(entity);
+            results.Context.Set<Template>().Add(entity);
             this.SetTimeStamps(ref entity);
             results.Context.SaveChanges();
 
@@ -73,25 +74,25 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
 
             var dbEntry = this.Get(resource, id);
 
-            results.Context.Set<Content>().Remove(dbEntry);
+            results.Context.Set<Template>().Remove(dbEntry);
             results.Context.SaveChanges();
         }
 
-        public Content Get(string resource, int id)
+        public Template Get(string resource, int id)
         {
             var results = GetAndValidateResource(resource);
-            var content = results
-                .Context.Set<Content>()
+            var template = results
+                .Context.Set<Template>()
                 .FirstOrDefault(o => o.Id == id);
-            if (content == null)
+            if (template == null)
             {
-                throw new ContentDoesNotExistException("Content with ID " + id + " does not exist");
+                throw new TemplateDoesNotExistException("Template with ID " + id + " does not exist");
             }
 
-            return content;
+            return template;
         }
 
-        public Content PartialUpdate(string resource, int id, Delta<Content> entity)
+        public Template PartialUpdate(string resource, int id, Delta<Template> entity)
         {
             var results = GetAndValidateResource(resource);
             var dbEntry = this.Get(resource, id);
@@ -103,7 +104,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             return dbEntry;
         }
 
-        public Content Update(string resource, Content entity)
+        public Template Update(string resource, Template entity)
         {
             var results = GetAndValidateResource(resource);
 
@@ -115,6 +116,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             results.Context.SaveChanges();
             return dbEntry;
         }
+
         private ResourceContext GetAndValidateResource(string resource)
         {
             var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);
@@ -124,7 +126,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             }
             return results;
         }
-        private void SetTimeStamps(ref Content entity)
+        private void SetTimeStamps(ref Template entity)
         {
             if (entity.CreatedAt == new DateTime())
             {

@@ -43,7 +43,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
             this.ParseResource();
             return ODataCreated(this._offerService.Create(this.Resource, offer), offer.Id);
         }
-        // Put: {resource}/Offers({offerId})/Customers({customerId})
+        // Put: {resource}/Offers({customerId})
         [UserHasResourceAccess, UserHasPermission("Write")]
         [EnableQuery, HttpPost, ODataRoute("({customerId})")]
         public IHttpActionResult CreateCustomerOffer(Offer offer, int customerId)

@@ -172,6 +172,10 @@
     <Compile Include="Migrations\201707141349125_AddTextItemsTable.Designer.cs">
       <DependentUpon>201707141349125_AddTextItemsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707170814423_AddTemplatesTable.cs" />
+    <Compile Include="Migrations\201707170814423_AddTemplatesTable.Designer.cs">
+      <DependentUpon>201707170814423_AddTemplatesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RestApi\odata\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="Infrastructure\Controllers\ICrudController.cs" />
@@ -183,6 +187,11 @@
     <Compile Include="Infrastructure\Exceptions\ResourceMissingException.cs" />
     <Compile Include="Infrastructure\Controllers\ResourceODataController.cs" />
     <Compile Include="Infrastructure\Services\IService.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Controllers\TemplateController.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Entities\Template.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Exceptions\TemplateDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Repositories\TemplateRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Services\TemplateService.cs" />
     <Compile Include="RestApi\odata\v1\Customers\Controllers\CustomerController.cs" />
     <Compile Include="RestApi\odata\v1\Customers\Entities\Customer.cs" />
     <Compile Include="RestApi\odata\v1\Customers\Exceptions\CustomerAlreadyExistException.cs" />
@@ -191,21 +200,21 @@
     <Compile Include="RestApi\odata\v1\Customers\Services\CustomerService.cs" />
     <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
     <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Controllers\ContentController.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Controllers\ContentController.cs" />
     <Compile Include="RestApi\odata\v1\Offers\Controllers\OfferController.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Controllers\TextItemController.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Entities\Content.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Controllers\TextItemController.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Entities\Content.cs" />
     <Compile Include="RestApi\odata\v1\Offers\Entities\Offer.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Entities\TextItem.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Entities\TextItem.cs" />
     <Compile Include="RestApi\odata\v1\Offers\Exceptions\OfferDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Exceptions\ContentDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Repositories\ContentRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Exceptions\ContentDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Repositories\ContentRepository.cs" />
     <Compile Include="RestApi\odata\v1\Offers\Repositories\OfferRepository.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Exceptions\TextItemDoesNotExistException.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Repositories\TextItemRepository.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Services\ContentService.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Exceptions\TextItemDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Repositories\TextItemRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Services\ContentService.cs" />
     <Compile Include="RestApi\odata\v1\Offers\Services\OfferService.cs" />
-    <Compile Include="RestApi\odata\v1\Offers\Services\TextItemService.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Services\TextItemService.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\RoleController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\PermissionController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\UserController.cs" />
@@ -255,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707141349125_AddTextItemsTable.resx">
       <DependentUpon>201707141349125_AddTextItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707170814423_AddTemplatesTable.resx">
+      <DependentUpon>201707170814423_AddTemplatesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

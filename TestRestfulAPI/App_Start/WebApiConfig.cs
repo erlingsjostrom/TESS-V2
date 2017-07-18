@@ -4,6 +4,7 @@ using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using Microsoft.OData.Edm;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
@@ -62,6 +63,9 @@ namespace TestRestfulAPI
 
             builder.EntitySet<TextItem>("TextItems").EntityType.Name = "TextItem";
             builder.EntityType<TextItem>().OrderBy().Filter().Select().Expand();
+
+            builder.EntitySet<Template>("Templates").EntityType.Name = "Template";
+            builder.EntityType<Template>().OrderBy().Filter().Select().Expand();
 
             var edmModel = builder.GetEdmModel();
             return edmModel;
