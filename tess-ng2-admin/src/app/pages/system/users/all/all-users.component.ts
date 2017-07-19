@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalService, ModalSize, ModalType } from '../../../../shared/modals/modal.service';
 import { IRole, IUser, UserService } from '../../../../shared/users/user.service';
 import { RolesModal } from './modals/roles-modal/roles-modal.component';
@@ -6,12 +7,12 @@ import { RolesModal } from './modals/roles-modal/roles-modal.component';
 
 @Component({
   selector: 'users-component',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  templateUrl: './all-users.component.html',
+  styleUrls: ['./all-users.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 
-export class Users {
+export class AllUsersComponent {
   state = {
     edited: false,
     loading: true,
@@ -22,52 +23,19 @@ export class Users {
   
   constructor(
     private userService: UserService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router
   ) {
-    this.userService.get().subscribe((users) => {
+    this.userService.getAll().subscribe((users) => {
       this.content.load(users);
       this.state.loading = false;
     })
   }
   
-  private editTimeout;
-  private editedIds: number[] = [];
-
-  onEdit(event){
-    clearTimeout(this.editTimeout);
-    this.editTimeout = setTimeout(() => {
-      this.editedIds.push(event.Id);
-      this.state.edited = this.content.isModified();
-    }, 800)
+  edit(id: number) {
+    this.router.navigate(['system/users/edit/', id]);
   }
-
-  onEditComplete(event){
-    clearTimeout(this.editTimeout);
-    this.state.edited = this.content.isModified();
-  }
-
-  toggleEditMode() {
-    if (this.state.edited){
-      this.modalService.showConfirmModal(
-        'Undo changes?', 
-        'Edited content exists, do you really want to undo these changes?', 
-        () => console.log("YEY CONTINUE!!"),
-        'Undo changes',
-        'Keep changes',
-        ModalSize.Large
-      );
-      return;
-    } 
-    this.state.editMode = !this.state.editMode;
-  }
-
-  editRoles(user: IUser) {
-    this.modalService.showCustomModal(
-        RolesModal,
-        user,
-        ModalSize.Small
-    );
-  }
+  
 
 }
 

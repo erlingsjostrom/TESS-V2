@@ -1,0 +1,38 @@
+<div class="widgets">
+
+  <div class="row">
+    
+    <div class="col-12">
+      <ba-card cardTitle="{{ user?.Name }}" baCardClass="with-scroll">
+        <ng-container *ngIf="fields.length > 0">
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let field of fields" class="form-group row">
+              <ng-container [ngSwitch]="field.type">
+                <ng-template [ngCase]="text" let-field="field">
+                  <label for="example-text-input" class="col-2 col-form-label">{{ field.propertyLabel }}</label>
+                  <div class="col-10">
+                    <input class="form-control" type="text" [(ngModel)]="entity[field.propertyName]" name="field.propertyName">
+                  </div>
+                </ng-template>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="pull-right">
+              <button class="btn">
+                <i class="ion-ios-undo"></i>
+                Go back
+              </button>
+              <button (click)="saveChanges()" [disabled]="!state.modified" class="btn btn-success-dark">
+                <i class="fa fa-floppy-o"></i>
+                Save changes and exit
+              </button>
+            </div>
+           
+          </div>
+        </ng-container>
+        <loading [loading]="state.loading"></loading>
+      </ba-card>
+    </div>
+  </div>
+</div>

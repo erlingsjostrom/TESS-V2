@@ -6,5 +6,9 @@
       <a routerLink="/pages/dashboard" translate>{{'general.home'}}</a>
     </li>
     <li class="breadcrumb-item active" translate>{{ activePageTitle }}</li>
+    <!--<li *ngFor="let bc of breadcrumbs" class="breadcrumb-item">
+      <a routerLink="{{ bc }}" translate>{{bc}}</a>
+    </li>-->
+    <!--<a *ngFor="let bc of breadcrumbs" routerLink="{{ bc }}" routerLinkActive="active">-{{bc}}</a>-->
   </ul>
 </div>
