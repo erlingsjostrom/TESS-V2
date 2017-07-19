@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
@@ -20,7 +21,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
         }
         public User Get(int id)
         {
-            var result = this.All().FirstOrDefault(u => u.Id == id);
+            var result = this.All().Include(u => u.Roles).FirstOrDefault(u => u.Id == id);
             if (result == null)
             {
                 throw new UserDoesNotExistException("User with ID " + id + " does not exist");
@@ -44,9 +45,20 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
         public User Update(User entity)
         {
             var dbEntry = this.Get(entity.Id);
-
+            
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
             ResourceContext.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+            
+            dbEntry.Roles.Clear();
+        
+            //ResourceContext.Context.SaveChanges();
+
+            var dbRoles = this.ResourceContext.Context.Set<Role>().ToList()
+                .Where(r => entity.Roles.All(er => er.Id == r.Id));
+            foreach (var role in dbRoles)
+            {
+                dbEntry.Roles.Add(role);
+            }
 
             ResourceContext.Context.SaveChanges();
 

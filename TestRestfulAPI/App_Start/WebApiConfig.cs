@@ -32,8 +32,9 @@ namespace TestRestfulAPI
                 routeName: "odata",
                 routePrefix: "odata/{apiVersion}/{resource}/",
                 model: GetEdmModel());
-            //var corsAttr = new EnableCorsAttribute("http://localhost:4200", "*", "*");
-            //config.EnableCors(corsAttr);
+            var corsAttr = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            corsAttr.SupportsCredentials = true;
+            config.EnableCors(corsAttr);
 
         }
 
