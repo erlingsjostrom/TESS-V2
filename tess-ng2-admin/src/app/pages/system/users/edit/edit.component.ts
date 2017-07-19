@@ -54,6 +54,10 @@ export class EditComponent implements OnInit, DoCheck {
 
 	ngOnInit() {
 	}
+	
+	goBack(){
+		this.router.navigate(['system/users']);
+	}
 
 	saveChanges() {
     this.userService.put(this.user).subscribe(

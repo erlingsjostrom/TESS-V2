@@ -24,7 +24,7 @@
                 </ng-template>
                 <ng-template let-user="rowData" pTemplate="body">
                   <div class="text-center">
-                    <i class="fa fa-remove clickable"></i>
+                    <i class="fa fa-remove clickable"(click)="remove(user.Id)"></i>
                     <i class="fa fa-edit clickable" (click)="edit(user.Id)"></i>
                   </div>
                 </ng-template>
