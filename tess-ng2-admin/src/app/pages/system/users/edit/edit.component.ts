@@ -32,7 +32,6 @@ export class EditComponent implements OnInit, DoCheck {
 		const id = this.route.snapshot.paramMap.get('id');
 		this.userService.get(+id).subscribe(
 			response => {
-				console.log(response);
 				this.dataState.load(response.json());
 				this.user = response.json();
 				this.setCheckData(response.json());
