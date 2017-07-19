@@ -15,6 +15,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'offers',
+        data: {
+          menu: {
+            title: 'Offers',
+            icon: 'ion-document',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'system',
         data: {
           menu: {
