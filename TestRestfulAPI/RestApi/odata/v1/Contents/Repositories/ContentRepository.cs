@@ -6,6 +6,7 @@ using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Exceptions;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
@@ -115,10 +116,19 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             return dbEntry;
         }
 
-        public Content AddToTemplate(string resource, Content content, Template template)
+        public Content AddToTemplate(string resource, int contentId, Template template)
         {
             var results = GetAndValidateResource(resource);
+            var content = Get(resource, contentId);
             template.Contents.Add(content);
+            results.Context.SaveChanges();
+            return content;
+        }
+        public Content AddToOffer(string resource, int contentId, Offer offer)
+        {
+            var results = GetAndValidateResource(resource);
+            var content = Get(resource, contentId);
+            offer.Contents.Add(content);
             results.Context.SaveChanges();
             return content;
         }

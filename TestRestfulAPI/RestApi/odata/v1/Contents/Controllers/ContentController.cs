@@ -73,13 +73,22 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
             return this._contentService.Update(this.Resource, content);
         }
 
-        // PUT: {resource}/Contents({id})
-        [UserHasResourceAccess, UserHasPermission("Modify")]
-        [EnableQuery, HttpPut, ODataRoute("({id})")]
-        public Content AddToTemplate(Content content, int templateId)
-        {
-            this.ParseResource();
-            return this._contentService.AddToTemplate(this.Resource, content, templateId);
-        }
+        //// PUT: {resource}/Contents({id})
+        //[UserHasResourceAccess, UserHasPermission("Modify")]
+        //[EnableQuery, HttpPut, ODataRoute("({id})")]
+        //public Content AddToTemplate(int contentId, int templateId)
+        //{
+        //    this.ParseResource();
+        //    return this._contentService.AddToTemplate(this.Resource, contentId, templateId);
+        //}
+
+        //// PUT: {resource}/Contents({id})
+        //[UserHasResourceAccess, UserHasPermission("Modify")]
+        //[EnableQuery, HttpPut, ODataRoute("({id})")]
+        //public Content AddToOffer(int contentId, int offerId)
+        //{
+        //    this.ParseResource();
+        //    return this._contentService.AddToOffer(this.Resource, contentId, offerId);
+        //}
     }
 }

@@ -59,11 +59,18 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
             return _contentRepository.Update(resource, content);
         }
 
-        public Content AddToTemplate(string resource, Content content, int templateId)
+        public Content AddToTemplate(string resource, int contentId, int templateId)
         {
             this.InitRepository();
             var template = this._templateRepository.Get(resource, templateId);
-            return _contentRepository.AddToTemplate(resource, content, template);
+            return _contentRepository.AddToTemplate(resource, contentId, template);
+        }
+
+        public Content AddToOffer(string resource, int contentId, int offerId)
+        {
+            this.InitRepository();
+            var offer = this._offerRepository.Get(resource, offerId);
+            return _contentRepository.AddToOffer(resource, contentId, offer);
         }
         private void InitRepository()
         {
