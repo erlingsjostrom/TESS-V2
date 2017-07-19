@@ -25,36 +25,12 @@ export interface IRole {
 export class UserService {
   constructor (private _http: Http) {}
 
-  getAll(): Observable<IUser[]> {
-    let headers = new Headers();
-    headers.append('Accept', Config.API_HEADERS.Accept);
-    return this._http.get(this.getUrl(), {
-                withCredentials: true,
-                headers: headers
-              })
-              .timeout(5000)
-              .map((response: Response) => {
-                return response.json().value;
-              })
-              .catch((error: any) => {
-                return Observable.throw(error);
-              });
+  getAll(): Observable<Response> {
+    return this._request(this.getUrl(), { method: RequestMethod.Get });
   }
   
-  get(id: number): Observable<IUser> {
-    let headers = new Headers();
-    headers.append('Accept', Config.API_HEADERS.Accept);
-    return this._http.get(this.getUrl(id), {
-                withCredentials: true,
-                headers: headers
-              })
-              .timeout(5000)
-              .map((response: Response) => {
-                return response.json();
-              })
-              .catch((error: any) => {
-                return Observable.throw(error);
-              });
+  get(id: number): Observable<Response> {
+    return this._request(this.getUrl(id), { method: RequestMethod.Get });
   }
 
   put(user: IUser): Observable<Response> {
@@ -62,7 +38,11 @@ export class UserService {
   }
 
   putRole(user: IUser, role: IRole): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, role)      
+    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, role);
+  }
+
+  delete(user: IUser): Observable<Response> {
+    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Delete });
   }
   
   private _request(url: string, options?: RequestOptionsArgs, data?: Object): Observable<Response> {
@@ -80,7 +60,6 @@ export class UserService {
               .timeout(8000)
               .retry(3)
               .map((response: Response) => {
-
                 return response;
               })
               .catch((error: any) => {

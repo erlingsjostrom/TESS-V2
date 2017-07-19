@@ -31,11 +31,11 @@ export class EditComponent implements OnInit, DoCheck {
 	) {
 		const id = this.route.snapshot.paramMap.get('id');
 		this.userService.get(+id).subscribe(
-			user => {
-				console.log(user);
-				this.dataState.load(user);
-				this.user = user;
-				this.setCheckData(user);
+			response => {
+				console.log(response);
+				this.dataState.load(response.json());
+				this.user = response.json();
+				this.setCheckData(response.json());
 				this.state.loading = false;
 			},
 			error => {
@@ -90,10 +90,12 @@ export interface CheckData {
   checked: boolean,
   value: any
 }
+
 export interface EditComponentState {
 	loading: boolean;
 	modified: boolean;
 }
+
 export class DataState<T> {
   data: T;
   private rawData: T;

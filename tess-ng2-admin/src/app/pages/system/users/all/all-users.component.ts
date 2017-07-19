@@ -26,8 +26,11 @@ export class AllUsersComponent {
     private modalService: ModalService,
     private router: Router
   ) {
-    this.userService.getAll().subscribe((users) => {
-      this.content.load(users);
+    this.userService.getAll().subscribe(response => {
+      console.log(response.status);
+      if(response.status == 200){
+        this.content.load(response.json().value);
+      }
       this.state.loading = false;
     })
   }
@@ -35,8 +38,6 @@ export class AllUsersComponent {
   edit(id: number) {
     this.router.navigate(['system/users/edit/', id]);
   }
-  
-
 }
 
 export class DataTableList<T> {
