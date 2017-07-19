@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using Microsoft.OData.Edm;
@@ -31,6 +32,8 @@ namespace TestRestfulAPI
                 routeName: "odata",
                 routePrefix: "odata/{apiVersion}/{resource}/",
                 model: GetEdmModel());
+            //var corsAttr = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            //config.EnableCors(corsAttr);
 
         }
 

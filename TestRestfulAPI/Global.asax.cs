@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web.Http;
 using AutoMapper;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Services;
@@ -43,14 +44,17 @@ namespace TestRestfulAPI
             GlobalConfiguration.Configure(EntityMappings.Register);
         }
 
-        protected void Session_Start(object sender, EventArgs e)
+        protected void Application_BeginRequest()
         {
-
-        }
-
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
-
+            if (Request.HttpMethod == "OPTIONS")
+            {
+                Response.StatusCode = (int)HttpStatusCode.OK;
+                Response.AppendHeader("Access-Control-Allow-Origin", Request.Headers.GetValues("Origin")[0]);
+                Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+                Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+                Response.AppendHeader("Access-Control-Allow-Credentials", "true");
+                Response.End();
+            }
         }
     }
 }
