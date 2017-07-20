@@ -1,3 +1,4 @@
+import { Users } from '../';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService, ModalSize, ModalType } from '../../../../shared/modals/modal.service';
@@ -19,7 +20,7 @@ export class AllUsersComponent {
     editMode: false,
   }
 
-  content: DataTableList<IUser> = new DataTableList<IUser>();
+  content: IUser[] = [];
   
   constructor(
     private userService: UserService,
@@ -27,43 +28,25 @@ export class AllUsersComponent {
     private router: Router
   ) {
     this.userService.getAll().subscribe(response => {
-      console.log(response.status);
       if(response.status == 200){
-        this.content.load(response.json().value);
+        this.content = response.json().value;
       }
       this.state.loading = false;
     })
   }
   
+  removeUser(user: IUser){
+    this.userService.delete(user).subscribe(
+			response => {
+        console.log(response.status);
+        if(response.status == 204){
+          var index = this.content.indexOf(user);
+          this.content = this.content.filter((val, i) => i!=index);
+        }
+      })
+  }
+
   edit(id: number) {
     this.router.navigate(['system/users/edit/', id]);
-  }
-}
-
-export class DataTableList<T> {
-  data: T[] = [];
-  private rawData: T[] = [];
-  
-  load(data: T[]) {
-    this.data = data;
-    this.rawData = this.cloneData(data);
-  }
-
-  modified(): T[] {
-    return this.data.filter((item, index: number) => {
-      return !(JSON.stringify(item) === JSON.stringify(this.rawData[index]));
-    });
-  }
-
-  isModified(): boolean {
-    return this.modified().length > 0;
-  }
-  
-  private cloneData(data: T[]): T[] {
-    let clonedData: T[] = [];
-    data.forEach(item => {
-      clonedData.push(Object.assign({}, JSON.parse(JSON.stringify(item))));
-    });
-    return clonedData;
   }
 }

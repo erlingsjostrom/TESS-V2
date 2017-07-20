@@ -34,7 +34,7 @@ export class UserService {
   }
 
   put(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true),  { method: RequestMethod.Put }, user);
+    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, user);
   }
 
   putRole(user: IUser, role: IRole): Observable<Response> {
