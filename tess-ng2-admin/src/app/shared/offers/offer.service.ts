@@ -10,7 +10,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
 
 export interface IOffer {
-  Id: number
+  Id: number,
+  Status: string,
 }
 
 @Injectable()

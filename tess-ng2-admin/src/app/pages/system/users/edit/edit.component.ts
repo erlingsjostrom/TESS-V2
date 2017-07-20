@@ -73,8 +73,8 @@ export class EditComponent implements OnInit, DoCheck {
 	private checkDataReady: boolean = false;
   setCheckData(user: IUser) {
     this.roleService.get().subscribe(
-      data => {
-        const availableRoles = data;
+      response => {
+        const availableRoles = response.json();
         this.checkData = availableRoles.map(cdr => { 
           return {
             checked: user.Roles.filter(r => r.Id == cdr.Id).length > 0, 

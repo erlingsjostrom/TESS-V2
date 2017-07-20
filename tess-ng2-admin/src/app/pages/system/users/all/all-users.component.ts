@@ -5,7 +5,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService, ModalSize, ModalType } from '../../../../shared/modals/modal.service';
 import { IRole, IUser, UserService } from '../../../../shared/users/user.service';
-import { RolesModal } from './modals/roles-modal/roles-modal.component';
 
 
 @Component({

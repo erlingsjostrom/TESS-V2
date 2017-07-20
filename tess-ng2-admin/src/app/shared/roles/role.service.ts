@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Headers, Http, RequestMethod, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Config } from 'app/shared/config';
@@ -18,21 +18,38 @@ export interface IRole {
 @Injectable()
 export class RoleService {
   constructor (private _http: Http) {}
-  private url = Config.API_URL + 'AUTH/Roles';
   
-  get(): Observable<IRole[]> {
+  get(): Observable<Response> {
+    return this._request(this.getUrl(), { method: RequestMethod.Get });
+  }
+
+  private _request(url: string, options?: RequestOptionsArgs, data?: Object): Observable<Response> {
     let headers = new Headers();
     headers.append('Accept', Config.API_HEADERS.Accept);
-    return this._http.get(this.url, {
-                withCredentials: true,
-                headers: headers
-              })
-              .timeout(5000)
+    headers.append('Content-Type', 'application/json;charset=UTF-8');
+    options.withCredentials = true;
+    options.headers = headers;
+
+    if (data) {
+      options.body = JSON.stringify(data);
+    }
+
+    return this._http.request(url, options)
+              .timeout(8000)
+              .retry(3)
               .map((response: Response) => {
-                return response.json().value;
+                return response;
               })
               .catch((error: any) => {
                 return Observable.throw(error);
               });
+  }
+
+  private getUrl(id?: number): string {
+    let url = Config.API_URL + 'AUTH/Roles';
+    if (id) {
+      url += '(' + id + ')';
+    }
+    return url;
   }
 }
