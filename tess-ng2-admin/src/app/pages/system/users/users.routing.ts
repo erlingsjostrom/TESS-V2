@@ -1,3 +1,4 @@
+import { TestComponent } from './test/test.component';
 import { AllUsersComponent } from './all/all-users.component';
 import { EditComponent } from './edit/edit.component';
 import { Routes, RouterModule }  from '@angular/router';
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path: '', component: AllUsersComponent },
       { path: 'all', component: AllUsersComponent },
       { path: 'edit', redirectTo: '' },
-      { path: 'edit/:id', component: EditComponent }
+      { path: 'edit/:id', component: EditComponent },
+      { path: 'test', component: TestComponent }
     ]
   }
 ];

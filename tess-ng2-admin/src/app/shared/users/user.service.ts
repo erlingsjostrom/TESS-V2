@@ -25,7 +25,7 @@ export interface IRole {
 export class UserService {
   constructor (private _http: Http) {}
 
-  getAll(): Observable<IUser[]> {
+  getAll(): Observable<Response> {
     let headers = new Headers();
     headers.append('Accept', Config.API_HEADERS.Accept);
     return this._http.get(this.getUrl(), {
@@ -34,14 +34,14 @@ export class UserService {
               })
               .timeout(5000)
               .map((response: Response) => {
-                return response.json().value;
+                return response;
               })
               .catch((error: any) => {
                 return Observable.throw(error);
               });
   }
   
-  get(id: number): Observable<IUser> {
+  get(id: number): Observable<Response> {
     let headers = new Headers();
     headers.append('Accept', Config.API_HEADERS.Accept);
     return this._http.get(this.getUrl(id), {
@@ -50,7 +50,7 @@ export class UserService {
               })
               .timeout(5000)
               .map((response: Response) => {
-                return response.json();
+                return response;
               })
               .catch((error: any) => {
                 return Observable.throw(error);

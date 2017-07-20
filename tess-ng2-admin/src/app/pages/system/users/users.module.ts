@@ -1,5 +1,6 @@
-import { LoadingService } from '../../../shared/components/loading/loading.service';
-import { LoadingComponent } from '../../../shared/components/loading/loading.component';
+import { EntityEditorComponent } from '../../../shared/components/entity-editor/entity-editor.component';
+import { EntityEditorModule } from '../../../shared/components/entity-editor/entity-editor.module';
+import { TestComponent } from './test/test.component';
 import { Users } from './users.component';
 import { EditComponent } from './edit/edit.component';
 import { NgModule }      from '@angular/core';
@@ -25,7 +26,8 @@ import { DataTableModule } from 'primeng/primeng';
     NgaModule,
     routing,
     DataTableModule,
-    ModalModule
+    ModalModule,
+    EntityEditorModule
   ],
   declarations: [
     ArrayMapJoinPipe,
@@ -33,12 +35,11 @@ import { DataTableModule } from 'primeng/primeng';
     Users,
     AllUsersComponent,
     EditComponent,
-    LoadingComponent
+    TestComponent,
   ],
   providers: [
     UserService,
-    RoleService,
-    LoadingService
+    RoleService
   ]
 })
 export class UsersModule {

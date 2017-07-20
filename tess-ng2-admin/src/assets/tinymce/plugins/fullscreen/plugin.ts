@@ -1,0 +1,1 @@
+import 'tinymce/plugins/fullscreen/plugin.min.js';

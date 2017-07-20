@@ -27,7 +27,7 @@ export class AllUsersComponent {
     private router: Router
   ) {
     this.userService.getAll().subscribe((users) => {
-      this.content.load(users);
+      this.content.load(users.json().value);
       this.state.loading = false;
     })
   }

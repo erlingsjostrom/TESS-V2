@@ -60,3 +60,15 @@ button.btn.btn-success-dark {
   }
 }
 
+// TinyMCE
+
+.al-content div.mce-fullscreen {
+  left: $sidebar-width;
+  top: $top-height;
+  z-index: 1050;
+  // height: calc(100% - ( #{$top-height} - 10px ));
+  .menu-collapsed & {
+    left: 50px;
+    z-index: 1050;
+  }
+}
