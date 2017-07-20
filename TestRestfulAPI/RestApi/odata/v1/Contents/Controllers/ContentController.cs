@@ -5,10 +5,10 @@ using System.Web.OData.Routing;
 using Microsoft.Web.Http;
 using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
-using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Services;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
 {
@@ -73,22 +73,24 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
             return this._contentService.Update(this.Resource, content);
         }
 
-        //// PUT: {resource}/Contents({id})
-        //[UserHasResourceAccess, UserHasPermission("Modify")]
-        //[EnableQuery, HttpPut, ODataRoute("({id})")]
-        //public Content AddToTemplate(int contentId, int templateId)
-        //{
-        //    this.ParseResource();
-        //    return this._contentService.AddToTemplate(this.Resource, contentId, templateId);
-        //}
+        // Put: {resource}/Contents({contentId})
+        [UserHasResourceAccess, UserHasPermission("Write")]
+        [EnableQuery, HttpPut, ODataRoute("({contentId})/TextItems({textitemId})")]
+        public Content AddTextItem(int contentId, int textitemId)
+        {
+            this.ParseResource();
+            return this._contentService.AddTextItem(this.Resource, contentId, textitemId);
 
-        //// PUT: {resource}/Contents({id})
-        //[UserHasResourceAccess, UserHasPermission("Modify")]
-        //[EnableQuery, HttpPut, ODataRoute("({id})")]
-        //public Content AddToOffer(int contentId, int offerId)
-        //{
-        //    this.ParseResource();
-        //    return this._contentService.AddToOffer(this.Resource, contentId, offerId);
-        //}
+        }
+
+        // Put: {resource}/Contents({contentId})
+        [UserHasResourceAccess, UserHasPermission("Write")]
+        [EnableQuery, HttpPut, ODataRoute("({contentId})/Articles({articleId})")]
+        public Content AddArticle(int contentId, int articleId)
+        {
+            this.ParseResource();
+            return this._contentService.AddArticle(this.Resource, contentId, articleId);
+
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
@@ -38,10 +40,10 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Services
             return this._userRepository.Create(user);
         }
 
-        public User Update(User user)
+        public User Update(User entity)
         {
             InitRepositories();
-            return this._userRepository.Update(user);
+            return this._userRepository.Update(entity);
         }
 
         public User PartialUpdate(int id, Delta<User> user)
@@ -54,19 +56,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Services
         {
             InitRepositories();
             this._userRepository.Delete(id);
-        }
-
-        public User AddRole(int userId, int roleId)
-        {
-            InitRepositories();
-            var role = this._roleRepository.Get(roleId);
-            return this._userRepository.AddRole(userId, role);
-        }
-        public User RemoveRole(int userId, int roleId)
-        {
-            InitRepositories();
-            var role = this._roleRepository.Get(roleId);
-            return this._userRepository.RemoveRole(userId, role);
         }
 
         private void InitRepositories()

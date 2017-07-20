@@ -61,18 +61,18 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
             this.ODataDeleted(); // Set response headers
         }
 
-        // PUT: {resource}/Roles({roleId})/Permissions({permissionId})
-        [EnableQuery, HttpPut, ODataRoute("({roleId})/Permissions({permissionId})")]
-        public IHttpActionResult AddPermission(int roleId, int permissionId)
-        {
-            return ODataCreated(this._roleService.AddPermission(roleId, permissionId), roleId);
-        }
+        //// PUT: {resource}/Roles({roleId})/Permissions({permissionId})
+        //[EnableQuery, HttpPut, ODataRoute("({roleId})/Permissions({permissionId})")]
+        //public IHttpActionResult AddPermission(int roleId, int permissionId)
+        //{
+        //    return ODataCreated(this._roleService.AddPermission(roleId, permissionId), roleId);
+        //}
 
-        // DELETE: {resource}/Roles({roleId})/Permissions({permissionId})
-        [EnableQuery, HttpDelete, ODataRoute("({roleId})/Permissions({permissionId})")]
-        public IHttpActionResult RemoveRole(int roleId, int permissionId)
-        {
-            return ODataCreated(this._roleService.RemovePermission(roleId, permissionId), roleId);
-        }
+        //// DELETE: {resource}/Roles({roleId})/Permissions({permissionId})
+        //[EnableQuery, HttpDelete, ODataRoute("({roleId})/Permissions({permissionId})")]
+        //public IHttpActionResult RemovePermission(int roleId, int permissionId)
+        //{
+        //    return ODataCreated(this._roleService.RemovePermission(roleId, permissionId), roleId);
+        //}
     }
 }

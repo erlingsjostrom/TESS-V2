@@ -116,6 +116,14 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             results.Context.SaveChanges();
             return dbEntry;
         }
+        public Template AddContent(string resource, int templateId, Content content)
+        {
+            var results = GetAndValidateResource(resource);
+            var template = Get(resource, templateId);
+            template.Contents.Add(content);
+            results.Context.SaveChanges();
+            return template;
+        }
 
         private ResourceContext GetAndValidateResource(string resource)
         {

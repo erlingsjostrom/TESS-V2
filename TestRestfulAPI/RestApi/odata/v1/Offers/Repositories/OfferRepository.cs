@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Exceptions;
@@ -125,6 +126,16 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             results.Context.Set<Offer>().Remove(dbEntry);
             results.Context.SaveChanges();
         }
+
+        public Offer AddContent(string resource, int offerId, Content content)
+        {
+            var results = GetAndValidateResource(resource);
+            var offer = Get(resource, offerId);
+            offer.Contents.Add(content);
+            results.Context.SaveChanges();
+            return offer;
+        }
+
         private ResourceContext GetAndValidateResource(string resource)
         {
             var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);

@@ -56,12 +56,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
             this.InitRepository();
             _textitemRepository.Delete(resource, id);
         }
-        public TextItem CreateContentTextItem(string resource, TextItem textitem, int contentId)
-        {
-            this.InitRepository();
-            var content = this._contentRepository.Get(resource, contentId);
-            return _textitemRepository.CreateContentTextItem(resource, textitem, content);
-        }
 
         private void InitRepository()
         {

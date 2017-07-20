@@ -62,6 +62,15 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Controllers
             return this._customerService.PartialUpdate(this.Resource, id, customer);
         }
 
+        // PUT: {resource}/Customers({id})
+        [UserHasResourceAccess, UserHasPermission("Modify")]
+        [EnableQuery, HttpPut, ODataRoute("({customerId})/Offers({offerId})")]
+        public Customer AddOffer(int customerId, int offerId)
+        {
+            this.ParseResource();
+            return this._customerService.AddOffer(this.Resource, customerId, offerId);
+        }
+
         // DELETE: {resource}/Customers({id})
         [UserHasResourceAccess, UserHasPermission("Remove")]
         [EnableQuery, HttpDelete, ODataRoute("({id})")]
