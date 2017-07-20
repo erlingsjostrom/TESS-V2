@@ -1,3 +1,4 @@
+import { Observable, Subject } from 'rxjs/Rx';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,22 +10,26 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class ConfirmModal implements OnInit {
-
+  modalSubject: Subject<boolean> = new Subject<boolean>();
   modalHeader: string;
   modalContent: string = '';
   modalCloseButtonText: string = '';
   modalContinueButtonText: string = '';
-  modalContinueButtonCallback: () => void = () => {return};
+  modalCloseModalClass: string = '';
+  modalContinueButtonClass: string = '';
+  
   constructor(private activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {}
 
   closeModal () {
+    this.modalSubject.next(false);
     this.activeModal.close();
   }
+
   continueAction () {
-    this.modalContinueButtonCallback();
+    this.modalSubject.next(true);
     this.activeModal.close();
   }
 }

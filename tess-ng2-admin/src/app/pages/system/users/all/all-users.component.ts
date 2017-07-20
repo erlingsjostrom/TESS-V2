@@ -1,3 +1,5 @@
+import { ObservableInput } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { Users } from '../';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
@@ -38,15 +40,27 @@ export class AllUsersComponent {
     );
   }
   
-  removeUser(user: IUser){
-    this.userService.delete(user).subscribe(
-			response => {
-        console.log(response.status);
-        if(response.status == 204){
-          var index = this.content.indexOf(user);
-          this.content = this.content.filter((val, i) => i!=index);
+  removeUser(user: IUser) {
+    this.modalService.showConfirmModal(
+      "Confirm deletion of " + user.Name,
+      "This action is irreversible, do you still want to delete " + user.Name + "?",
+      "Delete",
+      "Don't delete",
+      "btn-danger"
+    ).subscribe(
+      response => {
+        if(response){
+          this.userService.delete(user).subscribe(
+            response => {
+              if(response.status == 204){
+                var index = this.content.indexOf(user);
+                this.content = this.content.filter((val, i) => i != index);
+              }
+            }
+          )
         }
-      })
+      }
+    );
   }
 
   edit(id: number) {
