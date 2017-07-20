@@ -15,9 +15,7 @@ import { RolesModal } from './modals/roles-modal/roles-modal.component';
 
 export class AllUsersComponent {
   state = {
-    edited: false,
     loading: true,
-    editMode: false,
   }
 
   content: IUser[] = [];
@@ -27,12 +25,17 @@ export class AllUsersComponent {
     private modalService: ModalService,
     private router: Router
   ) {
-    this.userService.getAll().subscribe(response => {
-      if(response.status == 200){
-        this.content = response.json().value;
+    this.userService.getAll().subscribe(
+      response => {
+        if(response.status == 200){
+          this.content = response.json().value;
+          this.state.loading = false;
+        }
+      },
+      error => {
+        this.state.loading = false;
       }
-      this.state.loading = false;
-    })
+    );
   }
   
   removeUser(user: IUser){

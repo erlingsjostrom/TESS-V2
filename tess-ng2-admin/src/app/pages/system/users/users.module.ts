@@ -33,12 +33,10 @@ import { DataTableModule } from 'primeng/primeng';
     Users,
     AllUsersComponent,
     EditComponent,
-    LoadingComponent
   ],
   providers: [
     UserService,
     RoleService,
-    LoadingService
   ]
 })
 export class UsersModule {

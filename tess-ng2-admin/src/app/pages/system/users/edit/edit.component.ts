@@ -6,7 +6,6 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-
 @Component({
 	selector: 'edit',
 	templateUrl: 'edit.component.html',

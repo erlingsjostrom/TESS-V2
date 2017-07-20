@@ -15,9 +15,9 @@
           </div>
         </form>
         <p-dataTable  (onEdit)="onEdit($event)"  (onEditComplete)="onEditComplete($event)" [value]="content"  
-                      [globalFilter]="filterTable" tableStyleClass="ng-dataTable" [editable]="state.editMode"
+                      [globalFilter]="filterTable" tableStyleClass="ng-dataTable" [editable]="false"
                       [rows]="20" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[20, 10, 30]" 
-                      [loading]="state.loading" [ngClass]="{'edit-mode': state.editMode}">
+                      [loading]="state.loading">
             <p-column   [style]="{'width': '80px'}" >
                 <ng-template pTemplate="header">
                     <span>Actions</span>

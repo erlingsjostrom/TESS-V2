@@ -1,3 +1,5 @@
+import { LoadingService } from '../shared/components/loading/loading.service';
+import { LoadingComponent } from '../shared/components/loading/loading.component';
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 
@@ -9,7 +11,8 @@ import { Pages } from './pages.component';
 
 @NgModule({
   imports: [CommonModule, AppTranslationModule, NgaModule, routing],
-  declarations: [Pages]
+  declarations: [Pages, LoadingComponent],
+  providers: [LoadingService]
 })
 export class PagesModule {
 }
