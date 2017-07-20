@@ -1,5 +1,7 @@
-import { Component, OnInit, DoCheck, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ModalService } from '../../modals/modal.service';
+import { Component, OnInit, DoCheck, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+
 
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +15,6 @@ import { Subject } from "rxjs/Subject";
 })
 
 export class EntityEditorComponent implements OnInit, DoCheck {
-	private _subject: Subject<boolean> = new Subject();
 	private _entity: any;
 	private _fields: EntityField[] = [];
 	
@@ -39,6 +40,9 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 		return this._fields;
 	}
 
+	@Output() onSave: EventEmitter<any> = new EventEmitter()
+	@Output() onBack: EventEmitter<any> = new EventEmitter()
+
 
 	dataState: DataState<any> = new DataState<any>();
 	state: EditComponentState = {
@@ -48,13 +52,17 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 
 	constructor(
 		private router: Router,
+		private modalService: ModalService
 	) {}
 
 	// TODO: find replacement for this pls, it fires on mouse move events :(
 	ngDoCheck() {
 		if(this.checkDataReady) {
 			for(let cde of this._checkDataEntities) {
-				const data = cde.data.filter(cd => cd.checked).map(cd => cd.value);
+				let data: any = cde.data.filter(cd => cd.checked).map(cd => cd.value);
+				if (typeof cde.data[0].value === 'boolean'){
+					data = data.length !== 0;
+				}
 				this.entity[cde.name] = data;
 			}
 		}
@@ -67,10 +75,27 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 	}
 
 	saveChanges() {
-		this._subject.next(true);
+		this.onSave.emit(this.entity);
   }
+
 	goBack() {
-		this._subject.next(false);
+		if(this.state.modified) {
+			this.modalService.showConfirmModal(
+				"Do you really want to go back?",
+	      "You have unsaved changes, are you really sure you want to exit without saving?",
+	      "Discard changes and go back",
+	      "Cancel",
+	      "btn-warning-dark"
+			).subscribe(
+				response => {
+					if (response) {
+						this.onBack.emit(this.entity); // Pass along entity for local storage save purposes
+					}
+				}
+			);
+		} else {
+			this.onBack.emit(); 
+		}				
   }
 
 	private checkDataReady = false;
@@ -95,18 +120,18 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 					name: propName,
 					data: checkDataArr
 				});
-			} else {
+			} else if (typeof entity === 'boolean') {
 				this._checkDataEntities.push({
 					name: propName,
 					data: [
 						{
 							checked: entity,
-							value: {
-								Name: field.propertyLabel
-							}
+							value: entity
 						}
 					]
 				});
+			} else {
+				throw new EntityFieldError(`Unsupported EntityField checkbox type`);
 			}
 		}
 		this.checkDataReady = true;

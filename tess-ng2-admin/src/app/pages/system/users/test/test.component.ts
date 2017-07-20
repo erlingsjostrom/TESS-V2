@@ -1,7 +1,9 @@
 import { RoleService } from '../../../../shared/roles/role.service';
-import { UserService } from '../../../../shared/users/user.service';
+import { IUser, UserService } from '../../../../shared/users/user.service';
 import { EntityEditorComponent, EntityField } from '../../../../shared/components/entity-editor/entity-editor.component';
 import { Component, OnInit } from '@angular/core';
+
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'test',
@@ -9,82 +11,76 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class TestComponent implements OnInit {
-	myEntity = {
-		Name: "Erik",
-		UseLogo: false,
-		Description: ""
-	}
-	editorFields: EntityField[] = [
-		
-		
-		// {
-		// 	propertyLabel: "Description",
-		// 	propertyName: "Name",
-		// 	type: "richtext"
-		// },
-		// {
-		// 	propertyLabel: "Email",
-		// 	propertyName: "Email",
-		// 	type: "email"
-		// },
-		// {
-		// 	propertyLabel: "Phone number",
-		// 	propertyName: "PhoneNumber",
-		// 	type: "number"
-		// },
-		
-	]
+	myEntity = {};
+
+	editorFields: EntityField[] = [];
+
 	constructor(
 		private userService: UserService,
-		private roleService: RoleService
+		private roleService: RoleService,
+		private location: Location
 	) {
 		this.userService.get(2).subscribe(
 			response => {
-				console.log(response);
 				if (response.status == 200) {
-					this.myEntity = response.json();
-					this.myEntity.Description = "";
-					// this.myEntity.UseLogo = false;
-					console.log(this.myEntity);
+					//this.myEntity = response.json();
+					this.myEntity = {
+						IsNull: true
+					}
+					this.editorFields = [
+						{
+							propertyLabel: "Is null",
+							propertyName: "IsNull",
+							type: "checkbox"
+						}
+					]
+				// 	this.roleService.get().subscribe(
+				// 		response => {
+				// 			let ef: EntityField[] = [
+				// 				{
+				// 					propertyLabel: "Name",
+				// 					propertyName: "Name",
+				// 					type: "text"
+				// 				},
+				// 				{
+				// 					propertyLabel: "Windows User",
+				// 					propertyName: "WindowsUser",
+				// 					type: "text"
+				// 				},
+				// 				// {
+				// 				// 	propertyLabel: "Use Logo",
+				// 				// 	propertyName: "UseLogo",
+				// 				// 	type: "checkbox"
+				// 				// }
+				// 			];
+				// 			const test: EntityField = {
+				// 				propertyLabel: "Roles",
+				// 				propertyName: "Roles",
+				// 				type: "checkbox",
+				// 				availableValues: response
+				// 			}
+
+				// 			ef.push(test);
+				// 			this.editorFields = ef;
+				// 		},
+				// 		error => console.log(error)
+				// );
 				}
 			}
 		)
-		this.roleService.get().subscribe(
-				response => {
-					this.editorFields = [
-						{
-							propertyLabel: "Name",
-							propertyName: "Name",
-							type: "text"
-						},
-						{
-							propertyLabel: "Windows User",
-							propertyName: "WindowsUser",
-							type: "text"
-						},
-						{
-							propertyLabel: "Description",
-							propertyName: "Description",
-							type: "richtext"
-						},
-						// {
-						// 	propertyLabel: "Use Logo",
-						// 	propertyName: "UseLogo",
-						// 	type: "checkbox"
-						// }
-					]
-					const test: EntityField = {
-						propertyLabel: "Roles",
-						propertyName: "Roles",
-						type: "checkbox",
-						availableValues: response
-					}
-					this.editorFields.push(test);
-					
-					console.log("Roles loaded and insertetd");
-				},
-				error => console.log(error)
-		);
+	
 	}
 	ngOnInit() { }
+
+	onSave(user: IUser) {
+		console.log("Updated User: ", user);
+		this.location.back();
+	} 
+
+	onBack(user: IUser) {
+		if (user) {
+			console.log("Unsaved User: ", user);
+		}
+		this.location.back();
+	}
 }

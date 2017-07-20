@@ -12,10 +12,11 @@ export class ModalService {
     text:string, 
     buttonText?: string, 
     size?: ModalSize, 
-    isStatic?: boolean
+    isStatic?: boolean,
+    positionTop?: boolean
   ) {
     const modalButtonText = buttonText ? buttonText : 'Ok';
-    const settings = this.parseSettings(size, isStatic);
+    let settings = this.parseSettings(size, isStatic, positionTop);
     const activeModal = this.ngbModalService.open(DefaultModal, settings);
 
     activeModal.componentInstance.modalHeader = title;
@@ -31,13 +32,14 @@ export class ModalService {
     continueButtonClass?: string,
     closeButtonClass?: string,
     size?: ModalSize, 
-    isStatic?: boolean
+    isStatic?: boolean,
+    positionTop?: boolean
   ): Observable<boolean> {
     const modalContinueButtonText = continueButtonText ? continueButtonText : 'Continue';
     const modalCloseButtonText = closeButtonText ? closeButtonText : 'Close';
     const modalContinueButtonClass = continueButtonClass ? continueButtonClass : 'btn-primary-dark';
     const modalCloseButtonClass = closeButtonClass ? closeButtonClass : '';
-    const settings = this.parseSettings(size, isStatic);
+    const settings = this.parseSettings(size, isStatic, positionTop);
     const activeModal = this.ngbModalService.open(ConfirmModal, settings);
 
     activeModal.componentInstance.modalHeader = title;
@@ -61,8 +63,9 @@ export class ModalService {
     activeModal.componentInstance.setData(data);
   }
 
-  private parseSettings(size?: ModalSize, isStatic?: boolean) {
-    let modalBackdrop: any = isStatic ? 'static' : undefined;
+  private parseSettings(size?: ModalSize, isStatic?: boolean, positionTop?: boolean) {
+    const modalBackdrop: any = isStatic ? 'static' : undefined;
+    const windowClass = positionTop ? "" : "alert-modal";
     let modalSize: 'lg' | 'sm';
     switch(size) {
       case ModalSize.Small: 
@@ -77,7 +80,8 @@ export class ModalService {
     }
     return {
       size: modalSize,
-      backdrop: modalBackdrop
+      backdrop: modalBackdrop,
+      windowClass
     }
   }
 }

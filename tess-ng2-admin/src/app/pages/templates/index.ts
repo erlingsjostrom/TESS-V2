@@ -1,1 +1,1 @@
-export * from './offers.component';
+export * from './templates.component';

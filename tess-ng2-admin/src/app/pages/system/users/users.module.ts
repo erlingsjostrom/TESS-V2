@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalModule } from '../../../shared/modals/modal.module';
 import { ModalService } from '../../../shared/modals/modal.service';
 import { ArrayMapJoinPipe } from '../../../shared/pipes/array-map-join.pipe';
-import { ArraySortPipe } from '../../../shared/pipes/sort.pipe';
+import { ArraySortPipe } from '../../../shared/pipes/array-sort.pipe';
 import { RoleService } from '../../../shared/roles/role.service';
 import { UserService } from '../../../shared/users/user.service';
 import { NgaModule } from '../../../theme/nga.module';

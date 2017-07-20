@@ -21,6 +21,16 @@ button.btn {
   &.btn-success-dark:hover {
     background-color: lighten($success-dark, 5%);
   }
+  &.btn-warning:hover {
+    background-color: lighten($warning, 5%);
+  }
+  &.btn-warning-dark {
+    background-color: $warning-dark;
+    color: $default-text;
+    &:hover {
+      background-color: lighten($warning-dark, 5%);
+    }
+  }
 }
 
 button.btn.btn-primary-dark {
