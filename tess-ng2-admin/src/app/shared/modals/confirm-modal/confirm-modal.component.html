@@ -9,7 +9,7 @@
     {{modalContent}}
   </div>
   <div class="modal-footer">
-    <button class="btn btn confirm-btn" (click)="closeModal()">{{ modalCloseButtonText }}</button>
-    <button class="btn btn-primary-dark confirm-btn" (click)="continueAction()">{{ modalContinueButtonText }}</button>
+    <button class="btn {{ modalCloseButtonClass }}" (click)="closeModal()">{{ modalCloseButtonText }}</button>
+    <button class="btn {{ modalContinueButtonClass }}" (click)="continueAction()">{{ modalContinueButtonText }}</button>
   </div>
 </div>

@@ -9,20 +9,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
 
-export interface IUser {
-  Id: number,
-  Name: string,
-  WindowsUser: string,
-  Roles: IRole[]
-}
-export interface IRole {
-  Id: number,
-  Name: string,
-  Description: string,
+export interface IOffer {
+  Id: number
 }
 
 @Injectable()
-export class UserService {
+export class OfferService {
   constructor (private _http: Http) {}
 
   getAll(): Observable<Response> {
@@ -33,21 +25,17 @@ export class UserService {
     return this._request(this.getUrl(id), { method: RequestMethod.Get });
   }
 
-  put(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, user);
+  post(offer: IOffer): Observable<Response> {
+    return this._request(this.getUrl(offer.Id), { method: RequestMethod.Post }, offer);
   }
 
-  putRole(user: IUser, role: IRole): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, role);
+  /*put(offer: IOffer): Observable<Response> {
+    return this._request(this.getUrl(offer.Id, true),  { method: RequestMethod.Put }, offer);
   }
 
-  post(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Post }, user);
-  }
-
-  delete(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Delete });
-  }
+  delete(offer: IOffer): Observable<Response> {
+    return this._request(this.getUrl(offer.Id, true), { method: RequestMethod.Delete });
+  }*/
   
   private _request(url: string, options?: RequestOptionsArgs, data?: Object): Observable<Response> {
     let headers = new Headers();
@@ -71,13 +59,10 @@ export class UserService {
               });
   }
 
-  private getUrl(id?: number, excludeSuffix?: boolean): string {
-    let url = Config.API_URL + 'AUTH/Users';
+  private getUrl(id?: number): string {
+    let url = Config.API_URL + 'DB1/Offers';
     if (id) {
       url += '(' + id + ')';
-    }
-    if(!excludeSuffix) {
-      url += '?$expand=Roles';
     }
     return url;
   }

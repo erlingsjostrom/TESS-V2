@@ -6,7 +6,6 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
-
 @Component({
 	selector: 'edit',
 	templateUrl: 'edit.component.html',
@@ -32,11 +31,13 @@ export class EditComponent implements OnInit, DoCheck {
 		const id = this.route.snapshot.paramMap.get('id');
 		this.userService.get(+id).subscribe(
 			response => {
-				const user = response.json();
-				this.dataState.load(user);
-				this.user = user;
-				this.setCheckData(user);
-				this.state.loading = false;
+				if (response.status == 200) {
+					const user = response.json();
+					this.dataState.load(user);
+					this.user = user;
+					this.setCheckData(user);
+					this.state.loading = false;
+				}
 			},
 			error => {
 				console.log(error);
@@ -53,6 +54,10 @@ export class EditComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
+	}
+	
+	goBack(){
+		this.router.navigate(['system/users']);
 	}
 
 	saveChanges() {
@@ -90,10 +95,12 @@ export interface CheckData {
   checked: boolean,
   value: any
 }
+
 export interface EditComponentState {
 	loading: boolean;
 	modified: boolean;
 }
+
 export class DataState<T> {
   data: T;
   private rawData: T;

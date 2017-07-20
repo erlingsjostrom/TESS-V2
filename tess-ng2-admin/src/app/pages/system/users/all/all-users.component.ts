@@ -1,3 +1,6 @@
+import { ObservableInput } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs/Rx';
+import { Users } from '../';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService, ModalSize, ModalType } from '../../../../shared/modals/modal.service';
@@ -14,55 +17,53 @@ import { RolesModal } from './modals/roles-modal/roles-modal.component';
 
 export class AllUsersComponent {
   state = {
-    edited: false,
     loading: true,
-    editMode: false,
   }
 
-  content: DataTableList<IUser> = new DataTableList<IUser>();
+  content: IUser[] = [];
   
   constructor(
     private userService: UserService,
     private modalService: ModalService,
     private router: Router
   ) {
-    this.userService.getAll().subscribe((users) => {
-      this.content.load(users.json().value);
-      this.state.loading = false;
-    })
+    this.userService.getAll().subscribe(
+      response => {
+        if(response.status == 200){
+          this.content = response.json().value;
+          this.state.loading = false;
+        }
+      },
+      error => {
+        this.state.loading = false;
+      }
+    );
   }
   
+  removeUser(user: IUser) {
+    this.modalService.showConfirmModal(
+      "Confirm deletion of " + user.Name,
+      "This action is irreversible, do you still want to delete " + user.Name + "?",
+      "Delete",
+      "Don't delete",
+      "btn-danger"
+    ).subscribe(
+      response => {
+        if(response){
+          this.userService.delete(user).subscribe(
+            response => {
+              if(response.status == 204){
+                var index = this.content.indexOf(user);
+                this.content = this.content.filter((val, i) => i != index);
+              }
+            }
+          )
+        }
+      }
+    );
+  }
+
   edit(id: number) {
     this.router.navigate(['system/users/edit/', id]);
-  }
-  
-
-}
-
-export class DataTableList<T> {
-  data: T[] = [];
-  private rawData: T[] = [];
-  
-  load(data: T[]) {
-    this.data = data;
-    this.rawData = this.cloneData(data);
-  }
-
-  modified(): T[] {
-    return this.data.filter((item, index: number) => {
-      return !(JSON.stringify(item) === JSON.stringify(this.rawData[index]));
-    });
-  }
-
-  isModified(): boolean {
-    return this.modified().length > 0;
-  }
-  
-  private cloneData(data: T[]): T[] {
-    let clonedData: T[] = [];
-    data.forEach(item => {
-      clonedData.push(Object.assign({}, JSON.parse(JSON.stringify(item))));
-    });
-    return clonedData;
   }
 }

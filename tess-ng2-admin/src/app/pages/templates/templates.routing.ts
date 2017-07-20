@@ -1,14 +1,14 @@
 import { Routes, RouterModule }  from '@angular/router';
 
-import { System } from './system.component';
+import { Templates } from './templates.component';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
   {
     path: '',
-    component: System,
+    component: Templates,
     children: [
-      { path: 'users', loadChildren: './users/users.module#UsersModule' }
+      { path: 'templates', loadChildren: '' }
     ]
   }
 ];

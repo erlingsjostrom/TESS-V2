@@ -1,4 +1,3 @@
-
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 
@@ -12,8 +11,8 @@ import { Pages } from './pages.component';
   imports: [
     CommonModule, 
     AppTranslationModule,
-     NgaModule, 
-     routing
+    NgaModule, 
+    routing
   ],
   declarations: [
     Pages, 

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { Component, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DefaultModal } from './default-modal/default-modal.component';
@@ -25,22 +26,28 @@ export class ModalService {
   showConfirmModal(
     title:string, 
     text:string, 
-    continueButtonCallback: () => void,
     continueButtonText?: string, 
     closeButtonText?: string,
+    continueButtonClass?: string,
+    closeButtonClass?: string,
     size?: ModalSize, 
     isStatic?: boolean
-  ) {
+  ): Observable<boolean> {
     const modalContinueButtonText = continueButtonText ? continueButtonText : 'Continue';
     const modalCloseButtonText = closeButtonText ? closeButtonText : 'Close';
+    const modalContinueButtonClass = continueButtonClass ? continueButtonClass : 'btn-primary-dark';
+    const modalCloseButtonClass = closeButtonClass ? closeButtonClass : '';
     const settings = this.parseSettings(size, isStatic);
     const activeModal = this.ngbModalService.open(ConfirmModal, settings);
 
     activeModal.componentInstance.modalHeader = title;
     activeModal.componentInstance.modalContent = text;
-    activeModal.componentInstance.modalContinueButtonCallback = continueButtonCallback;
     activeModal.componentInstance.modalContinueButtonText = modalContinueButtonText;
     activeModal.componentInstance.modalCloseButtonText = modalCloseButtonText;
+    activeModal.componentInstance.modalContinueButtonClass = modalContinueButtonClass;
+    activeModal.componentInstance.modalCloseButtonClass = modalCloseButtonClass;
+    
+    return activeModal.componentInstance.modalSubject;
   }
 
   showCustomModal(
