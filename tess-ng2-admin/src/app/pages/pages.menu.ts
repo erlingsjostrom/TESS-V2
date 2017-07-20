@@ -27,6 +27,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'templates',
+        data: {
+          menu: {
+            title: 'Templates',
+            icon: 'ion-document-text',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'system',
         data: {
           menu: {
