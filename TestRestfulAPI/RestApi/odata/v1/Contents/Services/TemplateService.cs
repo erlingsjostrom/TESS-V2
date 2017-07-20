@@ -17,6 +17,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
     {
         private readonly UserService _userService;
         private TemplateRepository _templateRepository;
+        private ContentRepository _contentRepository;
+
         public TemplateService(UserService userService)
         {
             this._userService = userService;
@@ -56,6 +58,14 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
             this.InitRepository();
             _templateRepository.Delete(resource, id);
         }
+
+        public Template AddContent(string resource, int templateId, int contentId)
+        {
+            this.InitRepository();
+            var content = this._contentRepository.Get(resource, contentId);
+            return _templateRepository.AddContent(resource, templateId, content);
+        }
+
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -71,6 +81,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
                 ).ToList();
 
             this._templateRepository = new TemplateRepository(resourceContexts);
+            this._contentRepository = new ContentRepository(resourceContexts);
         }
     }
 }

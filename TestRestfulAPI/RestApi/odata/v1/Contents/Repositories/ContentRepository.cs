@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Exceptions;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
@@ -112,26 +113,39 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             results.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
             results.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
 
+            dbEntry.TextItems.Clear();
+            foreach (var textitem in entity.TextItems)
+            {
+                dbEntry.TextItems.Add(results.Context.Set<TextItem>().ToList().FirstOrDefault(r => r.Id == textitem.Id));
+            }
+            dbEntry.Articles.Clear();
+            foreach (var article in entity.Articles)
+            {
+                dbEntry.Articles.Add(results.Context.Set<Article>().ToList().FirstOrDefault(r => r.Id == article.Id));
+            }
+
+
             results.Context.SaveChanges();
             return dbEntry;
         }
+        public Content AddTextItem(string resource, int contentId, TextItem textitem)
+        {
+            var results = GetAndValidateResource(resource);
+            var content = Get(resource, contentId);
+            content.TextItems.Add(textitem);
+            results.Context.SaveChanges();
+            return content;
+        }
+        public Content AddArticle(string resource, int contentId, Article article)
+        {
+            var results = GetAndValidateResource(resource);
+            var content = Get(resource, contentId);
+            content.Articles.Add(article);
+            results.Context.SaveChanges();
+            return content;
+        }
 
-        public Content AddToTemplate(string resource, int contentId, Template template)
-        {
-            var results = GetAndValidateResource(resource);
-            var content = Get(resource, contentId);
-            template.Contents.Add(content);
-            results.Context.SaveChanges();
-            return content;
-        }
-        public Content AddToOffer(string resource, int contentId, Offer offer)
-        {
-            var results = GetAndValidateResource(resource);
-            var content = Get(resource, contentId);
-            offer.Contents.Add(content);
-            results.Context.SaveChanges();
-            return content;
-        }
+
         private ResourceContext GetAndValidateResource(string resource)
         {
             var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);

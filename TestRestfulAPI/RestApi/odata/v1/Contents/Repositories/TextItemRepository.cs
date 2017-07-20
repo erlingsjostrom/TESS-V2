@@ -100,14 +100,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             results.Context.SaveChanges();
         }
 
-        public TextItem CreateContentTextItem(string resource, TextItem textitem, Content content)
-        {
-            var results = GetAndValidateResource(resource);
-            content.TextItems.Add(textitem);
-            results.Context.SaveChanges();
-            return textitem;
-        }
-
         private ResourceContext GetAndValidateResource(string resource)
         {
             var results = this.ResourceContexts.FirstOrDefault(c => c.Name == resource);

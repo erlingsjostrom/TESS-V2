@@ -6,6 +6,7 @@ using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Repositories;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
@@ -16,6 +17,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
     {
         private readonly UserService _userService;
         private CustomerRepository _customerRepository;
+        private OfferRepository _offerRepository;
 
         public CustomerService(UserService userService)
         {
@@ -55,6 +57,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
             this.InitRepository();
             _customerRepository.Delete(resource, id);
         }
+        public Customer AddOffer(string resource, int customerId, int offerId)
+        {
+            this.InitRepository();
+            var offer = this._offerRepository.Get(resource, offerId);
+            return _customerRepository.AddOffer(resource, customerId, offer);
+        }
 
         private void InitRepository()
         {
@@ -71,6 +79,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Services
                 ).ToList();
 
             this._customerRepository = new CustomerRepository(resourceContexts);
+            this._offerRepository = new OfferRepository(resourceContexts);
         }
     }
 }

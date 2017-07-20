@@ -72,14 +72,5 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
             this.ODataDeleted(); // Set response headers
         }
 
-        // Put: {resource}/TextItems({contentId})
-        [UserHasResourceAccess, UserHasPermission("Write")]
-        [EnableQuery, HttpPost, ODataRoute("({contentId})")]
-        public IHttpActionResult CreateContentTextItem(TextItem textitem, int contentId)
-        {
-            this.ParseResource();
-            return ODataCreated(this._textitemService.CreateContentTextItem(this.Resource, textitem, contentId), textitem.Id);
-
-        }
     }
 }

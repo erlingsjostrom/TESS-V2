@@ -4,6 +4,7 @@ using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
@@ -16,8 +17,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
     {
         private readonly UserService _userService;
         private ContentRepository _contentRepository;
-        private OfferRepository _offerRepository;
-        private TemplateRepository _templateRepository;
+        private TextItemRepository _textitemRepository;
+        private ArticleRepository _articleRepository;
 
         public ContentService(UserService userService)
         {
@@ -58,20 +59,19 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
             this.InitRepository();
             return _contentRepository.Update(resource, content);
         }
-
-        public Content AddToTemplate(string resource, int contentId, int templateId)
+        public Content AddTextItem(string resource, int contentId, int textitemId)
         {
             this.InitRepository();
-            var template = this._templateRepository.Get(resource, templateId);
-            return _contentRepository.AddToTemplate(resource, contentId, template);
+            var textitem = this._textitemRepository.Get(resource, textitemId);
+            return _contentRepository.AddTextItem(resource, contentId, textitem);
         }
-
-        public Content AddToOffer(string resource, int contentId, int offerId)
+        public Content AddArticle(string resource, int contentId, int articleId)
         {
             this.InitRepository();
-            var offer = this._offerRepository.Get(resource, offerId);
-            return _contentRepository.AddToOffer(resource, contentId, offer);
+            var article = this._articleRepository.Get(resource, articleId);
+            return _contentRepository.AddArticle(resource, contentId, article);
         }
+
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -87,8 +87,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
                 ).ToList();
 
             this._contentRepository = new ContentRepository(resourceContexts);
-            this._offerRepository = new OfferRepository(resourceContexts);
-            this._templateRepository = new TemplateRepository(resourceContexts);
+            this._textitemRepository = new TextItemRepository(resourceContexts);
+            this._articleRepository = new ArticleRepository(resourceContexts);
         }
     }
 }

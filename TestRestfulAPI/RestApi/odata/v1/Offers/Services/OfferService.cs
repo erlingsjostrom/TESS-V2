@@ -4,6 +4,7 @@ using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
@@ -17,6 +18,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
         private readonly UserService _userService;
         private OfferRepository _offerRepository;
         private CustomerRepository _customerRepository;
+        private ContentRepository _contentRepository;
 
         public OfferService(UserService userService)
         {
@@ -66,6 +68,13 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
             _offerRepository.Delete(resource, id);
         }
 
+        public Offer AddContent(string resource, int offerId, int contentId)
+        {
+            this.InitRepository();
+            var content = this._contentRepository.Get(resource, contentId);
+            return _offerRepository.AddContent(resource, offerId, content);
+        }
+
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -82,6 +91,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
 
             this._offerRepository = new OfferRepository(resourceContexts);
             this._customerRepository = new CustomerRepository(resourceContexts);
+            this._contentRepository = new ContentRepository(resourceContexts);
         }
     }
 }

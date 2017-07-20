@@ -176,6 +176,10 @@
     <Compile Include="Migrations\201707170814423_AddTemplatesTable.Designer.cs">
       <DependentUpon>201707170814423_AddTemplatesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707191052118_UpdateRelationsBetweenContentArticle.cs" />
+    <Compile Include="Migrations\201707191052118_UpdateRelationsBetweenContentArticle.Designer.cs">
+      <DependentUpon>201707191052118_UpdateRelationsBetweenContentArticle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RestApi\odata\v1\Articles\Controllers\ArticleController.cs" />
     <Compile Include="Infrastructure\Controllers\ICrudController.cs" />
@@ -268,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707170814423_AddTemplatesTable.resx">
       <DependentUpon>201707170814423_AddTemplatesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707191052118_UpdateRelationsBetweenContentArticle.resx">
+      <DependentUpon>201707191052118_UpdateRelationsBetweenContentArticle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

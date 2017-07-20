@@ -6,6 +6,7 @@ using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Exceptions;
+using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Customers.Repositories
@@ -107,6 +108,14 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Repositories
             results.Context.SaveChanges();
 
             return dbEntry;
+        }
+        public Customer AddOffer(string resource, int customerId, Offer offer)
+        {
+            var results = GetAndValidateResource(resource);
+            var customer = Get(resource, customerId);
+            customer.Offers.Add(offer);
+            results.Context.SaveChanges();
+            return customer;
         }
 
         public void Delete(string resource, int id)

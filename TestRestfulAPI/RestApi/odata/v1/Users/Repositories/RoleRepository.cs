@@ -49,6 +49,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
             ResourceContext.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
+            dbEntry.Permissions.Clear();
+
+            foreach (var permission in entity.Permissions)
+            {
+                dbEntry.Permissions.Add(this.ResourceContext.Context.Set<Permission>().ToList().FirstOrDefault(r => r.Id == permission.Id));
+            }
 
             ResourceContext.Context.SaveChanges();
 

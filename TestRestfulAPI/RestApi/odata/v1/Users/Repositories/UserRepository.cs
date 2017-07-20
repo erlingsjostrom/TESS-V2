@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.OData;
+using Microsoft.Web.Http.Versioning;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Entities;
@@ -12,6 +14,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
 {
     public class UserRepository : SingleBaseRepository<User>, ISingleRepository<User, int>
     {
+
         public UserRepository(ResourceContext userContext) : base(userContext)
         {}
 
@@ -48,16 +51,11 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
             
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
             ResourceContext.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
-            
             dbEntry.Roles.Clear();
-        
-            //ResourceContext.Context.SaveChanges();
-
-            var dbRoles = this.ResourceContext.Context.Set<Role>().ToList()
-                .Where(r => entity.Roles.All(er => er.Id == r.Id));
-            foreach (var role in dbRoles)
+            
+            foreach (var role in entity.Roles)
             {
-                dbEntry.Roles.Add(role);
+                dbEntry.Roles.Add(this.ResourceContext.Context.Set<Role>().ToList().FirstOrDefault(r => r.Id == role.Id));
             }
 
             ResourceContext.Context.SaveChanges();
@@ -93,30 +91,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
                 throw new UserDoesNotExistException("User with windows identity " + windowsIdentity + " does not exist.");
             }
 
-            return user;
-        }
-
-        public User AddRole(int userId, Role role)
-        {
-            var user = this.All().Include("Roles").FirstOrDefault(u => u.Id == userId);
-            if (user.Roles.Any(r => r.Equals(role)))
-            {
-                throw new RoleAlreadyExistException("User with ID " + userId + " does already have the role " + role.Name + ".");
-            }
-            user.Roles.Add(role);
-            ResourceContext.Context.SaveChanges();
-            return user;
-        }
-
-        public User RemoveRole(int userId, Role role)
-        {
-            var user = this.All().Include("Roles").FirstOrDefault(u => u.Id == userId);
-            if (!user.Roles.Any(r => r.Equals(role)))
-            {
-                throw new PermissionDoesNotExistException("User with ID " + userId + " does not have the role " + role.Name + ".");
-            }
-            user.Roles.Remove(role);
-            ResourceContext.Context.SaveChanges();
             return user;
         }
     }
