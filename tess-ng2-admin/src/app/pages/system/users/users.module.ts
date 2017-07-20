@@ -1,5 +1,6 @@
-import { LoadingService } from '../../../shared/components/loading/loading.service';
-import { LoadingComponent } from '../../../shared/components/loading/loading.component';
+import { EntityEditorComponent } from '../../../shared/components/entity-editor/entity-editor.component';
+import { EntityEditorModule } from '../../../shared/components/entity-editor/entity-editor.module';
+import { TestComponent } from './test/test.component';
 import { Users } from './users.component';
 import { EditComponent } from './edit/edit.component';
 import { NgModule }      from '@angular/core';
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalModule } from '../../../shared/modals/modal.module';
 import { ModalService } from '../../../shared/modals/modal.service';
 import { ArrayMapJoinPipe } from '../../../shared/pipes/array-map-join.pipe';
-import { ArraySortPipe } from '../../../shared/pipes/sort.pipe';
+import { ArraySortPipe } from '../../../shared/pipes/array-sort.pipe';
 import { RoleService } from '../../../shared/roles/role.service';
 import { UserService } from '../../../shared/users/user.service';
 import { NgaModule } from '../../../theme/nga.module';
@@ -25,7 +26,8 @@ import { DataTableModule } from 'primeng/primeng';
     NgaModule,
     routing,
     DataTableModule,
-    ModalModule
+    ModalModule,
+    EntityEditorModule
   ],
   declarations: [
     ArrayMapJoinPipe,
@@ -33,10 +35,11 @@ import { DataTableModule } from 'primeng/primeng';
     Users,
     AllUsersComponent,
     EditComponent,
+    TestComponent,
   ],
   providers: [
     UserService,
-    RoleService,
+    RoleService
   ]
 })
 export class UsersModule {

@@ -21,6 +21,16 @@ button.btn {
   &.btn-success-dark:hover {
     background-color: lighten($success-dark, 5%);
   }
+  &.btn-warning:hover {
+    background-color: lighten($warning, 5%);
+  }
+  &.btn-warning-dark {
+    background-color: $warning-dark;
+    color: $default-text;
+    &:hover {
+      background-color: lighten($warning-dark, 5%);
+    }
+  }
 }
 
 button.btn.btn-primary-dark {
@@ -60,3 +70,15 @@ button.btn.btn-success-dark {
   }
 }
 
+// TinyMCE
+
+.al-content div.mce-fullscreen {
+  left: $sidebar-width;
+  top: $top-height;
+  z-index: 1050;
+  // height: calc(100% - ( #{$top-height} - 10px ));
+  .menu-collapsed & {
+    left: 50px;
+    z-index: 1050;
+  }
+}
