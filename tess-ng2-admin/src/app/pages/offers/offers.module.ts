@@ -8,7 +8,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { Offers } from './offers.component';
 import { routing } from './offers.routing';
 import { ArrayMapJoinPipe } from '../../shared/pipes/array-map-join.pipe';
-import { ArraySortPipe } from '../../shared/pipes/sort.pipe';
+import { ArraySortPipe } from '../../shared/pipes/array-sort.pipe';
 
 
 @NgModule({
