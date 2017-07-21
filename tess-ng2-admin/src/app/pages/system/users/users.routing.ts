@@ -3,8 +3,6 @@ import { EditComponent } from './edit/edit.component';
 import { Routes, RouterModule }  from '@angular/router';
 import { Users } from './users.component';
 
-
-
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
   {

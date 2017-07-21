@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, Request, RequestOptionsArgs, RequestMethod } from '@angular/http';
+import { BaseService } from '../service';
+import { Inject, Injectable } from '@angular/core';
+import { Http, Response, Headers, Request, RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-
-import { Config } from 'app/shared/config';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -15,15 +14,10 @@ export interface IOffer {
 }
 
 @Injectable()
-export class OfferService {
-  constructor (private _http: Http) {}
-
-  getAll(): Observable<Response> {
-    return this._request(this.getUrl(), { method: RequestMethod.Get });
-  }
-  
-  get(id: number): Observable<Response> {
-    return this._request(this.getUrl(id), { method: RequestMethod.Get });
+export class OfferService extends BaseService {
+  constructor (@Inject(Http) _http: Http) {
+    super(_http);
+    this.serviceURL = 'DB1/Offers';
   }
 
   post(offer: IOffer): Observable<Response> {
@@ -37,34 +31,4 @@ export class OfferService {
   delete(offer: IOffer): Observable<Response> {
     return this._request(this.getUrl(offer.Id, true), { method: RequestMethod.Delete });
   }*/
-  
-  private _request(url: string, options?: RequestOptionsArgs, data?: Object): Observable<Response> {
-    let headers = new Headers();
-    headers.append('Accept', Config.API_HEADERS.Accept);
-    headers.append('Content-Type', 'application/json;charset=UTF-8');
-    options.withCredentials = true;
-    options.headers = headers;
-
-    if (data) {
-      options.body = JSON.stringify(data);
-    }
-
-    return this._http.request(url, options)
-              .timeout(8000)
-              .retry(3)
-              .map((response: Response) => {
-                return response;
-              })
-              .catch((error: any) => {
-                return Observable.throw(error);
-              });
-  }
-
-  private getUrl(id?: number): string {
-    let url = Config.API_URL + 'DB1/Offers';
-    if (id) {
-      url += '(' + id + ')';
-    }
-    return url;
-  }
 }

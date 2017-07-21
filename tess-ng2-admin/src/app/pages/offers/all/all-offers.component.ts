@@ -38,6 +38,6 @@ export class AllOffersComponent {
   }
 
   edit(id: number) {
-    this.router.navigate(['system/offers/edit/', id]);
+    this.router.navigate(['offers/edit/', id]);
   }
 }

@@ -1,5 +1,5 @@
 import { ModalService } from '../../../../shared/modals/modal.service';
-import { EntityField } from '../../../../shared/components/entity-editor';
+import { EntityField, EntityEditor } from '../../../../shared/components/entity-editor';
 import { RoleService, IRole } from '../../../../shared/roles/role.service';
 import { UserService, IUser } from '../../../../shared/users/user.service';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
@@ -15,7 +15,7 @@ import { Subject } from 'rxjs/Subject';
 	styleUrls: ['./edit.component.scss'],
 })
 
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, EntityEditor {
 	private _staging: Subject<number> = new Subject<number>();
 	private _stage: number = 0;
 
@@ -34,7 +34,7 @@ export class EditComponent implements OnInit {
 		},
 	]
 
-	user: Subject<IUser> = new Subject();
+	entity: Subject<IUser> = new Subject();
 	editorFields: Subject<EntityField[]> = new Subject();
 	
 	state = {
@@ -107,7 +107,7 @@ export class EditComponent implements OnInit {
 	}
 
 	private fetchRoles() {
-		this._roleService.get().subscribe(
+		this._roleService.getAll().subscribe(
 			response => {
 				if (response.status == 200) {
 					this._roles = response.json().value;
@@ -146,7 +146,7 @@ export class EditComponent implements OnInit {
 			},
 			error => console.log(error),
 			() => {
-				this.user.next(this._user);
+				this.entity.next(this._user);
 				this.editorFields.next(this._editorFields);
 			}
 		)

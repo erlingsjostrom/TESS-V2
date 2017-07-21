@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, Request, RequestOptionsArgs, RequestMethod } from '@angular/http';
+import { BaseService } from '../service';
+import { inherits } from 'util';
+import { Inject, Injectable } from '@angular/core';
+import { Http, Response, Headers, Request, RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-
-import { Config } from 'app/shared/config';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -22,63 +22,40 @@ export interface IRole {
 }
 
 @Injectable()
-export class UserService {
-  constructor (private _http: Http) {}
+export class UserService extends BaseService{
+  constructor (@Inject(Http) _http: Http) {
+    super(_http);
+    this.serviceURL = 'AUTH/Users';
+  }
 
   getAll(): Observable<Response> {
-    return this._request(this.getUrl(), { method: RequestMethod.Get });
+    return this._request(this.getUrlWithRoles(), { method: RequestMethod.Get });
   }
   
   get(id: number): Observable<Response> {
-    return this._request(this.getUrl(id), { method: RequestMethod.Get });
+    return this._request(this.getUrlWithRoles(id), { method: RequestMethod.Get });
   }
 
   put(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, user);
+    return this._request(this.getUrl(user.Id), { method: RequestMethod.Put }, user);
   }
 
   putRole(user: IUser, role: IRole): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Put }, role);
+    return this._request(this.getUrl(user.Id), { method: RequestMethod.Put }, role);
   }
 
   post(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(), { method: RequestMethod.Post }, user);
+    return this._request(this.getUrlWithRoles(), { method: RequestMethod.Post }, user);
   }
 
   delete(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Delete });
-  }
-  
-  private _request(url: string, options?: RequestOptionsArgs, data?: Object): Observable<Response> {
-    let headers = new Headers();
-    headers.append('Accept', Config.API_HEADERS.Accept);
-    headers.append('Content-Type', 'application/json;charset=UTF-8');
-    options.withCredentials = true;
-    options.headers = headers;
-
-    if (data) {
-      options.body = JSON.stringify(data);
-    }
-
-    return this._http.request(url, options)
-               .timeout(8000)
-               .retry(3)
-               .map((response: Response) => {
-                return response;
-               })
-               .catch((error: any) => {
-                return Observable.throw(error);
-               });
+    return this._request(this.getUrl(user.Id), { method: RequestMethod.Delete });
   }
 
-  private getUrl(id?: number, excludeSuffix?: boolean): string {
-    let url = Config.API_URL + 'AUTH/Users';
-    if (id) {
-      url += '(' + id + ')';
-    }
-    if(!excludeSuffix) {
-      url += '?$expand=Roles';
-    }
+  private getUrlWithRoles(id?: number): string {
+    let url = this.getUrl(id);
+    url += '?$expand=Roles';
+    
     return url;
   }
 }
