@@ -39,6 +39,9 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
             {
                 throw new UserAlreadyExistException("User with Windows identity " + entity.WindowsUser + " does already exist.");
             }
+            List<Role> roles = new List<Role>(entity.Roles);
+            entity.Roles.Clear();
+            AddRoles(entity, roles);
             ResourceContext.Context.Set<User>().Add(entity);
             ResourceContext.Context.SaveChanges();
            
@@ -52,12 +55,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
             ResourceContext.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
             ResourceContext.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
             dbEntry.Roles.Clear();
-            
-            foreach (var role in entity.Roles)
-            {
-                dbEntry.Roles.Add(this.ResourceContext.Context.Set<Role>().ToList().FirstOrDefault(r => r.Id == role.Id));
-            }
 
+            AddRoles(dbEntry, entity.Roles);
             ResourceContext.Context.SaveChanges();
 
             return dbEntry;
@@ -92,6 +91,19 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Repositories
             }
 
             return user;
+        }
+
+        private User AddRoles(User dbEntry, ICollection<Role> roles)
+        {
+            foreach (var role in roles)
+            {
+                var dbRole = this.ResourceContext.Context.Set<Role>().ToList().FirstOrDefault(r => r.Id == role.Id);
+                if (dbRole != null)
+                {
+                    dbEntry.Roles.Add(dbRole);
+                }
+            }
+            return dbEntry;
         }
     }
 }

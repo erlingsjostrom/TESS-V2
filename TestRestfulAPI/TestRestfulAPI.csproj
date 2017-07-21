@@ -164,21 +164,13 @@
     <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
     <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
     <Compile Include="Infrastructure\Services\ISingleService.cs" />
-    <Compile Include="Migrations\201707140700027_Initial-Create.cs" />
-    <Compile Include="Migrations\201707140700027_Initial-Create.Designer.cs">
-      <DependentUpon>201707140700027_Initial-Create.cs</DependentUpon>
+    <Compile Include="Migrations\201707201426034_InitialCreate.cs" />
+    <Compile Include="Migrations\201707201426034_InitialCreate.Designer.cs">
+      <DependentUpon>201707201426034_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707141349125_AddTextItemsTable.cs" />
-    <Compile Include="Migrations\201707141349125_AddTextItemsTable.Designer.cs">
-      <DependentUpon>201707141349125_AddTextItemsTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707170814423_AddTemplatesTable.cs" />
-    <Compile Include="Migrations\201707170814423_AddTemplatesTable.Designer.cs">
-      <DependentUpon>201707170814423_AddTemplatesTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707191052118_UpdateRelationsBetweenContentArticle.cs" />
-    <Compile Include="Migrations\201707191052118_UpdateRelationsBetweenContentArticle.Designer.cs">
-      <DependentUpon>201707191052118_UpdateRelationsBetweenContentArticle.cs</DependentUpon>
+    <Compile Include="Migrations\201707201434254_cascadeTest.cs" />
+    <Compile Include="Migrations\201707201434254_cascadeTest.Designer.cs">
+      <DependentUpon>201707201434254_cascadeTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RestApi\odata\v1\Articles\Controllers\ArticleController.cs" />
@@ -249,6 +241,7 @@
   <ItemGroup>
     <Content Include="AppSettings.config" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\tecdev.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -263,17 +256,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707140700027_Initial-Create.resx">
-      <DependentUpon>201707140700027_Initial-Create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707201426034_InitialCreate.resx">
+      <DependentUpon>201707201426034_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707141349125_AddTextItemsTable.resx">
-      <DependentUpon>201707141349125_AddTextItemsTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707170814423_AddTemplatesTable.resx">
-      <DependentUpon>201707170814423_AddTemplatesTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707191052118_UpdateRelationsBetweenContentArticle.resx">
-      <DependentUpon>201707191052118_UpdateRelationsBetweenContentArticle.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707201434254_cascadeTest.resx">
+      <DependentUpon>201707201434254_cascadeTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

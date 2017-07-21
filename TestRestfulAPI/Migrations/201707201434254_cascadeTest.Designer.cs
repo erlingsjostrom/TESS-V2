@@ -7,13 +7,13 @@ namespace TestRestfulAPI.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateRelationsBetweenContentArticle : IMigrationMetadata
+    public sealed partial class cascadeTest : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateRelationsBetweenContentArticle));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(cascadeTest));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707191052118_UpdateRelationsBetweenContentArticle"; }
+            get { return "201707201434254_cascadeTest"; }
         }
         
         string IMigrationMetadata.Source

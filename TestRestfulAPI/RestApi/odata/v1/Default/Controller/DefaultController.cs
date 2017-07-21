@@ -12,7 +12,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Default.Controller
             var result = new Dictionary<string, string>()
             {
                 {"Name", "TESS API - Tieto Essential Sale System API"},
-                {"Version", "1.0"}
+                {"Version", "1.0.1"}
             };
             return Json(result, "info");
         }

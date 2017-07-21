@@ -74,6 +74,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
             var content = this._contentRepository.Get(resource, contentId);
             return _offerRepository.AddContent(resource, offerId, content);
         }
+        public Offer RemoveContent(string resource, int offerId, int contentId)
+        {
+            this.InitRepository();
+            var content = this._contentRepository.Get(resource, contentId);
+            return _offerRepository.RemoveContent(resource, offerId, content);
+        }
 
         private void InitRepository()
         {

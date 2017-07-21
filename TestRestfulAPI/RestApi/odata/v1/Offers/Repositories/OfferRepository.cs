@@ -135,6 +135,14 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             results.Context.SaveChanges();
             return offer;
         }
+        public Offer RemoveContent(string resource, int offerId, Content content)
+        {
+            var results = GetAndValidateResource(resource);
+            var offer = Get(resource, offerId);
+            offer.Contents.Remove(content);
+            results.Context.SaveChanges();
+            return offer;
+        }
 
         private ResourceContext GetAndValidateResource(string resource)
         {

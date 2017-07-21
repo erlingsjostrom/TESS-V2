@@ -81,6 +81,15 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
         }
 
         // DELETE: {resource}/Offers({id})
+        [UserHasResourceAccess, UserHasPermission("Modify")]
+        [EnableQuery, HttpDelete, ODataRoute("({offerId})/Contents({contentId})")]
+        public Offer RemoveContent(int offerId, int contentId)
+        {
+            this.ParseResource();
+            return this._offerService.RemoveContent(this.Resource, offerId, contentId);
+        }
+
+        // DELETE: {resource}/Offers({id})
         [UserHasResourceAccess, UserHasPermission("Remove")]
         [EnableQuery, HttpDelete, ODataRoute("({id})")]
         public void Delete(int id)
