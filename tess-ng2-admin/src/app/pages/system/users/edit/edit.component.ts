@@ -147,8 +147,35 @@ export class EditComponent implements OnInit {
 				this.user.next(this._user);
 				this.editorFields.next(this._editorFields);
 			}
+<<<<<<< HEAD
 		)
 	}
+=======
+		);
+  }
+	private checkDataReady: boolean = false;
+  setCheckData(user: IUser) {
+    this.roleService.get().subscribe(
+      response => {
+        const availableRoles = response.json();
+        this.checkData = availableRoles.map(cdr => { 
+          return {
+            checked: user.Roles.filter(r => r.Id == cdr.Id).length > 0, 
+            value: cdr
+          } 
+        }).sort();
+				this.checkDataReady = true;
+      },
+      error => console.log(error)
+    )
+  }
+}
+
+export interface CheckData {
+  checked: boolean,
+  value: any
+}
+>>>>>>> 6c46c5d61e8401e1733c00798b62493cefda66f7
 
 }
 

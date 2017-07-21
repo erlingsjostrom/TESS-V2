@@ -60,7 +60,7 @@ export class TemplateService {
   }
 
   private getUrl(id?: number): string {
-    let url = Config.API_URL + 'DB1/Users';
+    let url = Config.API_URL + 'DB1/Templates';
     if (id) {
       url += '(' + id + ')';
     }

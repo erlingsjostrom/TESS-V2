@@ -1,7 +1,6 @@
 import { AllUsersComponent } from './all/all-users.component';
 import { EditComponent } from './edit/edit.component';
 import { Routes, RouterModule }  from '@angular/router';
-
 import { Users } from './users.component';
 
 
