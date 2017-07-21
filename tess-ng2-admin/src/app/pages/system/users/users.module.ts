@@ -1,6 +1,5 @@
 import { EntityEditorComponent } from '../../../shared/components/entity-editor/entity-editor.component';
 import { EntityEditorModule } from '../../../shared/components/entity-editor/entity-editor.module';
-import { TestComponent } from './test/test.component';
 import { Users } from './users.component';
 import { EditComponent } from './edit/edit.component';
 import { NgModule }      from '@angular/core';
@@ -18,6 +17,15 @@ import { routing } from './users.routing';
 
 import { DataTableModule } from 'primeng/primeng';
 
+const PIPES = [
+  ArrayMapJoinPipe,
+  ArraySortPipe,
+]
+
+const COMPONENTS = [
+  AllUsersComponent,
+  EditComponent,
+]
 
 @NgModule({
   imports: [
@@ -30,12 +38,9 @@ import { DataTableModule } from 'primeng/primeng';
     EntityEditorModule
   ],
   declarations: [
-    ArrayMapJoinPipe,
-    ArraySortPipe,
     Users,
-    AllUsersComponent,
-    EditComponent,
-    TestComponent,
+    ... COMPONENTS,
+    ... PIPES
   ],
   providers: [
     UserService,
