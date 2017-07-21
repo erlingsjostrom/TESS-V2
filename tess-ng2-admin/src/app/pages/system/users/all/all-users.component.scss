@@ -69,8 +69,11 @@ div.ui-datatable{
           padding: 0;
         }
       }
-      
     }
+  }
+  .ui-datatable-footer.ui-widget-header {
+    background-color: $primary-dark;
+    padding: 0;
   }
 }
 

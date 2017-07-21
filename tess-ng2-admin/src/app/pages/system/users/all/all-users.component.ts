@@ -65,4 +65,8 @@ export class AllUsersComponent {
   edit(id: number) {
     this.router.navigate(['system/users/edit/', id]);
   }
+
+  add() {
+    this.router.navigate(['system/users/create']);
+  }
 }
