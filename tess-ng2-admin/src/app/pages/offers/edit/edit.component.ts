@@ -1,3 +1,5 @@
+import { IOffer } from '../../../shared/offers/offer.service';
+import { EntityEditor } from '../../../shared/components/entity-editor';
 import { ModalService } from '../../../shared/modals/modal.service';
 import { EntityField } from '../../../shared/components/entity-editor';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
@@ -13,8 +15,15 @@ import { Subject } from 'rxjs/Subject';
 	styleUrls: ['./edit.component.scss'],
 })
 
-export class EditComponent {
+export class EditComponent implements EntityEditor{
 	
+	editorFields: Subject<EntityField[]> = new Subject();
+	entity: Subject<IOffer> = new Subject();
+
+	state: {
+		loading: false,
+		action: "create",
+	}
 
 }
 

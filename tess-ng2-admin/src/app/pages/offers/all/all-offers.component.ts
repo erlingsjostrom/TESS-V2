@@ -7,7 +7,7 @@ import { IOffer, OfferService } from '../../../shared/offers/offer.service';
 
 
 @Component({
-  selector: 'offerss-component',
+  selector: 'offers-component',
   templateUrl: './all-offers.component.html',
   styleUrls: ['./all-offers.component.scss'],
   encapsulation: ViewEncapsulation.None,
