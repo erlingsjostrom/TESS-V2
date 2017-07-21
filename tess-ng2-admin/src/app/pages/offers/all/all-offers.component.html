@@ -25,7 +25,7 @@
                 <ng-template let-offer="rowData" pTemplate="body">
                   <div class="text-center">
                     <i title="Delete" class="fa fa-remove clickable"></i>
-                    <i title="Edit" class="fa fa-edit clickable"></i>
+                    <i title="Edit" class="fa fa-edit clickable" (click)="edit(offer.Id)"></i>
                   </div>
                 </ng-template>
             </p-column>

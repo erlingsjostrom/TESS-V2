@@ -1,7 +1,7 @@
 import { ModalService } from '../../modals/modal.service';
 import { Component, OnInit, DoCheck, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-
+import { CapitalizePipe } from '../../../shared/pipes/capitalize.pipe';
 
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
@@ -138,6 +138,12 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 			this.checkDataReady = true;
 		}
 	}
+}
+
+export interface EntityEditor {
+	editorFields: Subject<EntityField[]>,
+	entity: Subject<any>,
+	state: {loading: boolean, action: string}
 }
 
 export interface EntityField {
