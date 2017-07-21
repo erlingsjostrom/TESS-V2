@@ -100,41 +100,43 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 
 	private checkDataReady = false;
 	private handleCheckData(fields: EntityField[]) {
-		const checkDataFields = fields.filter(f => f.type == "checkbox");
-		for(let field of checkDataFields) {
-			const propName = field.propertyName;
-			const entity = this.entity[propName];
-			if (entity instanceof Array) {
-				if(!field.availableValues) {
-					throw new EntityFieldError(`For type == 'checkbox' and entity type Array a list of 
-																			available check options is required`);
-				}
-				const entityArr = entity;
-				const checkDataArr: CheckData[] = field.availableValues.map(item => {
-					return {
-						checked: entityArr.filter(e => JSON.stringify(e) === JSON.stringify(item)).length > 0,
-						value: item
+		if (fields) {
+			const checkDataFields = fields.filter(f => f.type == "checkbox");
+			for(let field of checkDataFields) {
+				const propName = field.propertyName;
+				const entity = this.entity[propName];
+				if (entity instanceof Array) {
+					if(!field.availableValues) {
+						throw new EntityFieldError(`For type == 'checkbox' and entity type Array a list of 
+																				available check options is required`);
 					}
-				});
-				this._checkDataEntities.push({
-					name: propName,
-					data: checkDataArr
-				});
-			} else if (typeof entity === 'boolean') {
-				this._checkDataEntities.push({
-					name: propName,
-					data: [
-						{
-							checked: entity,
-							value: entity
+					const entityArr = entity;
+					const checkDataArr: CheckData[] = field.availableValues.map(item => {
+						return {
+							checked: entityArr.filter(e => JSON.stringify(e) === JSON.stringify(item)).length > 0,
+							value: item
 						}
-					]
-				});
-			} else {
-				throw new EntityFieldError(`Unsupported EntityField checkbox type`);
+					});
+					this._checkDataEntities.push({
+						name: propName,
+						data: checkDataArr
+					});
+				} else if (typeof entity === 'boolean') {
+					this._checkDataEntities.push({
+						name: propName,
+						data: [
+							{
+								checked: entity,
+								value: entity
+							}
+						]
+					});
+				} else {
+					throw new EntityFieldError(`Unsupported EntityField checkbox type`);
+				}
 			}
+			this.checkDataReady = true;
 		}
-		this.checkDataReady = true;
 	}
 }
 

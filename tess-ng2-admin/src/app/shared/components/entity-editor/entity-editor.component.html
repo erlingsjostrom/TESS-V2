@@ -1,6 +1,6 @@
 
 <div class="col-12 d-flex flex-wrap">
-    <ng-container *ngIf="fields.length > 0">
+    <ng-container *ngIf="fields?.length > 0">
         <div *ngFor="let field of fields" class="col-6 form-group d-flex flex-row">
 
             <ng-container [ngSwitch]="field.type">
@@ -68,5 +68,4 @@
         </div>
       </div>
   </ng-container>
-  <loading [loading]="state.loading"></loading>
 </div>

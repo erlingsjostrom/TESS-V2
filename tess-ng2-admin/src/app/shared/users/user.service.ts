@@ -42,7 +42,7 @@ export class UserService {
   }
 
   post(user: IUser): Observable<Response> {
-    return this._request(this.getUrl(user.Id, true), { method: RequestMethod.Post }, user);
+    return this._request(this.getUrl(), { method: RequestMethod.Post }, user);
   }
 
   delete(user: IUser): Observable<Response> {
@@ -61,14 +61,14 @@ export class UserService {
     }
 
     return this._http.request(url, options)
-              .timeout(8000)
-              .retry(3)
-              .map((response: Response) => {
+               .timeout(8000)
+               .retry(3)
+               .map((response: Response) => {
                 return response;
-              })
-              .catch((error: any) => {
+               })
+               .catch((error: any) => {
                 return Observable.throw(error);
-              });
+               });
   }
 
   private getUrl(id?: number, excludeSuffix?: boolean): string {
