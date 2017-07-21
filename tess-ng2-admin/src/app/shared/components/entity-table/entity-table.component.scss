@@ -1,4 +1,4 @@
-@import "../../../../theme/sass/conf/conf.scss";
+@import "../../../theme/sass/conf/conf.scss";
 
 div.save-changes-container {
   margin: 1em 0;
@@ -12,7 +12,7 @@ div.save-changes-container {
 
 
 // ngprime DataTable
-div.ui-datatable{
+:host /deep/ div.ui-datatable{
   .ui-widget-content {
     background-color: $primary-dark;
   }

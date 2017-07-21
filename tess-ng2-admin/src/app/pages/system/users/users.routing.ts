@@ -1,4 +1,4 @@
-import { AllUsersComponent } from './all/all-users.component';
+import { AllComponent } from './all/all.component';
 import { EditComponent } from './edit/edit.component';
 import { Routes, RouterModule }  from '@angular/router';
 import { Users } from './users.component';
@@ -11,11 +11,11 @@ const routes: Routes = [
     path: '',
     component: Users,
     children: [
-      { path: '', component: AllUsersComponent },
-      { path: 'all', component: AllUsersComponent },
+      { path: '', component: AllComponent },
+      { path: 'all', component: AllComponent },
       { path: 'edit', redirectTo: '' },
       { path: 'edit/:id', component: EditComponent },
-      { path: 'create', component: EditComponent }
+      { path: 'create', component: EditComponent },
     ]
   }
 ];
