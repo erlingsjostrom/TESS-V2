@@ -128,11 +128,11 @@ export class EditComponent implements OnInit {
 
 	private initNewUser() {
 		this._user = {
-				Id: -1,
-				Name: "",
-				WindowsUser: "",
-				Roles: []
-			}
+			Id: -1,
+			Name: "",
+			WindowsUser: "",
+			Roles: []
+		}
 		this._staging.next();
 	}
 

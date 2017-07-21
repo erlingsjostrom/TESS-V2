@@ -2,7 +2,7 @@
 <div class="widgets">
   <div class="row">
     <div class="col-12">
-      <ba-card cardTitle="Edit User" baCardClass="with-scroll">
+      <ba-card cardTitle="{{ state.action }} User" baCardClass="with-scroll">
         <entity-editor [fields]="editorFields | async" [entity]="user | async" (onBack)="onBack($event)" (onSave)="onSave($event)" ></entity-editor>
       </ba-card>
     </div>
