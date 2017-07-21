@@ -68,6 +68,9 @@ namespace TestRestfulAPI
             builder.EntitySet<Template>("Templates").EntityType.Name = "Template";
             builder.EntityType<Template>().OrderBy().Filter().Select().Expand();
 
+            builder.EntitySet<Resource>("Resources").EntityType.Name = "Resource";
+            builder.EntityType<Resource>().OrderBy().Filter().Select().Expand();
+
             var edmModel = builder.GetEdmModel();
             return edmModel;
         }
