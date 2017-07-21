@@ -46,18 +46,18 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Services
             InitRepository();
             this._roleRepository.Delete(id);
         }
-        //public Role AddPermission(int roleId, int permissionId)
-        //{
-        //    InitRepository();
-        //    var permission = this._permissionRepository.Get(permissionId);
-        //    return this._roleRepository.AddPermission(roleId, permission);
-        //}
-        //public Role RemovePermission(int roleId, int permissionId)
-        //{
-        //    InitRepository();
-        //    var permission = this._permissionRepository.Get(permissionId);
-        //    return this._roleRepository.RemovePermission(roleId, permission);
-        //}
+        public Role AddPermission(int roleId, int permissionId)
+        {
+            InitRepository();
+            var permission = this._permissionRepository.Get(permissionId);
+            return this._roleRepository.AddPermission(roleId, permission);
+        }
+        public Role RemovePermission(int roleId, int permissionId)
+        {
+            InitRepository();
+            var permission = this._permissionRepository.Get(permissionId);
+            return this._roleRepository.RemovePermission(roleId, permission);
+        }
 
         private void InitRepository()
         {

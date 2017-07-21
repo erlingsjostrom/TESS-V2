@@ -21,6 +21,7 @@ namespace TestRestfulAPI
         public static ContentService ContentService;
         public static TextItemService TextItemService;
         public static TemplateService TemplateService;
+        public static ResourceService ResourceService;
     }
 
     public static class GlobalVariables

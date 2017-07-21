@@ -18,12 +18,14 @@ namespace TestRestfulAPI
             GlobalServices.UserService = new UserService();
             GlobalServices.RoleService = new RoleService();
             GlobalServices.PermissionService = new PermissionService();
+            GlobalServices.ResourceService = new ResourceService();
             GlobalServices.ArticleService = new ArticleService(GlobalServices.UserService);
             GlobalServices.CustomerService = new CustomerService(GlobalServices.UserService);
             GlobalServices.OfferService = new OfferService(GlobalServices.UserService);
             GlobalServices.ContentService = new ContentService(GlobalServices.UserService);
             GlobalServices.TextItemService = new TextItemService(GlobalServices.UserService);
             GlobalServices.TemplateService = new TemplateService(GlobalServices.UserService);
+            
         }
     }
 }

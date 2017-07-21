@@ -96,6 +96,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -211,6 +213,7 @@
     <Compile Include="RestApi\odata\v1\Contents\Services\ContentService.cs" />
     <Compile Include="RestApi\odata\v1\Offers\Services\OfferService.cs" />
     <Compile Include="RestApi\odata\v1\Contents\Services\TextItemService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\ResourceController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\RoleController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\PermissionController.cs" />
     <Compile Include="RestApi\odata\v1\Users\Controllers\UserController.cs" />
@@ -224,7 +227,11 @@
     <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleDoesNotExistException.cs" />
     <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionDoesNotExistException.cs" />
     <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\ResourceAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\ResourceDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\ResourceRepository.cs" />
     <Compile Include="RestApi\odata\v1\Users\Repositories\UserRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\ResourceService.cs" />
     <Compile Include="RestApi\odata\v1\Users\Services\UserService.cs" />
     <Compile Include="RestApi\odata\v1\Users\Services\PermissionService.cs" />
     <Compile Include="RestApi\odata\v1\Users\Services\RoleService.cs" />

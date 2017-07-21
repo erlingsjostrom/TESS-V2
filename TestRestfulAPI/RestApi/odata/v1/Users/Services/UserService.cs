@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
