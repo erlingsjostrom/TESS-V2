@@ -245,3 +245,4 @@ ModelManifest.xml
 **/Web.config
 **/AppSettings.config
 **/App.config
+/TestRestfulAPI/Properties/PublishProfiles/local.pubxml
