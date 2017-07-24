@@ -22,6 +22,7 @@ export const routes: Routes = [
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
       { path: 'components', loadChildren: './components/components.module#ComponentsModule' },
+      { path: 'customers', loadChildren: './customers/customers.module#CustomersModule' },
       { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
       { path: 'ui', loadChildren: './ui/ui.module#UiModule' },
       { path: 'forms', loadChildren: './forms/forms.module#FormsModule' },

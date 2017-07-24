@@ -1,13 +1,14 @@
-import { ModalService } from '../../../../shared/modals/modal.service';
-import { EntityField, EntityEditor } from '../../../../shared/components/entity-editor';
-import { RoleService, IRole } from '../../../../shared/roles/role.service';
-import { UserService, IUser } from '../../../../shared/users/user.service';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
+import { ModalService } from 'app/shared/modals/modal.service';
+import { EntityField, EntityEditor } from 'app/shared/components/entity-editor';
+import { RoleService, IRole } from 'app/shared/resources/roles/role.service';
+import { UserService, IUser } from 'app/shared/resources/users/user.service';
+
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
 	selector: 'edit',

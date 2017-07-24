@@ -1,14 +1,13 @@
+import { ICustomer, CustomerService } from '../../../shared/customers/customer.service';
+import { EntityEditor, EntityEditorState } from '../../../shared/components/entity-editor';
+import { ModalService } from '../../../shared/modals/modal.service';
+import { EntityField } from '../../../shared/components/entity-editor';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { IOffer, OfferService } from 'app/shared/resources/offers/offer.service';
-import { EntityEditor, EntityEditorState } from 'app/shared/components/entity-editor';
-import { ModalService } from 'app/shared/modals/modal.service';
-import { EntityField } from 'app/shared/components/entity-editor';
-
+import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/switchMap';
 
 @Component({
 	selector: 'edit',
@@ -20,7 +19,7 @@ export class EditComponent implements EntityEditor {
 	private _staging: Subject<number> = new Subject<number>();
 	private _stage: number = 0;
 
-	private _offer: IOffer;
+	private _customer: ICustomer;
 	private _editorFields: EntityField[] = [
 		{
 			propertyLabel: "Status",
@@ -35,7 +34,7 @@ export class EditComponent implements EntityEditor {
 	]
 
 	editorFields: Subject<EntityField[]> = new Subject();
-	entity: Subject<IOffer> = new Subject();
+	entity: Subject<ICustomer> = new Subject();
 
 	state: EntityEditorState = {
 		loading: false,
@@ -45,7 +44,7 @@ export class EditComponent implements EntityEditor {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _offerService: OfferService,
+		private _customerService: CustomerService,
 		private _modalService: ModalService
 	) {
 		this.state.action = "create";
@@ -55,47 +54,47 @@ export class EditComponent implements EntityEditor {
 		const id = this._route.snapshot.paramMap.get('id');
 		this.initStaging();
 		if (id) {
-			this.fetchActiveOffer(+id);
+			this.fetchActiveCustomer(+id);
 			this.state.action = "edit";
 		} else {
 			this.state.action = "create";
 		}
 	}
 
-	onBack(editedOffer: IOffer) { 
-		const _editedOffer = editedOffer; // You can save the edited offer in local storage
-		this._navigateToOffers();
+	onBack(editedCustomer: ICustomer) { 
+		const _editedCustomer = editedCustomer; // You can save the edited customer in local storage
+		this._navigateToCustomers();
 	}
 
-	onSave(offer: IOffer) {
+	onSave(customer: ICustomer) {
 		if (this.state.action == "edit") {
-			this._offerService.put(offer).subscribe(
+			this._customerService.put(customer).subscribe(
 				response => {
 					if (response.status == 200) {
-						this._navigateToOffers();
+						this._navigateToCustomers();
 					}
 				}
 			)
 		} else {
-			this._offerService.post(offer).subscribe(
+			this._customerService.post(customer).subscribe(
 				response => {
 					if (response.status == 201) {
-						this._navigateToOffers();
+						this._navigateToCustomers();
 					}
 				}
 			)
 		}
   }
 
-	private _navigateToOffers() {
-		this._router.navigate(["offers"]);
+	private _navigateToCustomers() {
+		this._router.navigate(["customers"]);
 	}
 
-	private fetchActiveOffer(id: number) {
-		this._offerService.get(+id).subscribe(
+	private fetchActiveCustomer(id: number) {
+		this._customerService.get(+id).subscribe(
 			response => {
 				if (response.status == 200) {
-					this._offer = response.json();
+					this._customer = response.json();
 					this._staging.next();
 				}
 			},
@@ -115,8 +114,8 @@ export class EditComponent implements EntityEditor {
 			},
 			error => console.log(error),
 			() => {
-				console.log(this._offer);
-				this.entity.next(this._offer);
+				console.log(this._customer);
+				this.entity.next(this._customer);
 				this.editorFields.next(this._editorFields);
 			}
 		)

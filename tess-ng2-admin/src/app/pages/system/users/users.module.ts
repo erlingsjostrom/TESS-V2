@@ -6,10 +6,10 @@ import { EditComponent } from './edit/edit.component';
 import { NgModule }      from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from '../../../shared/modals/modal.module';
-import { RoleService } from '../../../shared/roles/role.service';
-import { UserService } from '../../../shared/users/user.service';
-import { NgaModule } from '../../../theme/nga.module';
+import { ModalModule } from 'app/shared/modals/modal.module';
+import { RoleService } from 'app/shared/resources/roles/role.service';
+import { UserService } from 'app/shared/resources/users/user.service';
+import { NgaModule } from 'app/theme/nga.module';
 import { routing } from './users.routing';
 
 const COMPONENTS = [
