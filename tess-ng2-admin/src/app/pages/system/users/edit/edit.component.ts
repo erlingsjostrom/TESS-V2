@@ -1,3 +1,4 @@
+import { EntityEditorState } from '../../../../shared/components/entity-editor';
 import { ModalService } from '../../../../shared/modals/modal.service';
 import { EntityField, EntityEditor } from '../../../../shared/components/entity-editor';
 import { RoleService, IRole } from '../../../../shared/roles/role.service';
@@ -37,7 +38,7 @@ export class EditComponent implements OnInit, EntityEditor {
 	entity: Subject<IUser> = new Subject();
 	editorFields: Subject<EntityField[]> = new Subject();
 	
-	state = {
+	state: EntityEditorState = {
 		loading: false,
 		action: "create",
 	}
@@ -55,10 +56,10 @@ export class EditComponent implements OnInit, EntityEditor {
 		this.initStaging();
 		if (id) {
 			this.fetchActiveUser(+id);
-			this.state.action = "Edit";
+			this.state.action = "edit";
 		} else {
 			this.initNewUser();
-			this.state.action = "Create";
+			this.state.action = "create";
 		}
 		this.fetchRoles();
 	}
@@ -69,7 +70,7 @@ export class EditComponent implements OnInit, EntityEditor {
 	}
 
 	onSave(user: IUser) {
-		if (this.state.action == "Edit") {
+		if (this.state.action == "edit") {
 			this._userService.put(user).subscribe(
 				response => {
 					if (response.status == 200) {

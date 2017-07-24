@@ -1,4 +1,3 @@
-import { PropertyByStringPipe } from '../../pipes/property-by-string.pipe';
 import { TinymceModule } from 'angular2-tinymce';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from '../loading/loading.service';
@@ -30,7 +29,6 @@ import 'tinymce/plugins/fullscreen/plugin.js';
   declarations: [
     EntityEditorComponent,
     LoadingComponent,
-    PropertyByStringPipe
   ],
   providers: [
     LoadingService
