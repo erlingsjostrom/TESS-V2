@@ -143,7 +143,12 @@ export class EntityEditorComponent implements OnInit, DoCheck {
 export interface EntityEditor {
 	editorFields: Subject<EntityField[]>,
 	entity: Subject<any>,
-	state: {loading: boolean, action: string}
+	state: EntityEditorState
+}
+
+export interface EntityEditorState {
+	loading: boolean,
+	action: "edit" | "create";
 }
 
 export interface EntityField {

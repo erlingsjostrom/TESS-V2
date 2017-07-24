@@ -1,0 +1,10 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-12">
+      <ba-card cardTitle="Offers" baCardClass="with-scroll">
+        <entity-table [editable]="true" [content]="content | async" [tableFields]="tableFields"
+                      (onAdd)="onAdd($event)" (onDelete)="onDelete($event)" (onEdit)="onEdit($event)"></entity-table>
+      </ba-card>
+    </div>
+  </div>
+</div>

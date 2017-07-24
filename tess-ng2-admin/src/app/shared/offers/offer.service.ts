@@ -24,11 +24,16 @@ export class OfferService extends BaseService {
     return this._request(this.getUrl(offer.Id), { method: RequestMethod.Post }, offer);
   }
 
-  /*put(offer: IOffer): Observable<Response> {
-    return this._request(this.getUrl(offer.Id, true),  { method: RequestMethod.Put }, offer);
+  put(offer: IOffer): Observable<Response> {
+    return this._request(this.getUrl(offer.Id),  { method: RequestMethod.Put }, offer);
   }
 
   delete(offer: IOffer): Observable<Response> {
-    return this._request(this.getUrl(offer.Id, true), { method: RequestMethod.Delete });
-  }*/
+    return this._request(this.getUrl(offer.Id), { method: RequestMethod.Delete });
+  }
+  
+  protected getUrl(id?: number): string {
+    return super.getUrl(id) + "?$expand=Customer";
+  }
+  
 }
