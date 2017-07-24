@@ -1,11 +1,11 @@
 import { DataTableModule } from 'primeng/primeng';
-import { CustomerService } from '../../shared/customers/customer.service';
+import { CustomerService } from 'app/shared/resources/customers/customer.service';
 import { AllComponent } from './all/all.component';
 import { EditComponent } from './edit/edit.component';
 import { NgModule }      from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgaModule } from '../../theme/nga.module';
+import { NgaModule } from 'app/theme/nga.module';
 import { Customers } from './customers.component';
 import { routing } from './customers.routing';
 import { EntityTableModule } from "app/shared/components/entity-table/entity-table.module";
@@ -35,5 +35,5 @@ const COMPONENTS = [
     CustomerService,
   ]
 })
-export class OffersModule {
+export class CustomersModule {
 }

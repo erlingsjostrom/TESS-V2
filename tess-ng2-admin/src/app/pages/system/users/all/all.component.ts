@@ -44,6 +44,8 @@ export class AllComponent implements OnInit, EntityTable {
 		}
 	]
 
+	title: string = "Users"
+
 	constructor(
 		private _router: Router,
 		private _userService: UserService,

@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: 'all', component: AllComponent },
       { path: 'edit', redirectTo: '' },
       { path: 'edit/:id', component: EditComponent },
+      { path: 'create', component: EditComponent },
     ]
   }
 ];

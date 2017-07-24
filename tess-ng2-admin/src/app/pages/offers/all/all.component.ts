@@ -29,7 +29,9 @@ export class AllComponent implements OnInit, EntityTable {
 		}
 	]
 	
-		constructor(
+	title: string = "Offers"
+
+	constructor(
 		private _router: Router,
 		private _offerService: OfferService,
 		private _modalService: ModalService

@@ -11,6 +11,7 @@ import 'rxjs/add/operator/timeout';
 export interface IOffer {
   Id: number,
   Status: string,
+  Title: string
 }
 
 @Injectable()
@@ -21,7 +22,7 @@ export class OfferService extends BaseService {
   }
 
   post(offer: IOffer): Observable<Response> {
-    return this._request(this.getUrl(offer.Id), { method: RequestMethod.Post }, offer);
+    return this._request(this.getUrl(), { method: RequestMethod.Post }, offer);
   }
 
   put(offer: IOffer): Observable<Response> {

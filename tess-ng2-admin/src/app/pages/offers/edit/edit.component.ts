@@ -28,6 +28,11 @@ export class EditComponent implements EntityEditor {
 			type: "text"
 		},
 		{
+			propertyLabel: "Title",
+			propertyName: "Title",
+			type: "text"
+		},
+		{
 			propertyLabel: "Valid Through",
 			propertyName: "ValidThrough",
 			type: "text"
@@ -58,7 +63,10 @@ export class EditComponent implements EntityEditor {
 			this.fetchActiveOffer(+id);
 			this.state.action = "edit";
 		} else {
-			this.state.action = "create";
+			setTimeout(() => {
+				this.initNewOffer();
+				this.state.action = "create";
+			}, 100)	
 		}
 	}
 
@@ -86,6 +94,15 @@ export class EditComponent implements EntityEditor {
 			)
 		}
   }
+	
+	private initNewOffer() {
+		this._offer = {
+			Id: -1,
+			Status: "",
+			Title: "",
+		}
+		this._staging.next();
+	}
 
 	private _navigateToOffers() {
 		this._router.navigate(["offers"]);

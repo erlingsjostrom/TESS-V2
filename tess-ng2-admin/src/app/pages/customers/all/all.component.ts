@@ -25,13 +25,25 @@ export class AllComponent implements OnInit, EntityTable {
 			type: "normal"
 		},
 		{
-			label: "Status",
-			property: "Status",
+			label: "Name",
+			property: "Name",
+			type: "normal"
+		},
+		{
+			label: "Type",
+			property: "Type",
+			type: "normal"
+		},
+		{
+			label: "Corporate Identity Number",
+			property: "CorporateIdentityNumber",
 			type: "normal"
 		}
 	]
 	
-		constructor(
+	title: string = "Customers"
+
+	constructor(
 		private _router: Router,
 		private _customerService: CustomerService,
 		private _modalService: ModalService
