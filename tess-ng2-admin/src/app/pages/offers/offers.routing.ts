@@ -12,7 +12,20 @@ const routes: Routes = [
       { path: '', component: AllComponent },
       { path: 'all', component: AllComponent },
       { path: 'edit', redirectTo: '' },
-      { path: 'edit/:id', component: EditComponent },
+      { 
+        path: 'edit/:id', 
+        data: {
+          breadcrumb: 'Edit',
+        }, 
+        component: EditComponent 
+      },
+      { 
+        path: 'create', 
+        data: {
+          breadcrumb: 'Create',
+        }, 
+        component: EditComponent 
+      },
     ]
   }
 ];

@@ -6,14 +6,29 @@ import { Users } from './users.component';
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
   {
-    path: '',
+    path: 'users',
+    data: {
+      breadcrumb: 'Users',
+    }, 
     component: Users,
     children: [
       { path: '', component: AllComponent },
-      { path: 'all', component: AllComponent },
+      { path: 'all', redirectTo: '' },
       { path: 'edit', redirectTo: '' },
-      { path: 'edit/:id', component: EditComponent },
-      { path: 'create', component: EditComponent },
+      { 
+        path: 'edit/:id', 
+        data: {
+          breadcrumb: 'Edit',
+        }, 
+        component: EditComponent 
+      },
+      { 
+        path: 'create', 
+        data: {
+          breadcrumb: 'Create',
+        }, 
+        component: EditComponent 
+      },
     ]
   }
 ];

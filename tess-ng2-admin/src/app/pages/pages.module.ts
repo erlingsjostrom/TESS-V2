@@ -4,7 +4,7 @@ import { CommonModule }  from '@angular/common';
 import { routing }       from './pages.routing';
 import { NgaModule } from '../theme/nga.module';
 import { AppTranslationModule } from '../app.translation.module';
-
+import { BreadcrumbModule } from '../shared/breadcrumb/breadcrumb.module';
 import { Pages } from './pages.component';
 
 @NgModule({
@@ -12,7 +12,8 @@ import { Pages } from './pages.component';
     CommonModule, 
     AppTranslationModule,
     NgaModule, 
-    routing
+    routing,
+    BreadcrumbModule
   ],
   declarations: [
     Pages, 
