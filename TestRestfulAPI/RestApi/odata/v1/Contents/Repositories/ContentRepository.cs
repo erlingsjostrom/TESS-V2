@@ -68,6 +68,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             return entity;
         }
 
+        public Content CreateCopy(string resource, Content entity)
+        {
+            var results = GetAndValidateResource(resource);
+
+        }
+
         public void Delete(string resource, int id)
         {
             var results = GetAndValidateResource(resource);
@@ -113,16 +119,16 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             results.Context.Entry(dbEntry).CurrentValues.SetValues(entity);
             results.Context.Entry(dbEntry).Property("CreatedAt").IsModified = false;
 
-            dbEntry.TextItems.Clear();
-            foreach (var textitem in entity.TextItems)
-            {
-                dbEntry.TextItems.Add(results.Context.Set<TextItem>().ToList().FirstOrDefault(r => r.Id == textitem.Id));
-            }
-            dbEntry.Articles.Clear();
-            foreach (var article in entity.Articles)
-            {
-                dbEntry.Articles.Add(results.Context.Set<Article>().ToList().FirstOrDefault(r => r.Id == article.Id));
-            }
+            //dbEntry.TextItems.Clear();
+            //foreach (var textitem in entity.TextItems)
+            //{
+            //    dbEntry.TextItems.Add(results.Context.Set<TextItem>().ToList().FirstOrDefault(r => r.Id == textitem.Id));
+            //}
+            //dbEntry.Articles.Clear();
+            //foreach (var article in entity.Articles)
+            //{
+            //    dbEntry.Articles.Add(results.Context.Set<Article>().ToList().FirstOrDefault(r => r.Id == article.Id));
+            //}
 
 
             results.Context.SaveChanges();

@@ -9,6 +9,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Entities
     {
         public int Order { get; set; }
         public string Type { get; set; }
+        public string EntityType { get; set; }
 
         public virtual Offer Offer { get; set; }
         public virtual ICollection<TextItem> TextItems { get; set; }

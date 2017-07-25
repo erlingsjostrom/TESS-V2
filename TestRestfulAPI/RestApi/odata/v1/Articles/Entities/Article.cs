@@ -6,8 +6,9 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Entities
 {
     public class Article : NamedEntity
     {
-        [Index(IsUnique = true)]
+        //[Index(IsUnique = true)]
         public int ArticleNumber { get; set; }
+        public string EntityType { get; set; }
         public virtual Content Content { get; set; }
     }
 

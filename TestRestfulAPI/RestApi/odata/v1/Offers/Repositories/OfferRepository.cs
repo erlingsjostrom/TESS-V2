@@ -153,6 +153,10 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             {
                 var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
                 dbContent.Order = i;
+                foreach (var article in dbContent.Articles)
+                {
+                    article.EntityType = "Offer";
+                } 
                 dbEntry.Contents.Add(dbContent);
                 i++;
             }

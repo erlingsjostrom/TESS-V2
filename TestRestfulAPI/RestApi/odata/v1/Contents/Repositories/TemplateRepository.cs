@@ -124,6 +124,22 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             results.Context.SaveChanges();
             return template;
         }
+        public Template SetContent(string resource, Template template)
+        {
+            var results = GetAndValidateResource(resource);
+            var dbEntry = this.Get(resource, template.Id);
+            dbEntry.Contents.Clear();
+            int i = 1;
+            foreach (var content in template.Contents)
+            {
+                var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
+                dbContent.Order = i;
+                dbEntry.Contents.Add(dbContent);
+                i++;
+            }
+            results.Context.SaveChanges();
+            return dbEntry;
+        }
 
         private ResourceContext GetAndValidateResource(string resource)
         {

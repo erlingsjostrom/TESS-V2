@@ -29,7 +29,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Repositories
                 .FirstOrDefault(a => a.Id == id);
             if (article == null)
             {
-                throw new ArticleDoesNotExistException("Article with ID " + id + " does not exist");
+                throw new ArticleDoesNotExistException("Article with ID " + id + " does not exist.");
             }
 
             return article;
@@ -38,7 +38,22 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Repositories
         public Article Create(string resource, Article entity)
         {
             var results = GetAndValidateResource(resource);
+            var article = this.All(resource).FirstOrDefault(a => a.ArticleNumber == entity.ArticleNumber);
+            if (article != null)
+            {
+                throw new ArticleAlreadyExistException("Article with Article number " + entity.ArticleNumber +
+                                                       " does already exists.");
+            }
+            entity.EntityType = "Article";
+            results.Context.Set<Article>().Add(entity);
+            results.Context.SaveChanges();
 
+            return entity;
+        }
+
+        public Article CreateCopy(string resource, Article entity)
+        {
+            var results = GetAndValidateResource(resource);
             results.Context.Set<Article>().Add(entity);
             results.Context.SaveChanges();
 

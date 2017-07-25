@@ -7,7 +7,6 @@ using TestRestfulAPI.Infrastructure.Services;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
@@ -69,7 +68,9 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
         {
             this.InitRepository();
             var article = this._articleRepository.Get(resource, articleId);
-            return _contentRepository.AddArticle(resource, contentId, article);
+            var newArticle = this._articleRepository.CreateCopy(resource, article);
+            newArticle.EntityType = "Offer";
+            return _contentRepository.AddArticle(resource, contentId, newArticle);
         }
 
         private void InitRepository()
