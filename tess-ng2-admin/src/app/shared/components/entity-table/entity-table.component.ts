@@ -36,6 +36,8 @@ export class EntityTableComponent implements OnInit {
 	@Input()
 	tableFields: EntityTableField[] = []
 	
+	@Input() title: string;
+
 	state = {
 		loading: false
 	}

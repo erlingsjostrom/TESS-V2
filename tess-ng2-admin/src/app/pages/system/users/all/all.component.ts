@@ -1,9 +1,11 @@
-import { EntityTableField, EntityTable } from '../../../../shared/components/entity-table/entity-table.component';
-import { ModalService } from '../../../../shared/modals/modal.service';
 import { Component, OnInit } from '@angular/core';
-import { UserService, IUser } from "app/shared/users/user.service";
-import { Subject } from "rxjs/Subject";
 import { Router } from "@angular/router";
+
+import { EntityTableField, EntityTable } from 'app/shared/components/entity-table/entity-table.component';
+import { UserService, IUser } from "app/shared/resources/users/user.service";
+import { ModalService } from 'app/shared/modals/modal.service';
+
+import { Subject } from "rxjs/Subject";
 
 @Component({
 	selector: 'all',
@@ -41,6 +43,8 @@ export class AllComponent implements OnInit, EntityTable {
 			}
 		}
 	]
+
+	title: string = "Users"
 
 	constructor(
 		private _router: Router,

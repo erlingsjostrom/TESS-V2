@@ -15,6 +15,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'customers',
+        data: {
+          menu: {
+            title: 'Customers',
+            icon: 'ion-ios-people',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'offers',
         data: {
           menu: {

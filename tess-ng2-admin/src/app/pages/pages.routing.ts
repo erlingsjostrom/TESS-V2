@@ -33,6 +33,13 @@ export const routes: Routes = [
       //{ path: 'forms', loadChildren: './forms/forms.module#FormsModule' },
       //{ path: 'maps', loadChildren: './maps/maps.module#MapsModule' },
       { 
+        path: 'customers', 
+        data: {
+          breadcrumb: 'Customers',
+        },
+        loadChildren: './customers/customers.module#CustomersModule' 
+      },
+      { 
         path: 'offers', 
         data: {
           breadcrumb: 'Offers',

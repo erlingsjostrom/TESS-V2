@@ -1,13 +1,14 @@
-import { IOffer, OfferService } from '../../../shared/offers/offer.service';
-import { EntityEditor, EntityEditorState } from '../../../shared/components/entity-editor';
-import { ModalService } from '../../../shared/modals/modal.service';
-import { EntityField } from '../../../shared/components/entity-editor';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
+import { IOffer, OfferService } from 'app/shared/resources/offers/offer.service';
+import { EntityEditor, EntityEditorState } from 'app/shared/components/entity-editor';
+import { ModalService } from 'app/shared/modals/modal.service';
+import { EntityField } from 'app/shared/components/entity-editor';
+
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
 	selector: 'edit',
@@ -24,6 +25,11 @@ export class EditComponent implements EntityEditor {
 		{
 			propertyLabel: "Status",
 			propertyName: "Status",
+			type: "text"
+		},
+		{
+			propertyLabel: "Title",
+			propertyName: "Title",
 			type: "text"
 		},
 		{
@@ -57,7 +63,10 @@ export class EditComponent implements EntityEditor {
 			this.fetchActiveOffer(+id);
 			this.state.action = "edit";
 		} else {
-			this.state.action = "create";
+			setTimeout(() => {
+				this.initNewOffer();
+				this.state.action = "create";
+			}, 100)	
 		}
 	}
 
@@ -85,6 +94,15 @@ export class EditComponent implements EntityEditor {
 			)
 		}
   }
+	
+	private initNewOffer() {
+		this._offer = {
+			Id: -1,
+			Status: "",
+			Title: "",
+		}
+		this._staging.next();
+	}
 
 	private _navigateToOffers() {
 		this._router.navigate(["offers"]);

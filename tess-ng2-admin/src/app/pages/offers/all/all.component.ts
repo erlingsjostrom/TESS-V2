@@ -1,9 +1,10 @@
-import { IOffer, OfferService } from '../../../shared/offers/offer.service';
-import { EntityTable, EntityTableField } from '../../../shared/components/entity-table/entity-table.component';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from "rxjs/Subject";
-import { ModalService } from "app/shared/modals/modal.service";
 import { Router } from "@angular/router";
+import { Subject } from "rxjs/Subject";
+
+import { IOffer, OfferService } from 'app/shared/resources/offers/offer.service';
+import { EntityTable, EntityTableField } from 'app/shared/components/entity-table/entity-table.component';
+import { ModalService } from "app/shared/modals/modal.service";
 
 @Component({
 	selector: 'all',
@@ -28,7 +29,9 @@ export class AllComponent implements OnInit, EntityTable {
 		}
 	]
 	
-		constructor(
+	title: string = "Offers"
+
+	constructor(
 		private _router: Router,
 		private _offerService: OfferService,
 		private _modalService: ModalService
