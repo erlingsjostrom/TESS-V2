@@ -55,25 +55,26 @@ namespace TestRestfulAPI.Infrastructure.Contexts
                 ((BaseEntity)entity.Entity).UpdatedAt = DateTime.Now;
             }
         }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Offer>()
-                .HasMany(o => o.Contents)
-                .WithOptional()
-                .WillCascadeOnDelete();
-            modelBuilder.Entity<Content>()
-                .HasMany(c => c.TextItems)
-                .WithOptional()
-                .WillCascadeOnDelete();
-            modelBuilder.Entity<Content>()
-                .HasMany(c => c.Articles)
-                .WithOptional()
-                .WillCascadeOnDelete();
-            modelBuilder.Entity<Template>()
-                .HasMany(c => c.Contents)
-                .WithOptional()
-                .WillCascadeOnDelete();
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
+        //{
+        //    modelBuilder.Entity<Offer>()
+        //        .HasMany(o => o.Contents)
+        //        .WithOptional()
+        //        .WillCascadeOnDelete();
+        //    modelBuilder.Entity<Content>()
+        //        .HasMany(c => c.TextItems)
+        //        .WithOptional()
+        //        .WillCascadeOnDelete();
+        //    modelBuilder.Entity<Content>()
+        //        .HasMany(c => c.Articles)
+        //        .WithOptional()
+        //        .WillCascadeOnDelete();
+        //    modelBuilder.Entity<Template>()
+        //        .HasMany(c => c.Contents)
+        //        .WithOptional()
+        //        .WillCascadeOnDelete();
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

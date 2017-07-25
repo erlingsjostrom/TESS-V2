@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.OData;
 using System.Web.OData.Routing;
@@ -55,6 +56,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
 
         // PUT: {resource}/Offers({id})
         [UserHasResourceAccess, UserHasPermission("Modify")]
+        //[EnableQuery, HttpPut, ODataRoute("({id})")]
         [EnableQuery, HttpPut, ODataRoute("({id})")]
         public Offer Update(int id, [FromBody] Offer offer)
         {
@@ -88,6 +90,15 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
             this.ParseResource();
             return this._offerService.RemoveContent(this.Resource, offerId, contentId);
         }
+
+        [UserHasResourceAccess, UserHasPermission("Modify")]
+        [EnableQuery, HttpPut, ODataRoute("()")]
+        public Offer SetContent(Offer offer)
+        {
+            this.ParseResource();
+            return this._offerService.SetContent(this.Resource, offer);
+        }
+
 
         // DELETE: {resource}/Offers({id})
         [UserHasResourceAccess, UserHasPermission("Remove")]

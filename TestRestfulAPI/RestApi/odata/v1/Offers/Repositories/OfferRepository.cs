@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
@@ -142,6 +141,23 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             offer.Contents.Remove(content);
             results.Context.SaveChanges();
             return offer;
+        }
+
+        public Offer SetContent(string resource, Offer offer)
+        {
+            var results = GetAndValidateResource(resource);
+            var dbEntry = this.Get(resource, offer.Id);
+            dbEntry.Contents.Clear();
+            int i = 1;
+            foreach (var content in offer.Contents)
+            {
+                var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
+                dbContent.Order = i;
+                dbEntry.Contents.Add(dbContent);
+                i++;
+            }
+            results.Context.SaveChanges();
+            return dbEntry;
         }
 
         private ResourceContext GetAndValidateResource(string resource)

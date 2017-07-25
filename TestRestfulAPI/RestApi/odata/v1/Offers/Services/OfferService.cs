@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Customers.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
@@ -79,6 +81,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
             this.InitRepository();
             var content = this._contentRepository.Get(resource, contentId);
             return _offerRepository.RemoveContent(resource, offerId, content);
+        }
+
+        public Offer SetContent(string resource, Offer offer)
+        {
+            this.InitRepository();
+            return _offerRepository.SetContent(resource, offer);
         }
 
         private void InitRepository()

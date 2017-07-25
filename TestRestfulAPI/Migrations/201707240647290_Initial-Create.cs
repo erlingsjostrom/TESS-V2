@@ -47,7 +47,9 @@ namespace TestRestfulAPI.Migrations
             //    c => new
             //        {
             //            Id = c.Int(nullable: false, identity: true),
+            //            Title = c.String(),
             //            Status = c.String(),
+            //            ValidThrough = c.DateTime(nullable: false),
             //            CreatedAt = c.DateTime(nullable: false),
             //            UpdatedAt = c.DateTime(nullable: false),
             //            Customer_Id = c.Int(),

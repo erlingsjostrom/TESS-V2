@@ -11,9 +11,10 @@ namespace TestRestfulAPI.RestApi.odata.v1.Customers.Entities
             Offers = new HashSet<Offer>();
         }
         public string Name { get; set; }
-        public string CustomerType { get; set; }
+        public string Type { get; set; }
         public string WebAddress { get; set; }
         public string CorporateIdentityNumber { get; set; }
+        public string EntityType { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }
 
     }

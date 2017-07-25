@@ -22,7 +22,7 @@ namespace TestRestfulAPI.Infrastructure.Database.Seeds
         {
             var customer = new Customer();
             customer.Name = "Ny kommun";
-            customer.CustomerType = "Kommun";
+            customer.Type = "Kommun";
             customer.WebAddress = "www.nykommun.webaddress";
             customer.CorporateIdentityNumber = "1122334455";
             context.Customers.Add(customer);
