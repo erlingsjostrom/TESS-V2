@@ -28,14 +28,14 @@ export abstract class BaseService {
         }
     
         return this._http.request(url, options)
-                   .timeout(8000)
-                   .retry(3)
-                   .map((response: Response) => {
+                  .timeout(8000)
+                  .retry(3)
+                  .map((response: Response) => {
                     return response;
-                   })
-                   .catch((error: any) => {
+                  })
+                  .catch((error: any) => {
                     return Observable.throw(error);
-                   });
+                  });
     }
 
     protected getUrl(id?: number): string {
