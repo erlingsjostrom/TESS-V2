@@ -15,3 +15,10 @@ div[size="A4"] {
 div.content {
   color: black;
 }
+
+@media print {
+  html body app .content * {
+    display: block !important;
+    color: black;
+  }
+}

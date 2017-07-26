@@ -1,0 +1,10 @@
+
+@media print {
+  html body app * {
+    display: none;
+  }
+  html body app .content {
+    display: block !important;
+    color: black;
+  }
+}
