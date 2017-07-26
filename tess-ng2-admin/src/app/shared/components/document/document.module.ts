@@ -1,3 +1,4 @@
+import { DocumentContentComponent } from './document-content/document-content.component';
 import { DocumentHeadComponent } from './document-head/document-head.component';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -7,10 +8,12 @@ import { CommonModule } from "@angular/common";
     CommonModule,
   ],
   declarations: [
-    DocumentHeadComponent
+    DocumentHeadComponent,
+    DocumentContentComponent
   ],
   exports: [
-    DocumentHeadComponent
+    DocumentHeadComponent,
+    DocumentContentComponent
   ]
 })
 export class DocumentModule {
