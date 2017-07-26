@@ -12,6 +12,7 @@
 		"Mikael.Angular-BeastCode", // just dll
 		"rbbit.typescript-hero", // yes
 		"christian-kohler.path-intellisense", // yes
-		"sebastianbaar.vscode-add-angular2-files"
+		"sebastianbaar.vscode-add-angular2-files",
+		"hnw.vscode-auto-open-markd" // markdown split screen
 	]
 }
