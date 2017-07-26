@@ -12,11 +12,29 @@ const routes: Routes = [
     children: [
       { path: '', component: AllComponent },
       { path: 'all', component: AllComponent },
-      { path: 'edit', redirectTo: '' },
-      { path: 'edit/:id', component: EditComponent },
-      { path: 'create', component: EditComponent },
       { path: 'view', redirectTo: ''},
-      { path: 'view/:id', component: ViewComponent },
+      { path: 'edit', redirectTo: '' },
+      { 
+        path: 'edit/:id', 
+        data: {
+          breadcrumb: 'Edit',
+        }, 
+        component: EditComponent 
+      },
+      { 
+        path: 'create', 
+        data: {
+          breadcrumb: 'Create',
+        }, 
+        component: EditComponent 
+      },
+      { 
+        path: 'view/:id', 
+        data: {
+          breadcrumb: 'View'
+        },
+        component: ViewComponent 
+      },
     ]
   }
 ];

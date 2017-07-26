@@ -19,17 +19,47 @@ export const routes: Routes = [
     component: Pages,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-      { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
-      { path: 'components', loadChildren: './components/components.module#ComponentsModule' },
-      { path: 'customers', loadChildren: './customers/customers.module#CustomersModule' },
-      { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
-      { path: 'ui', loadChildren: './ui/ui.module#UiModule' },
-      { path: 'forms', loadChildren: './forms/forms.module#FormsModule' },
-      { path: 'maps', loadChildren: './maps/maps.module#MapsModule' },
-      { path: 'offers', loadChildren: './offers/offers.module#OffersModule' },
-      { path: 'templates', loadChildren: './templates/templates.module#TemplatesModule' },
-      { path: 'system', loadChildren: './system/system.module#SystemModule' },
+      { 
+        path: 'dashboard',
+        data: {
+          breadcrumb: 'Dashboard',
+        },
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
+      },
+      //{ path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
+      //{ path: 'components', loadChildren: './components/components.module#ComponentsModule' },
+      //{ path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
+      //{ path: 'ui', loadChildren: './ui/ui.module#UiModule' },
+      //{ path: 'forms', loadChildren: './forms/forms.module#FormsModule' },
+      //{ path: 'maps', loadChildren: './maps/maps.module#MapsModule' },
+      { 
+        path: 'customers', 
+        data: {
+          breadcrumb: 'Customers',
+        },
+        loadChildren: './customers/customers.module#CustomersModule' 
+      },
+      { 
+        path: 'offers', 
+        data: {
+          breadcrumb: 'Offers',
+        },
+        loadChildren: './offers/offers.module#OffersModule' 
+      },
+      { 
+        path: 'templates', 
+        data: {
+          breadcrumb: 'Templates',
+        },
+        loadChildren: './templates/templates.module#TemplatesModule' 
+      },
+      { 
+        path: 'system', 
+        data: {
+          breadcrumb: 'System',
+        },
+        loadChildren: './system/system.module#SystemModule' 
+      },
     ]
   }
 ];
