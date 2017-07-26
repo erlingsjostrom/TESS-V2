@@ -1,3 +1,4 @@
+import { ViewComponent } from './view/view.component';
 import { Routes, RouterModule }  from '@angular/router';
 import { EditComponent } from './edit/edit.component';
 import { AllComponent } from './all/all.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: '', component: AllComponent },
       { path: 'all', component: AllComponent },
+      { path: 'view', redirectTo: ''},
       { path: 'edit', redirectTo: '' },
       { 
         path: 'edit/:id', 
@@ -25,6 +27,13 @@ const routes: Routes = [
           breadcrumb: 'Create',
         }, 
         component: EditComponent 
+      },
+      { 
+        path: 'view/:id', 
+        data: {
+          breadcrumb: 'View'
+        },
+        component: ViewComponent 
       },
     ]
   }

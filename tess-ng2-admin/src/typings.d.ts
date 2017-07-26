@@ -50,3 +50,7 @@ declare var Chartist:any;
 declare const chroma: any;
 
 declare var tinymce: any;
+
+declare var jspdf: any;
+declare var html2canvas: any;
+declare var html2pdf: any;
