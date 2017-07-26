@@ -9,7 +9,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
 
 export interface ITemplate {
-  Id: number
+  Id: number,
+  Name: string,
+  Description: string,
+  EntityType: string,
 }
 
 @Injectable()
@@ -19,8 +22,8 @@ export class TemplateService extends BaseService {
     this.serviceURL = 'DB1/Templates';
   }
 
-  /*post(template: ITemplate): Observable<Response> {
-    return this._request(this.getUrl(template.Id), { method: RequestMethod.Post }, template);
+  post(template: ITemplate): Observable<Response> {
+    return this._request(this.getUrl(), { method: RequestMethod.Post }, template);
   }
 
   put(template: ITemplate): Observable<Response> {
@@ -29,5 +32,5 @@ export class TemplateService extends BaseService {
 
   delete(template: ITemplate): Observable<Response> {
     return this._request(this.getUrl(template.Id), { method: RequestMethod.Delete });
-  }*/
+  }
 }

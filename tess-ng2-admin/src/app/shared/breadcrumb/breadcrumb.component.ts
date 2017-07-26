@@ -35,7 +35,7 @@ export class BreadcrumbComponent implements OnInit {
 
             //set the url to an empty string
             let url: string = "";
-            console.log(currentRoute.snapshot.url.map(segment => segment.path).join("/"));
+
             let i = 0;
             //iterate from activated route to children
             while (currentRoute.children.length > 0) {
