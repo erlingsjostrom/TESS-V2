@@ -1,3 +1,4 @@
+import { ViewComponent } from './view/view.component';
 import { Routes, RouterModule }  from '@angular/router';
 import { EditComponent } from './edit/edit.component';
 import { AllComponent } from './all/all.component';
@@ -14,6 +15,8 @@ const routes: Routes = [
       { path: 'edit', redirectTo: '' },
       { path: 'edit/:id', component: EditComponent },
       { path: 'create', component: EditComponent },
+      { path: 'view', redirectTo: ''},
+      { path: 'view/:id', component: ViewComponent },
     ]
   }
 ];

@@ -1,3 +1,4 @@
+import { ViewComponent } from './view/view.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ import { EntityEditorModule } from "app/shared/components/entity-editor/entity-e
 const COMPONENTS = [
   AllComponent,
   EditComponent,
+  ViewComponent
 ]
 
 @NgModule({
