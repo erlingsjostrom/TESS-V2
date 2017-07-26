@@ -71,7 +71,17 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
         public Content CreateCopy(string resource, Content entity)
         {
             var results = GetAndValidateResource(resource);
+            var newEntity = results.Context.Set<Content>()
+                .AsNoTracking()
+                //.Include(x => x.)
+                .FirstOrDefault(x => x.Id == entity.Id);
 
+            this.SetTimeStamps(ref newEntity);
+
+            results.Context.Set<Content>().Add(newEntity);
+            results.Context.SaveChanges();
+
+            return newEntity;
         }
 
         public void Delete(string resource, int id)

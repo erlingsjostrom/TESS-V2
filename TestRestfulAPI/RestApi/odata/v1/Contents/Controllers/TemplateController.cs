@@ -81,5 +81,13 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
             this.ParseResource();
             return this._templateService.AddContent(this.Resource, templateId, contentId);
         }
+
+        [UserHasResourceAccess, UserHasPermission("Modify")]
+        [EnableQuery, HttpPut, ODataRoute("()")]
+        public Template SetContent(Template template)
+        {
+            this.ParseResource();
+            return this._templateService.SetContent(this.Resource, template);
+        }
     }
 }

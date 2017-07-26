@@ -14,6 +14,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
 {
     public class TemplateRepository : BaseRepository<Template>, IRepository<Template, int, string>
     {
+        private ContentRepository _contentRepository;
 
         public TemplateRepository(IEnumerable<ResourceContext> resourceContexts) : base(resourceContexts)
         {
@@ -124,17 +125,17 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             results.Context.SaveChanges();
             return template;
         }
-        public Template SetContent(string resource, Template template)
+        public Template SetContent(string resource, Template template, ICollection<Content> contents)
         {
             var results = GetAndValidateResource(resource);
             var dbEntry = this.Get(resource, template.Id);
             dbEntry.Contents.Clear();
             int i = 1;
-            foreach (var content in template.Contents)
+            foreach (var content in contents)
             {
-                var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
-                dbContent.Order = i;
-                dbEntry.Contents.Add(dbContent);
+                //var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
+                content.Order = i;
+                dbEntry.Contents.Add(content);
                 i++;
             }
             results.Context.SaveChanges();

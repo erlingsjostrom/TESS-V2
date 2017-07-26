@@ -6,6 +6,7 @@ using System.Web.OData;
 using TestRestfulAPI.Infrastructure.Contexts;
 using TestRestfulAPI.Infrastructure.Database;
 using TestRestfulAPI.Infrastructure.Services;
+using TestRestfulAPI.RestApi.odata.v1.Articles.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Users.Services;
@@ -18,6 +19,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
         private readonly UserService _userService;
         private TemplateRepository _templateRepository;
         private ContentRepository _contentRepository;
+        private ArticleRepository _articleRepository;
+        private TextItemRepository _textitemRepository;
 
         public TemplateService(UserService userService)
         {
@@ -66,6 +69,32 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
             return _templateRepository.AddContent(resource, templateId, content);
         }
 
+        public Template SetContent(string resource, Template template)
+        {
+            this.InitRepository();
+            List<Content> contents = new List<Content>();
+            foreach (var content in template.Contents)
+            {
+                var dbContent = _contentRepository.Get(resource, content.Id);
+                var newContent = _contentRepository.CreateCopy(resource, dbContent);
+                newContent.EntityType = "Template";
+                foreach (var article in dbContent.Articles)
+                {
+                    var newArticle = _articleRepository.CreateCopy(resource, article);
+                    newArticle.EntityType = "Template";
+                    newContent.Articles.Add(newArticle);
+                    
+                }
+                foreach (var textitem in dbContent.TextItems)
+                {
+                    var newTextItem = _textitemRepository.CreateCopy(resource, textitem);
+                    newContent.TextItems.Add(textitem);
+                }
+                contents.Add(newContent);
+            }
+            return _templateRepository.SetContent(resource, template, contents);
+        }
+
         private void InitRepository()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -82,6 +111,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
 
             this._templateRepository = new TemplateRepository(resourceContexts);
             this._contentRepository = new ContentRepository(resourceContexts);
+            this._articleRepository = new ArticleRepository(resourceContexts);
+            this._textitemRepository = new TextItemRepository(resourceContexts);
         }
     }
 }

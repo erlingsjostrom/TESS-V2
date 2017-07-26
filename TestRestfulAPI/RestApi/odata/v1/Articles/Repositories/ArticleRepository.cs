@@ -54,10 +54,15 @@ namespace TestRestfulAPI.RestApi.odata.v1.Articles.Repositories
         public Article CreateCopy(string resource, Article entity)
         {
             var results = GetAndValidateResource(resource);
-            results.Context.Set<Article>().Add(entity);
+            var newEntity = results.Context.Set<Article>()
+                .AsNoTracking()
+                //.Include(x => x.)
+                .FirstOrDefault(x => x.Id == entity.Id);
+
+            results.Context.Set<Article>().Add(newEntity);
             results.Context.SaveChanges();
 
-            return entity;
+            return newEntity;
         }
 
         public Article Update(string resource, Article entity)
