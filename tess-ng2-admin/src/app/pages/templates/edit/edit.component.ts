@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { IOffer, OfferService } from 'app/shared/resources/offers/offer.service';
+import { ITemplate, TemplateService } from 'app/shared/resources/templates/template.service';
 import { EntityEditor, EntityEditorState } from 'app/shared/components/entity-editor';
 import { ModalService } from 'app/shared/modals/modal.service';
 import { EntityField } from 'app/shared/components/entity-editor';
@@ -20,27 +20,27 @@ export class EditComponent implements EntityEditor {
 	private _staging: Subject<number> = new Subject<number>();
 	private _stage: number = 0;
 
-	private _offer: IOffer;
+	private _template: ITemplate;
 	private _editorFields: EntityField[] = [
 		{
-			propertyLabel: "Status",
-			propertyName: "Status",
+			propertyLabel: "Name",
+			propertyName: "Name",
 			type: "text"
 		},
 		{
-			propertyLabel: "Title",
-			propertyName: "Title",
+			propertyLabel: "Description",
+			propertyName: "Description",
 			type: "text"
 		},
 		{
-			propertyLabel: "Valid Through",
-			propertyName: "ValidThrough",
+			propertyLabel: "Type",
+			propertyName: "EntityType",
 			type: "text"
 		},
 	]
 
 	editorFields: Subject<EntityField[]> = new Subject();
-	entity: Subject<IOffer> = new Subject();
+	entity: Subject<ITemplate> = new Subject();
 
 	state: EntityEditorState = {
 		loading: false,
@@ -50,7 +50,7 @@ export class EditComponent implements EntityEditor {
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _offerService: OfferService,
+		private _templateService: TemplateService,
 		private _modalService: ModalService
 	) {
 		this.state.action = "create";
@@ -60,59 +60,60 @@ export class EditComponent implements EntityEditor {
 		const id = this._route.snapshot.paramMap.get('id');
 		this.initStaging();
 		if (id) {
-			this.fetchActiveOffer(+id);
+			this.fetchActiveTemplate(+id);
 			this.state.action = "edit";
 		} else {
 			setTimeout(() => {
-				this.initNewOffer();
+				this.initNewTemplate();
 				this.state.action = "create";
 			}, 100)	
 		}
 	}
 
-	onBack(editedOffer: IOffer) { 
-		const _editedOffer = editedOffer; // You can save the edited offer in local storage
-		this._navigateToOffers();
+	onBack(editedTemplate: ITemplate) { 
+		const _editedTemplate = editedTemplate; // You can save the edited offer in local storage
+		this._navigateToTemplates();
 	}
 
-	onSave(offer: IOffer) {
+	onSave(template: ITemplate) {
 		if (this.state.action == "edit") {
-			this._offerService.put(offer).subscribe(
+			this._templateService.put(template).subscribe(
 				response => {
 					if (response.status == 200) {
-						this._navigateToOffers();
+						this._navigateToTemplates();
 					}
 				}
 			)
 		} else {
-			this._offerService.post(offer).subscribe(
+			this._templateService.post(template).subscribe(
 				response => {
 					if (response.status == 201) {
-						this._navigateToOffers();
+						this._navigateToTemplates();
 					}
 				}
 			)
 		}
-  }
+   	}
 	
-	private initNewOffer() {
-		this._offer = {
+	private initNewTemplate() {
+		this._template = {
 			Id: -1,
-			Status: "",
-			Title: "",
+			Name: "",
+  			Description: "",
+  			EntityType: ""
 		}
 		this._staging.next();
 	}
 
-	private _navigateToOffers() {
-		this._router.navigate(["offers"]);
+	private _navigateToTemplates() {
+		this._router.navigate(["templates"]);
 	}
 
-	private fetchActiveOffer(id: number) {
-		this._offerService.get(+id).subscribe(
+	private fetchActiveTemplate(id: number) {
+		this._templateService.get(+id).subscribe(
 			response => {
 				if (response.status == 200) {
-					this._offer = response.json();
+					this._template = response.json();
 					this._staging.next();
 				}
 			},
@@ -132,7 +133,7 @@ export class EditComponent implements EntityEditor {
 			},
 			error => console.log(error),
 			() => {
-				this.entity.next(this._offer);
+				this.entity.next(this._template);
 				this.editorFields.next(this._editorFields);
 			}
 		)

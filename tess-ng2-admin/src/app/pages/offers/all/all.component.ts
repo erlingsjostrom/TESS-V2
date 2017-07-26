@@ -26,6 +26,16 @@ export class AllComponent implements OnInit, EntityTable {
 			label: "Status",
 			property: "Status",
 			type: "normal"
+		},
+		{
+			label: "Title",
+			property: "Title",
+			type: "normal"
+		},
+		{
+			label: "Valid Through",
+			property: "ValidThrough",
+			type: "normal"
 		}
 	]
 	
