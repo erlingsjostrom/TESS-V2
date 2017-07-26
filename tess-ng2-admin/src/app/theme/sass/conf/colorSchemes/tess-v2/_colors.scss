@@ -95,6 +95,9 @@ $info-light-hover: lighten($primary-light, 8%);
     background-size: cover;
     will-change: transform;
     z-index: 0;
+    @media print {
+      background: white;
+    }
   }
 }
 

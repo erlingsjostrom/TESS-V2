@@ -1,3 +1,4 @@
+import { DocumentModule } from '../../shared/components/document/document.module';
 import { ViewComponent } from './view/view.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,7 +30,8 @@ const COMPONENTS = [
     routing,
     ModalModule,
     EntityTableModule,
-    EntityEditorModule
+    EntityEditorModule,
+    DocumentModule
   ],
   declarations: [
     Offers,

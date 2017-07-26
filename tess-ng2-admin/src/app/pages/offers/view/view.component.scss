@@ -1,24 +1,28 @@
 div[size="A4"] {
     background: white;
     width: 21cm;
-    /* height: 59.4cm; */
+    // height: 59.4cm; 
     min-height: 29.7cm;
     display: block;
     margin: 0 auto;
     margin-bottom: 0.5cm;
     box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
-    padding: 2cm 1cm 2cm 1.2cm;
+    padding: 2cm 1cm 2cm 1.4cm;
     color: black;
-    
+
+    @media print {
+      min-height: 0;
+      width: auto;
+      .content {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0cm calc(1cm * 1) 2cm calc(1.2cm * 1);
+      }    
+    }
 }
 
-div.content {
-  color: black;
-}
-
-@media print {
-  html body app .content * {
-    display: block !important;
-    color: black;
-  }
-}
+// div.content {
+//   color: black;
+// }

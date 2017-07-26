@@ -7,8 +7,10 @@ import { PAGES_MENU } from './pages.menu';
 @Component({
   selector: 'pages',
   template: `
-    <ba-sidebar></ba-sidebar>
-    <ba-page-top></ba-page-top>
+    <div class="hidden-print">
+       <ba-sidebar></ba-sidebar>
+        <ba-page-top></ba-page-top>
+    </div>
     <div class="al-main">
       <div class="al-content">
         <breadcrumb></breadcrumb>
@@ -16,13 +18,16 @@ import { PAGES_MENU } from './pages.menu';
         <router-outlet></router-outlet>
       </div>
     </div>
-    <footer class="al-footer clearfix">
-      <div class="al-footer-right" translate>{{'general.created_with'}} <i class="ion-heart"></i> and 🍺</div>
-      <div class="al-footer-main clearfix">
-        <div class="al-copy">&copy; <a href="http://tieto.com" translate>Tieto</a> 2016</div>
-      </div>
-    </footer>
-    <ba-back-top position="200"></ba-back-top>
+    <div class="hidden-print">
+      <footer class="al-footer clearfix">
+        <div class="al-footer-right" translate>{{'general.created_with'}} <i class="ion-heart"></i> and 🍺</div>
+        <div class="al-footer-main clearfix">
+          <div class="al-copy">&copy; <a href="http://tieto.com" translate>Tieto</a> 2016</div>
+        </div>
+      </footer>
+      <ba-back-top position="200"></ba-back-top>
+    </div>
+    
     `
 })
 export class Pages {

@@ -1,10 +1,21 @@
 
 @media print {
-  html body app * {
+  html, body, app, .al-main, .al-content, pages {
+     margin: 0 !important;
+     padding: 0;
+  }
+  html body *:not(.content) {
+    background: white !important;
+  }
+  .card-header {
     display: none;
   }
-  html body app .content {
-    display: block !important;
-    color: black;
+  .card-body {
+    margin: 0;
+    padding: 0;
+  }
+  .al-content {
+    margin: 0 !important;
+    padding: 0;
   }
 }
