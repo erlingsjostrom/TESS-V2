@@ -9,7 +9,9 @@
           <div class="content" #pdfPage>
             <div class="col-12 clearfix">
               <document-head></document-head>
-              <document-content></document-content>
+              <ng-container *ngFor="let c of content">
+                <document-content [type]="c.type" [content]="c.value" ></document-content>
+              </ng-container>
             </div>
           </div>
         </div>

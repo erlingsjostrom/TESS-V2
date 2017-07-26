@@ -1,45 +1,17 @@
 <div class="col-12 no-gutters">
-  <div class="row head no-gutters py-1">
-    <div class="col-md-2">
-      <strong>Products</strong>
+
+  <ng-container *ngIf="isText(); else typeProducts">
+    <div class="text-items">
+      <div *ngFor="let textItem of content" [innerHTML]="textItem" class="text-item"></div>
     </div>
-    <div class="col-md-2 offset-md-6">
-      Price
-    </div>
-    <div class="col-md-2 text-right pr-2">
-      Price per test
-    </div>
-  </div>
-  <div class="row items">
-    <div class="col-12 row item py-1">
-        <div class="col-1">1010</div>
-        <div class="col-7">Insert important article text here</div>
-        <div class="col-2">5200 kr</div>
-        <div class="col-2 text-right pr-2">110 kr</div>
-    </div>
-    <div class="col-12 row item py-1">
-        <div class="col-1">1010</div>
-        <div class="col-7">Insert important article text here</div>
-        <div class="col-2">5200 kr</div>
-        <div class="col-2 text-right pr-2">110 kr</div>
-    </div>
-    <div class="col-12 row item py-1">
-        <div class="col-1">1010</div>
-        <div class="col-7">Insert important article text here</div>
-        <div class="col-2">5200 kr</div>
-        <div class="col-2 text-right pr-2">110 kr</div>
-    </div>
-    <div class="col-12 row item py-1">
-        <div class="col-1">1010</div>
-        <div class="col-7">Insert important article text here</div>
-        <div class="col-2">5200 kr</div>
-        <div class="col-2 text-right pr-2">110 kr</div>
-    </div>
-    <div class="col-12 row item py-1">
-        <div class="col-1">1010</div>
-        <div class="col-7">Insert important article text here</div>
-        <div class="col-2">5200 kr</div>
-        <div class="col-2 text-right pr-2">110 kr</div>
-    </div>
-  </div>
+  </ng-container>
+  
 </div>
+
+<ng-template #typeProducts>
+  <product-head title="Products" priceTypeFixed="Price" priceTypeVariable="Price / Unit" ></product-head>
+  <div *ngFor="let item of content" class="row items">
+    <product-item [item]="item"></product-item>
+  </div>
+  <product-footer [priceVariableTot]="priceVariableTot()"></product-footer>
+</ng-template>

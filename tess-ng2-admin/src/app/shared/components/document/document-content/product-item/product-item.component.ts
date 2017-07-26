@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
 	selector: 'product-item',
-	templateUrl: 'product-item.component.html'
+	templateUrl: 'product-item.component.html',
+	host: {
+		class: 'col-12 row no-gutters'
+	}
 })
 
 export class ProductItemComponent implements OnInit {
 	
-	item: ProductItem = {
+	@Input() item: ProductItem = {
 		nr: 1010,
 		description: "Insert very important content here",
 		priceFixed: 500,
