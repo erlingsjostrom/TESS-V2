@@ -2,6 +2,7 @@ Acknowledgments
 Portions of this Tieto software component may utilize the following copyrighted material, the use of which is hereby acknowledged.
 
 **ng2-Admin**
+
 The MIT License (MIT)
 
 Copyright (c) 2017 akveo.com
