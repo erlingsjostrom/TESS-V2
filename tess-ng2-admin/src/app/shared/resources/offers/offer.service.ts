@@ -42,6 +42,6 @@ export class OfferService extends BaseService {
   }
 
   private getUrlWithContents(id?: number): string {
-    return super.getUrl(id) + "?$expand=Contents($expand=TextItems,Articles)";
+    return super.getUrl(id) + "?$expand=Contents($expand=TextItems,Articles;$orderby=Order)";
   }
 }

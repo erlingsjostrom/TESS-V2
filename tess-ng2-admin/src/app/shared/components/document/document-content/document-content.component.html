@@ -2,7 +2,7 @@
 
   <ng-container *ngIf="isText(); else typeProducts">
     <div class="text-items">
-      <div *ngFor="let textItem of content" [innerHTML]="textItem" class="text-item"></div>
+      <div *ngFor="let textItem of content" [innerHTML]="textItem.Data" class="text-item"></div>
     </div>
   </ng-container>
   

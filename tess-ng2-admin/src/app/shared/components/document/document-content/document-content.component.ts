@@ -33,4 +33,7 @@ export class DocumentContentComponent implements OnInit {
 	}
 
 	ngOnInit() { }
+	myLog(data) {
+		return JSON.stringify(data);
+	}
 }

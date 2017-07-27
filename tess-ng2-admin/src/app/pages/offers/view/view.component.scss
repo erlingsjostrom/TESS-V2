@@ -24,10 +24,41 @@ div[size="A4"] {
     }
 }
 
-//div.content {
-  //color: black;
-//}
+:host /deep/ .document-container {
+  $leftPos: 13%;
+  .edit-document-container {
+    position: fixed;
+    padding: 2em;
+    left: $leftPos;
+    top: 22%;
+    transform: translateX($leftPos);
+    .menu-collapsed & {
+      $newPos: $leftPos - 5%;
+      left: $newPos;
+      transform: translateX($newPos);
+    }
 
-//p {
-//  line-height: 1.2;
-//}
+    .list-group-item {
+      color: black;
+      &.active {
+        color: $default-text;
+        background-color: $primary-light;
+        border-color: $primary-light;
+      }
+    }
+  }
+  
+  .contents {
+    .movable {
+      border: 1px dashed gray;
+      margin-bottom: 0.5em;
+      padding: 0.2em;
+    }
+    &:not(.movable), .content:not(.movable) {
+      cursor: default !important;
+    }
+  }
+  
+}
+
+

@@ -31,6 +31,12 @@ button.btn {
       background-color: lighten($warning-dark, 5%);
     }
   }
+  &.btn-info {
+    &:hover {
+      background-color: lighten($info, 7%);
+      border-color: lighten($info, 7%);
+    }
+  }
 }
 
 button.btn.btn-primary-dark {
@@ -87,4 +93,5 @@ button.btn.btn-success-dark {
 * {
   font-family: $font-family;
 }
+
 

@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	selector: 'product-footer',
 	templateUrl: 'product-footer.component.html',
 	host: {
-		class: 'row head no-gutters py-1'
+		class: 'row footer no-gutters py-1 mb-2'
 	}
 })
 

@@ -15,6 +15,7 @@ import { routing } from './offers.routing';
 import { EntityTableModule } from "app/shared/components/entity-table/entity-table.module";
 import { ModalModule } from "app/shared/modals/modal.module";
 import { EntityEditorModule } from "app/shared/components/entity-editor/entity-editor.module";
+import { DndModule } from 'ng2-dnd';
 
 const COMPONENTS = [
   AllComponent,
@@ -31,7 +32,8 @@ const COMPONENTS = [
     ModalModule,
     EntityTableModule,
     EntityEditorModule,
-    DocumentModule
+    DocumentModule,
+    DndModule.forRoot()
   ],
   declarations: [
     Offers,
