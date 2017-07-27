@@ -130,6 +130,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
         {
             var results = GetAndValidateResource(resource);
             var offer = Get(resource, offerId);
+            int i = 1;
+            foreach (var cont in offer.Contents)
+            {
+                i++;
+            }
+            content.Order = i;
             offer.Contents.Add(content);
             results.Context.SaveChanges();
             return offer;
@@ -143,21 +149,16 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             return offer;
         }
 
-        public Offer SetContent(string resource, Offer offer)
+        public Offer SetContent(string resource, Offer offer, ICollection<Content> contents)
         {
             var results = GetAndValidateResource(resource);
             var dbEntry = this.Get(resource, offer.Id);
             dbEntry.Contents.Clear();
             int i = 1;
-            foreach (var content in offer.Contents)
+            foreach (var content in contents)
             {
-                var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
-                dbContent.Order = i;
-                foreach (var article in dbContent.Articles)
-                {
-                    article.EntityType = "Offer";
-                } 
-                dbEntry.Contents.Add(dbContent);
+                content.Order = i;
+                dbEntry.Contents.Add(content);
                 i++;
             }
             results.Context.SaveChanges();

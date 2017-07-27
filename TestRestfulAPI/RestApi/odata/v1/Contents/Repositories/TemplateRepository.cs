@@ -121,6 +121,12 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
         {
             var results = GetAndValidateResource(resource);
             var template = Get(resource, templateId);
+            int i = 1;
+            foreach (var cont in template.Contents)
+            {
+                i++;
+            }
+            content.Order = i;
             template.Contents.Add(content);
             results.Context.SaveChanges();
             return template;
@@ -133,7 +139,6 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             int i = 1;
             foreach (var content in contents)
             {
-                //var dbContent = results.Context.Set<Content>().ToList().FirstOrDefault(c => c.Id == content.Id);
                 content.Order = i;
                 dbEntry.Contents.Add(content);
                 i++;

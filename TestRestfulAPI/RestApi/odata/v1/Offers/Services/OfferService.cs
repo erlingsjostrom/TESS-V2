@@ -74,7 +74,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
         {
             this.InitRepository();
             var content = this._contentRepository.Get(resource, contentId);
-            return _offerRepository.AddContent(resource, offerId, content);
+            var newContent = this._contentRepository.CreateCopy(resource, content);
+            return _offerRepository.AddContent(resource, offerId, newContent);
         }
         public Offer RemoveContent(string resource, int offerId, int contentId)
         {
@@ -86,7 +87,19 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
         public Offer SetContent(string resource, Offer offer)
         {
             this.InitRepository();
-            return _offerRepository.SetContent(resource, offer);
+            List<Content> contents = new List<Content>();
+            foreach (var content in offer.Contents)
+            {
+                var dbContent = _contentRepository.Get(resource, content.Id);
+                var newContent = _contentRepository.CreateCopy(resource, dbContent);
+                newContent.EntityType = "Offer";
+                foreach (var article in newContent.Articles)
+                {
+                    article.EntityType = "Offer";
+                }
+                contents.Add(newContent);
+            }
+            return _offerRepository.SetContent(resource, offer, contents);
         }
 
         private void InitRepository()

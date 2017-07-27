@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.OData;
+using System.Data.Entity;
 using TestRestfulAPI.Infrastructure.Exceptions;
 using TestRestfulAPI.Infrastructure.Repositories;
 using TestRestfulAPI.RestApi.odata.v1.Articles.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Exceptions;
-using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using ResourceContext = TestRestfulAPI.Infrastructure.Database.ResourceContext;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
@@ -73,13 +73,14 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Repositories
             var results = GetAndValidateResource(resource);
             var newEntity = results.Context.Set<Content>()
                 .AsNoTracking()
-                //.Include(x => x.)
-                .FirstOrDefault(x => x.Id == entity.Id);
+                .Include(c => c.Articles)
+                .Include(c => c.TextItems)
+                .FirstOrDefault(c => c.Id == entity.Id);
 
             this.SetTimeStamps(ref newEntity);
 
             results.Context.Set<Content>().Add(newEntity);
-            results.Context.SaveChanges();
+            //results.Context.SaveChanges();
 
             return newEntity;
         }

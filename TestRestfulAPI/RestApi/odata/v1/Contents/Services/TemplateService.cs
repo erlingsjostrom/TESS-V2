@@ -66,29 +66,24 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Services
         {
             this.InitRepository();
             var content = this._contentRepository.Get(resource, contentId);
-            return _templateRepository.AddContent(resource, templateId, content);
+            var newContent = this._contentRepository.CreateCopy(resource, content);
+            return _templateRepository.AddContent(resource, templateId, newContent);
         }
 
         public Template SetContent(string resource, Template template)
         {
             this.InitRepository();
             List<Content> contents = new List<Content>();
+
             foreach (var content in template.Contents)
             {
                 var dbContent = _contentRepository.Get(resource, content.Id);
                 var newContent = _contentRepository.CreateCopy(resource, dbContent);
                 newContent.EntityType = "Template";
-                foreach (var article in dbContent.Articles)
+                foreach (var article in newContent.Articles)
                 {
-                    var newArticle = _articleRepository.CreateCopy(resource, article);
-                    newArticle.EntityType = "Template";
-                    newContent.Articles.Add(newArticle);
+                    article.EntityType = "Template";
                     
-                }
-                foreach (var textitem in dbContent.TextItems)
-                {
-                    var newTextItem = _textitemRepository.CreateCopy(resource, textitem);
-                    newContent.TextItems.Add(textitem);
                 }
                 contents.Add(newContent);
             }
