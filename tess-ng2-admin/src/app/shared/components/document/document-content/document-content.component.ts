@@ -17,8 +17,18 @@ export class DocumentContentComponent implements OnInit {
 	}
 
 	priceVariableTot() {
-		const tot = (this.content as ProductItem[]).reduce((total: any, item: any):any => total + Number(item.priceVariable))
-		console.log(tot);
+		const tot = (this.content as ProductItem[])
+			.reduce((total: any, item: any): any => {
+				return total + Number(item.priceVariable);
+			}, 0);
+		return tot;
+	}
+
+	priceFixedTot() {
+		const tot = (this.content as ProductItem[])
+			.reduce((total: any, item: any): any => {
+				return total + Number(item.priceFixed);
+			}, 0);
 		return tot;
 	}
 

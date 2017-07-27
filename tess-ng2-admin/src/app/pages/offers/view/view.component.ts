@@ -1,3 +1,4 @@
+import { OfferService } from '../../../shared/resources/offers/offer.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProductItem } from "app/shared/components/document/document-content/product-item/product-item.component";
@@ -13,16 +14,30 @@ let _html2pdf = html2pdf;
 export class ViewComponent implements OnInit {
 	@ViewChild('pdfPage') pdfPage: ElementRef;
 	title: string = "View"
+	
 	private _id: number;
 
 	constructor(
 		private _route: ActivatedRoute,
-		private _router: Router
+		private _router: Router,
+		private _offerService: OfferService
 	) {}
 
 	ngOnInit() { 
 		this._id = +this._route.snapshot.paramMap.get('id');
-		(<any>window).displayPixelRatio = 2;
+		//(<any>window).displayPixelRatio = 2; //2 css pixels per screen pixel, can slightly increase pdf quality
+
+		this._offerService.getWithContents(this._id).subscribe(
+			response => {
+				if (response.status == 200) {
+					const offer = response.json();
+					const contents = offer.Contents;
+
+					
+					console.log(contents);
+				}
+			}
+		)
 	}
 
 	createPdf () {
@@ -30,7 +45,8 @@ export class ViewComponent implements OnInit {
 		  margin:       [19, 12, 19, 10],
 		  filename:     'offer' + this._id + '.pdf',
 		  image:        { type: 'png' },
-		  html2canvas:  { dpi: 200, letterRendering: true, onrendered: this.onRendered },
+		  html2canvas:  { dpi: 200, onrendered: this.onRendered }, /*add letterRendering: true for every letter to be rendered
+																	 separately for slightly better pdf quality*/
 		});
 	}
 

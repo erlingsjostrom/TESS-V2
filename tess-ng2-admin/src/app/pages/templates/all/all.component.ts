@@ -51,7 +51,7 @@ export class AllComponent implements OnInit, EntityTable {
 		this._templateService.getAll().subscribe(
 			response => {
 				if (response.status == 200) {
-					const templates = response.json().value
+					const templates = response.json().value;
 					this._templates = templates;
 					this.content.next(templates);
 				}

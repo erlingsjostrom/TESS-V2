@@ -13,5 +13,5 @@
   <div *ngFor="let item of content" class="row items">
     <product-item [item]="item"></product-item>
   </div>
-  <product-footer [priceVariableTot]="priceVariableTot()"></product-footer>
+  <product-footer [priceFixedTot]="priceFixedTot()" [priceVariableTot]="priceVariableTot()"></product-footer>
 </ng-template>

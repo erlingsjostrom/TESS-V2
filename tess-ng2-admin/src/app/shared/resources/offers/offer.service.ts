@@ -21,20 +21,27 @@ export class OfferService extends BaseService {
     this.serviceURL = 'DB1/Offers';
   }
 
+  getWithContents(id: number): Observable<Response> {
+    return this._request(this.getUrlWithContents(id), { method: RequestMethod.Get });
+  }
+
   post(offer: IOffer): Observable<Response> {
-    return this._request(this.getUrl(), { method: RequestMethod.Post }, offer);
+    return this._request(this.getUrlWithCustomer(), { method: RequestMethod.Post }, offer);
   }
 
   put(offer: IOffer): Observable<Response> {
-    return this._request(this.getUrl(offer.Id),  { method: RequestMethod.Put }, offer);
+    return this._request(this.getUrlWithCustomer(offer.Id),  { method: RequestMethod.Put }, offer);
   }
 
   delete(offer: IOffer): Observable<Response> {
-    return this._request(this.getUrl(offer.Id), { method: RequestMethod.Delete });
+    return this._request(this.getUrlWithCustomer(offer.Id), { method: RequestMethod.Delete });
   }
   
-  protected getUrl(id?: number): string {
+  private getUrlWithCustomer(id?: number): string {
     return super.getUrl(id) + "?$expand=Customer";
   }
-  
+
+  private getUrlWithContents(id?: number): string {
+    return super.getUrl(id) + "?$expand=Contents($expand=TextItems,Articles)";
+  }
 }
