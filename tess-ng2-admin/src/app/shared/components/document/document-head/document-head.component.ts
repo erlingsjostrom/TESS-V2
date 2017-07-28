@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
 	selector: 'document-head',
@@ -7,6 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DocumentHeadComponent implements OnInit {
-
+	@Input() editable: boolean = false;
 	ngOnInit() { }
 }

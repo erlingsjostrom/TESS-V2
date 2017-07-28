@@ -16,7 +16,7 @@ export class ViewComponent implements OnInit {
 	title: string = "View"
 	
 	private _id: number;
-	
+	test: any;
 	state = {
 		editable: false
 	}
@@ -43,11 +43,13 @@ export class ViewComponent implements OnInit {
 						if (c.Type === "TextItem") {
 							return {
 								type: 'text',
+								id: c.Id,
 								value: c.TextItems
 							}
 						} else {
 							return {
 								type: 'product',
+								id: c.Id,
 								value: c.Articles.map(a => {
 									return {
 										nr: a.ArticleNumber,

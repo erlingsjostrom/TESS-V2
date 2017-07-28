@@ -22,7 +22,7 @@
                 <div class="order-container">
                   Content order:
                   <div class="d-block" *ngFor="let c of content; let i = index">
-                    {{i + 1}} {{c.type}}
+                    {{ i + 1 }}.)  {{c.id}}#{{c.type}}
                   </div>
                 </div>
               </li>
@@ -31,7 +31,7 @@
           <div size="A4" >
             <div class="content" #pdfPage>
               <div class="col-12 clearfix">
-                <document-head></document-head>
+                <document-head [editable]="state.editable"></document-head>
                 <div class="contents" dnd-sortable-container [dragEnabled]="state.editable" [sortableData]="content">
                   <div class="content"  *ngFor="let c of content; let i = index" 
                                         dnd-sortable [sortableIndex]="i" 
