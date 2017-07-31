@@ -8,6 +8,7 @@ using TestRestfulAPI.Infrastructure.Authorization.Attributes;
 using TestRestfulAPI.Infrastructure.Controllers;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
+using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
 {
@@ -96,7 +97,8 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Controllers
         public Offer SetContent(Offer offer)
         {
             this.ParseResource();
-            return this._offerService.SetContent(this.Resource, offer);
+            int id = 2;
+            return this._offerService.SetContent(this.Resource, offer, id);
         }
 
 

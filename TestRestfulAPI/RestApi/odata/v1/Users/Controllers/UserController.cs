@@ -14,7 +14,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Users.Controllers
     [ApiVersion("1.0")]
     [ODataRoutePrefix("Users")]
     [UserHasRole("UserControl")]
-    [EnableCors("http://localhost:4200", "*", "*", SupportsCredentials = true)]
+    //[EnableCors("http://localhost:4200", "*", "*", SupportsCredentials = true)]
     public class UserController : ResourceODataController, ICrudController<User>
     {
         private readonly UserService _userService = GlobalServices.UserService;

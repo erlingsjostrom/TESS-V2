@@ -9,6 +9,7 @@ using TestRestfulAPI.RestApi.odata.v1.Contents.Services;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Entities;
 using TestRestfulAPI.RestApi.odata.v1.Offers.Services;
 using TestRestfulAPI.RestApi.odata.v1.Contents.Entities;
+using System;
 
 namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
 {
@@ -67,7 +68,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Contents.Controllers
         // PUT: {resource}/Contents({id})
         [UserHasResourceAccess, UserHasPermission("Modify")]
         [EnableQuery, HttpPut, ODataRoute("({id})")]
-        public Content Update(int id, [FromBody] Content content)
+        public Content Update(int id, Content content)
         {
             this.ParseResource();
             return this._contentService.Update(this.Resource, content);

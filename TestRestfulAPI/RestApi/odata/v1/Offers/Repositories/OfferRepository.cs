@@ -149,10 +149,10 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Repositories
             return offer;
         }
 
-        public Offer SetContent(string resource, Offer offer, ICollection<Content> contents)
+        public Offer SetContent(string resource, int id, ICollection<Content> contents)
         {
             var results = GetAndValidateResource(resource);
-            var dbEntry = this.Get(resource, offer.Id);
+            var dbEntry = this.Get(resource, id);
             dbEntry.Contents.Clear();
             int i = 1;
             foreach (var content in contents)

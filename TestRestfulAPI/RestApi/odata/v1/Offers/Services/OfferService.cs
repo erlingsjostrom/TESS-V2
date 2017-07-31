@@ -84,7 +84,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
             return _offerRepository.RemoveContent(resource, offerId, content);
         }
 
-        public Offer SetContent(string resource, Offer offer)
+        public Offer SetContent(string resource, Offer offer, int id)
         {
             this.InitRepository();
             List<Content> contents = new List<Content>();
@@ -99,7 +99,7 @@ namespace TestRestfulAPI.RestApi.odata.v1.Offers.Services
                 }
                 contents.Add(newContent);
             }
-            return _offerRepository.SetContent(resource, offer, contents);
+            return _offerRepository.SetContent(resource, id, contents);
         }
 
         private void InitRepository()
