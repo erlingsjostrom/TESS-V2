@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{76418BFF-66A4-440B-B31A-DAE7809E3670}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestRestfulAPI</RootNamespace>
+    <AssemblyName>TestRestfulAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.WebApi.Versioning, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Versioning.2.1.0\lib\net45\Microsoft.AspNet.WebApi.Versioning.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.OData.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Core.7.0.0\lib\portable-net45+win8+wpa81\Microsoft.OData.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.OData.Edm, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Edm.7.0.0\lib\portable-net45+win8+wpa81\Microsoft.OData.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.0.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RouteDebugger, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\routedebugger.2.1.5\lib\net40\RouteDebugger.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.OData, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.OData.6.0.0\lib\net45\System.Web.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\EntityMappings.cs" />
+    <Compile Include="App_Start\Services.cs" />
+    <Compile Include="Infrastructure\Authorization\Attributes\UserDoesNotHaveResourceAccessException.cs" />
+    <Compile Include="Infrastructure\Authorization\Attributes\UserHasPermissionAttribute.cs" />
+    <Compile Include="Infrastructure\Authorization\Attributes\UserHasResourceAccessAttribute.cs" />
+    <Compile Include="Infrastructure\Contexts\TESSEntities.cs" />
+    <Compile Include="Infrastructure\Contexts\UserEntities.cs" />
+    <Compile Include="Infrastructure\Database\DbContextFactory.cs" />
+    <Compile Include="Infrastructure\Database\Seeds\ArticleSeeder.cs" />
+    <Compile Include="Infrastructure\Database\Seeds\CustomerSeeder.cs" />
+    <Compile Include="Infrastructure\Database\Seeds\UserSeeder.cs" />
+    <Compile Include="Infrastructure\Entities\BaseEntity.cs" />
+    <Compile Include="Infrastructure\Entities\BaseEntityDto.cs" />
+    <Compile Include="Infrastructure\Entities\NamedEntity.cs" />
+    <Compile Include="Infrastructure\Entities\NamedEntityDto.cs" />
+    <Compile Include="Infrastructure\Exceptions\AlreadyExistException.cs" />
+    <Compile Include="Infrastructure\Filters\ExceptionFilterAttribute.cs" />
+    <Compile Include="Infrastructure\Exceptions\InvalidDbConnectionFactoryInput.cs" />
+    <Compile Include="Infrastructure\Exceptions\InvalidDbContextTypeException.cs" />
+    <Compile Include="Infrastructure\Exceptions\DoesNotExistException.cs" />
+    <Compile Include="Infrastructure\Authorization\UserAuthorizationValidator.cs" />
+    <Compile Include="Infrastructure\Authorization\UserDoesNotHaveRequiredRolesException.cs" />
+    <Compile Include="Infrastructure\Authorization\Attributes\UserHasRoleAttribute.cs" />
+    <Compile Include="Infrastructure\Repositories\BaseRepository.cs" />
+    <Compile Include="Infrastructure\Database\ResourceContext.cs" />
+    <Compile Include="Infrastructure\Repositories\ISingleRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\SingleBaseRepository.cs" />
+    <Compile Include="Infrastructure\Services\ISingleService.cs" />
+    <Compile Include="Migrations\201707240647290_Initial-Create.cs" />
+    <Compile Include="Migrations\201707240647290_Initial-Create.Designer.cs">
+      <DependentUpon>201707240647290_Initial-Create.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707241042569_AddEntityTypeToCustomer.cs" />
+    <Compile Include="Migrations\201707241042569_AddEntityTypeToCustomer.Designer.cs">
+      <DependentUpon>201707241042569_AddEntityTypeToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707241108170_FixCustomer.cs" />
+    <Compile Include="Migrations\201707241108170_FixCustomer.Designer.cs">
+      <DependentUpon>201707241108170_FixCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707250930459_UpdateArticleTable.cs" />
+    <Compile Include="Migrations\201707250930459_UpdateArticleTable.Designer.cs">
+      <DependentUpon>201707250930459_UpdateArticleTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707251116117_UpdateArticleTablev2.cs" />
+    <Compile Include="Migrations\201707251116117_UpdateArticleTablev2.Designer.cs">
+      <DependentUpon>201707251116117_UpdateArticleTablev2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707251331074_UpdateContentTable.cs" />
+    <Compile Include="Migrations\201707251331074_UpdateContentTable.Designer.cs">
+      <DependentUpon>201707251331074_UpdateContentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Controllers\ArticleController.cs" />
+    <Compile Include="Infrastructure\Controllers\ICrudController.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Entities\Article.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Exceptions\ArticleDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Exceptions\ArticleAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Repositories\ArticleRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\IRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Articles\Services\ArticleService.cs" />
+    <Compile Include="Infrastructure\Exceptions\ResourceMissingException.cs" />
+    <Compile Include="Infrastructure\Controllers\ResourceODataController.cs" />
+    <Compile Include="Infrastructure\Services\IService.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Controllers\TemplateController.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Entities\Template.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Exceptions\TemplateDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Repositories\TemplateRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Services\TemplateService.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Controllers\CustomerController.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Entities\Customer.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Exceptions\CustomerAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Exceptions\CustomerDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Repositories\CustomerRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Customers\Services\CustomerService.cs" />
+    <Compile Include="Infrastructure\Exceptions\InvalidEndpointException.cs" />
+    <Compile Include="Infrastructure\Exceptions\MissingEndpointException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Controllers\ContentController.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Controllers\OfferController.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Controllers\TextItemController.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Entities\Content.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Entities\Offer.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Entities\TextItem.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Exceptions\OfferDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Exceptions\ContentDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Repositories\ContentRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Repositories\OfferRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Exceptions\TextItemDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Repositories\TextItemRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Services\ContentService.cs" />
+    <Compile Include="RestApi\odata\v1\Offers\Services\OfferService.cs" />
+    <Compile Include="RestApi\odata\v1\Contents\Services\TextItemService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\ResourceController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\RoleController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\PermissionController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Controllers\UserController.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\Permission.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\Resource.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\Role.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Entities\User.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\UserAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\UserDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\RoleDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\PermissionAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\ResourceAlreadyExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Exceptions\ResourceDoesNotExistException.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\ResourceRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\UserRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\ResourceService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\UserService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\PermissionService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Services\RoleService.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\PermissionRepository.cs" />
+    <Compile Include="RestApi\odata\v1\Users\Repositories\RoleRepository.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Infrastructure\Controllers\ApiJsonController.cs" />
+    <Compile Include="RestApi\odata\v1\Default\Controller\DefaultController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppSettings.config" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\tecdev.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707240647290_Initial-Create.resx">
+      <DependentUpon>201707240647290_Initial-Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707241042569_AddEntityTypeToCustomer.resx">
+      <DependentUpon>201707241042569_AddEntityTypeToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707241108170_FixCustomer.resx">
+      <DependentUpon>201707241108170_FixCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707250930459_UpdateArticleTable.resx">
+      <DependentUpon>201707250930459_UpdateArticleTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707251116117_UpdateArticleTablev2.resx">
+      <DependentUpon>201707251116117_UpdateArticleTablev2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707251331074_UpdateContentTable.resx">
+      <DependentUpon>201707251331074_UpdateContentTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51899</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51900/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
