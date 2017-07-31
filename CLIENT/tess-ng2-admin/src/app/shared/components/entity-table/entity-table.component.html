@@ -1,0 +1,70 @@
+<div class="col-12" *ngIf="content?.length > 0; else emptyTable">
+  <form class="form-inline">
+    <div class="form-group">
+      <label class="sr-only" for="filterTable">Filter</label>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input #filterTable type="text" class="form-control py-2" placeholder="Filter..">
+      </div>
+    </div>
+    <div *ngIf="editable" class="form-group">
+      <div class="input-group">
+        <button class="btn btn-info ml-2 py-2" pButton icon="fa-plus" (click)="add('test')" label="Add">
+          <i class="fa fa-plus"></i>
+          Add {{ title }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <p-dataTable  [value]="content"  [globalFilter]="filterTable" tableStyleClass="ng-dataTable"
+                [rows]="20" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[20, 10, 30]" 
+                [loading]="state.loading" >
+      <p-column *ngIf="editable" [style]="{'width': '80px'}" >
+          <ng-template pTemplate="header">
+              <span>Actions</span>
+          </ng-template>
+          <ng-template let-entity="rowData" pTemplate="body">
+            <div class="text-center">
+              <i title="Delete" class="fa fa-remove clickable"(click)="delete(entity)"></i>
+              <i title="Edit" class="fa fa-edit clickable" (click)="edit(entity)"></i>
+            </div>
+          </ng-template>
+      </p-column>
+      <ng-container *ngFor="let field of tableFields">
+
+        <!-- ID COLUMN -->
+        <p-column *ngIf="field.property == 'Id'; else normalColumn " field="{{ field.property }}" header="{{ field.label }}" 
+                  [sortable]="true" class="px-1" [style]="{'width': '80px'}"></p-column>
+        <!-- ID COLUMN  ENDS-->
+
+        <ng-template #normalColumn>
+          <!-- TYPE NORMAL -->
+            <ng-container *ngIf="field.type == 'normal'">
+                <p-column field="{{ field.property }}" header="{{ field.label }}" [sortable]="true"></p-column>
+            </ng-container>
+
+            <!-- TYPE ARRAY -->
+            <ng-container *ngIf="field.type == 'array'">
+              <p-column field="{{ field.property }}" header="{{ field.label }}" [sortable]="true">
+                <ng-template let-col let-entity="rowData" pTemplate="body">
+                    <span *ngIf="entity[col.field].length > 0">
+                      {{ entity[col.field] | arraySort: field.arrayOptions.filterBy | arrayMapJoin: field.arrayOptions.filterBy }}
+                    </span>
+                    <span *ngIf="entity[col.field].length == 0">{{ field.arrayOptions.emptyText }}</span>
+                </ng-template>
+              </p-column>
+            </ng-container>
+
+        </ng-template>
+        <!-- Normal FIELDS  ENDS -->
+      </ng-container>      
+  </p-dataTable>
+</div>
+
+<ng-template #emptyTable>
+  <div class="col-12 border">
+    <h3>Table has no content</h3>
+  </div>
+</ng-template>

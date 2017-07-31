@@ -1,0 +1,71 @@
+
+<div class="col-12 d-flex flex-wrap">
+    <ng-container *ngIf="fields?.length > 0">
+        <div *ngFor="let field of fields" [ngClass]="{'col-6': !singleColumn, 'col-12': singleColumn}" class="form-group d-flex flex-row">
+
+            <ng-container [ngSwitch]="field.type">
+              <ng-container *ngSwitchCase="'text'">
+                <label [for]="field.propertyName + '_field'" class="col-1 col-form-label">{{ field.propertyLabel }}</label>
+                <div class="col-11">
+                  <input  class="form-control" [type]="field.type" [(ngModel)]="entity[field.propertyName]" 
+                          name="field.propertyName" [id]="field.propertyName + '_field'">
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'number'">
+                <label [for]="field.propertyName + '_field'" class="col-1 col-form-label">{{ field.propertyLabel }}</label>
+                <div class="col-11">
+                  <input  class="form-control" [type]="field.type" [(ngModel)]="entity[field.propertyName]" 
+                          name="field.propertyName" [id]="field.propertyName + '_field'">
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'email'">
+                <label [for]="field.propertyName + '_field'" class="col-1 col-form-label">{{ field.propertyLabel }}</label>
+                <div class="col-11">
+                  <input  class="form-control" [type]="field.type" [(ngModel)]="entity[field.propertyName]" 
+                          name="field.propertyName" [id]="field.propertyName + '_field'">
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'checkbox'">
+                <ng-container *ngFor="let cde of checkDataEntities; let i = index">
+                  <ng-container *ngIf="cde.name === field.propertyName">
+                    <label for="example-text-input" class="col-1 col-form-label">{{ field.propertyLabel }}</label>
+                    <div class="col-11">
+                      <div class="form-check" *ngFor="let data of cde.data">
+                        <label class="form-check-label">
+                          <input [name]="data.value.Name" [(ngModel)]="data.checked" type="checkbox" class="form-check-input">
+                          <span class="align-middle">
+                            {{ data.value.Name }}
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            
+              <ng-container *ngSwitchCase="'richtext'">
+                <label for="example-text-input" class="col-1 col-form-label">{{ field.propertyLabel }}</label>
+                <div class="col-11">
+                  <app-tinymce [(ngModel)]="entity[field.propertyName]"></app-tinymce>
+                </div>
+              </ng-container>
+            </ng-container>
+
+        </div>
+      <div class="col-12">
+        <div class="pull-right">
+          <button (click)="goBack()" class="btn">
+            <i class="ion-ios-undo"></i>
+            Go back
+          </button>
+          <button (click)="saveChanges()" [disabled]="!state.modified" class="btn btn-success-dark">
+            <i class="fa fa-floppy-o"></i>
+            Save changes and exit
+          </button>
+        </div>
+      </div>
+  </ng-container>
+</div>

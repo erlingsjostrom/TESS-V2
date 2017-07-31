@@ -1,0 +1,14 @@
+<div class="content-top clearfix hidden-print">
+    <h1 class="al-title">{{ activePageTitle }}</h1>
+
+    <ul class="breadcrumb al-breadcrumb">
+        <li *ngFor="let breadcrumb of breadcrumbs; let last = last" class="breadcrumb-item" [ngClass]="{'active': last}">
+            <a *ngIf="!last" [routerLink]="[breadcrumb.url]">
+                {{breadcrumb.label}}
+            </a>
+            <a *ngIf="last">
+                {{breadcrumb.label}}
+            </a>
+        </li>
+    </ul>
+</div>

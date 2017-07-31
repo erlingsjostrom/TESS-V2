@@ -1,0 +1,97 @@
+
+// Buttons
+button.btn {
+  &:hover {
+    transform: none;
+    background-color: lighten($normal, 5%);
+  }
+  &:disabled {
+    cursor: default;
+  }
+  
+  &.btn-primary:hover {
+    background-color: lighten($primary, 5%);
+  }
+  &.btn-primary-dark:hover {
+    background-color: lighten($primary-dark, 5%);
+  }
+  &.btn-success:hover {
+    background-color: lighten($success, 5%);
+  }
+  &.btn-success-dark:hover {
+    background-color: lighten($success-dark, 5%);
+  }
+  &.btn-warning:hover {
+    background-color: lighten($warning, 5%);
+  }
+  &.btn-warning-dark {
+    background-color: $warning-dark;
+    color: $default-text;
+    &:hover {
+      background-color: lighten($warning-dark, 5%);
+    }
+  }
+  &.btn-info {
+    &:hover {
+      background-color: lighten($info, 7%);
+      border-color: lighten($info, 7%);
+    }
+  }
+}
+
+button.btn.btn-primary-dark {
+  background-color: $primary-dark;
+  color: $default-text;
+}
+button.btn.btn-success-dark {
+  background-color: $success-dark;
+  color: $default-text;
+}
+
+// Layout
+.default-margin {
+  margin: 0;
+}
+.valign-center {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+// Text classes
+.text-normal {
+  font-size: $default-text-size;
+}
+.text-extra {
+  font-size: $default-text-size + 3;
+}
+
+// Other
+.clickable {
+  &:hover {
+    cursor: pointer;
+    color: darken($default-text, 5%);
+  }
+  @at-root i#{&}{
+    margin: 0.2em 0.4em;
+  }
+}
+
+// TinyMCE
+
+.al-content div.mce-fullscreen {
+  left: $sidebar-width;
+  top: $top-height;
+  z-index: 1050;
+  // height: calc(100% - ( #{$top-height} - 10px ));
+  .menu-collapsed & {
+    left: 50px;
+    z-index: 1050;
+  }
+}
+
+
+* {
+  font-family: $font-family;
+}
+
+

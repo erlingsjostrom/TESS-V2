@@ -1,0 +1,12 @@
+@import "../../../../theme/sass/conf/conf";
+
+.small-divider{
+  border-bottom: 1px solid black;
+  display: block;
+}
+
+.edit-button {
+  position: absolute;
+  top: 2em;
+  right: -1.2em;
+}

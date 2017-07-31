@@ -1,0 +1,63 @@
+@import "../../../theme/sass/conf/conf";
+div[size="A4"] {
+    background: white;
+    width: 21cm;
+    //height: 59.4cm; 
+    min-height: 29.7cm;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    padding: 2cm 1cm 2cm 1.4cm;
+    color: black;
+
+    @media print {
+      min-height: 0;
+      width: auto;
+      .content {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0cm calc(1cm * 1) 2cm calc(1.2cm * 1);
+      }    
+    }
+}
+
+:host /deep/ .document-container {
+  $leftPos: 13%;
+  .edit-document-container {
+    position: fixed;
+    padding: 0em 2em;
+    left: $leftPos;
+    transform: translateX($leftPos);
+    .menu-collapsed & {
+      $newPos: $leftPos - 5%;
+      left: $newPos;
+      transform: translateX($newPos);
+    }
+
+    .list-group-item {
+      color: black;
+      &.active {
+        color: $default-text;
+        background-color: $primary-light;
+        border-color: $primary-light;
+      }
+    }
+  }
+  
+  .contents {
+    .movable {
+      border: 1px dashed gray;
+      margin-bottom: 0.5em;
+      padding: 0.2em;
+    }
+    &:not(.movable), .content:not(.movable) {
+      cursor: default !important;
+    }
+  }
+  
+}
+
+

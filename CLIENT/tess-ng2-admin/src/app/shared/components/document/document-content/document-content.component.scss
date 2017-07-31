@@ -1,0 +1,19 @@
+@import "../../../../theme/sass/conf/conf";
+
+:host /deep/ {
+  *, div {
+    font-size: $default-text-size;
+    font-family: $font-family;
+  }
+  
+  .head {
+    background-color: #d2d2d2;
+    border-bottom: 1px solid black;
+  }
+
+  .footer {
+    border-top: 1px solid black;
+  }
+
+}
+

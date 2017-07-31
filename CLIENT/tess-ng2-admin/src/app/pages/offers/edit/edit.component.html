@@ -1,0 +1,17 @@
+
+<div class="widgets">
+  <div class="row">
+    <div class="col-12">
+      <ba-card cardTitle="{{ state?.action }} Head" baCardClass="with-scroll">
+         <entity-editor [fields]="editorFields.head | async" [entity]="entity.head | async" (onBack)="onBack($event)" (onSave)="onSave($event)" ></entity-editor> 
+      </ba-card>
+
+      <ba-card cardTitle="{{ state?.action }} Content" baCardClass="with-scroll">
+        <ng-container *ngFor="let content of entity.contents | async">
+          <entity-editor [singleColumn]="true" [fields]="editorFields.contents | async" [entity]="content" (onBack)="onBack($event)" (onSave)="onSave($event)" ></entity-editor> 
+        </ng-container>
+         
+      </ba-card>
+    </div>
+  </div>
+</div>
